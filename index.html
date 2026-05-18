@@ -34,7 +34,117 @@
             </section>
 
         <section id="contacto">
-            </section>
+        <div class="contacto-wrap">
+            <h2>Contacto y Citas</h2>
+            <p class="seccion-subtitulo">Estamos disponibles para atenderte en persona, por teléfono o en línea.</p>
+
+            <div class="contacto-cards">
+            <div class="contacto-card">
+                <h3>📍 Dirección</h3>
+                <p>Av. Brasil S/N, Urb. Santa Cristina<br>Nuevo Chimbote, Áncash</p>
+            </div>
+            <div class="contacto-card">
+                <h3>📞 Teléfonos</h3>
+                <p><strong>Central:</strong> 934 290 087<br>
+                <strong>Emergencias:</strong> 946 249 521<br>
+                <strong>Fonocitas:</strong> 934 274 553</p>
+            </div>
+            <div class="contacto-card">
+                <h3>✉️ Correo</h3>
+                <p>mesadepartes@hegb.gob.pe</p>
+            </div>
+            </div>
+
+            <div class="horarios-box">
+            <h3>🕐 Horarios de atención</h3>
+            <div class="horarios-grid">
+                <div class="horario-item">
+                <span class="horario-tipo">Emergencias</span>
+                <span class="horario-hora">24 horas</span>
+                <span class="horario-dias">Todos los días</span>
+                </div>
+                <div class="horario-item">
+                <span class="horario-tipo">Consulta externa</span>
+                <span class="horario-hora">7:00 – 13:00</span>
+                <span class="horario-dias">Lunes a sábado</span>
+                </div>
+                <div class="horario-item">
+                <span class="horario-tipo">Citas telefónicas</span>
+                <span class="horario-hora">7:00 – 11:00</span>
+                <span class="horario-dias">Lunes a sábado</span>
+                </div>
+            </div>
+            </div>
+
+            <div class="online-box">
+            <h3>🗓️ Atención en línea</h3>
+            <div class="selector-wrap">
+                <select id="servicio-select" onchange="mostrarPanel()">
+                <option value="">-- Selecciona un servicio --</option>
+                <option value="solicitar">📅 Solicitar cita</option>
+                <option value="consultar">🔍 Consultar cita</option>
+                </select>
+            </div>
+
+            <div class="panel" id="panel-solicitar">
+                <h4>📅 Solicitar cita médica</h4>
+                <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre completo</label>
+                    <input type="text" placeholder="Ej: Juan Pérez López">
+                </div>
+                <div class="form-group">
+                    <label>DNI</label>
+                    <input type="text" placeholder="Ej: 12345678">
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group">
+                    <label>Especialidad</label>
+                    <select>
+                    <option value="">-- Selecciona --</option>
+                    <option>Medicina interna</option>
+                    <option>Pediatría</option>
+                    <option>Cirugía</option>
+                    <option>Cardiología</option>
+                    <option>Urología</option>
+                    <option>Oftalmología</option>
+                    <option>Nefrología</option>
+                    <option>Psicología</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Fecha preferida</label>
+                    <input type="date">
+                </div>
+                </div>
+                <div class="form-group">
+                <label>Teléfono de contacto</label>
+                <input type="tel" placeholder="Ej: 987654321">
+                </div>
+                <button class="btn-enviar" onclick="enviar('msg-solicitar')">Enviar solicitud</button>
+                <p class="msg-ok" id="msg-solicitar">✅ Solicitud enviada. Nos comunicaremos pronto.</p>
+            </div>
+
+            <div class="panel" id="panel-consultar">
+                <h4>🔍 Consultar cita programada</h4>
+                <div class="form-row">
+                <div class="form-group">
+                    <label>DNI del paciente</label>
+                    <input type="text" placeholder="Ej: 12345678">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de la cita</label>
+                    <input type="date">
+                </div>
+                </div>
+                <button class="btn-enviar" onclick="enviar('msg-consultar')">Buscar cita</button>
+                <p class="msg-ok" id="msg-consultar">✅ Búsqueda realizada. Revisa tu correo o llama al 934 274 553.</p>
+            </div>
+            </div>
+
+        </div>
+        </section>
     </main>
 
     <footer>
