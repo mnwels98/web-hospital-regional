@@ -8,6 +8,7 @@ Diseñar y estructurar la página web informativa para el Hospital Regional Elea
 * **Rojas León Ángel Edmundo - 0202414044** - (Especialista en Servicios [feature-servicios])
 * **Giraldo Barreto Eddy Joseph - 0202114032** - (Especialista Institucional [feature-nosotros])
 * **Ávila Robles Jorge Royser - 0202414003** - (Especialista en Contacto/Atención [feature-contacto])
+* **Moreno Carranza Alyson Gianella - 0202414030** - (Especialista en Testimonios y Transparencia [feature-testimonios])
 
 ## 🛠️ Tecnologías Utilizadas
 * HTML5 (Estructura)
