@@ -1,0 +1,114 @@
+/* ========================================== */
+/* ESTILOS GLOBALES                           */
+/* ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Le damos un fondo gris muy clarito y limpio a toda la web */
+body {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* ========================================== */
+/* ZONA DE DIEGO - HEADER Y NAVEGACIÓN        */
+/* ========================================== */
+header {
+    background-color: #0056b3; /* Azul institucional */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    /* Estas dos líneas hacen que el menú se quede "pegado" arriba al bajar */
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Crea un espacio perfecto entre el logo y el texto */
+}
+
+header .logo-container img {
+    border-radius: 50%; /* Mantiene el logo circular */
+}
+
+header .logo-container h1 {
+    font-size: 20px; /* Lo bajamos un poquito para que el nombre largo encaje bien */
+    margin: 0;
+}
+
+/* Estilos para la lista de enlaces */
+nav ul {
+    list-style: none; /* Quita las viñetas */
+    display: flex; /* Pone los enlaces uno al lado del otro */
+    gap: 20px; /* Espacio entre los enlaces */
+}
+
+/* Estilos para los botones del menú */
+nav ul li a {
+    color: white;
+    text-decoration: none; /* Quita el subrayado feo de los enlaces */
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto cuando pasas el mouse por encima de un enlace */
+nav ul li a:hover {
+    background-color: #003d82; /* Un azul más oscuro */
+}
+
+/* ========================================== */
+/* ZONA DE DIEGO - FOOTER                     */
+/* ========================================== */
+footer {
+    background-color: #343a40; /* Gris oscuro elegante */
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
+
+footer .footer-info p {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+footer .footer-legal {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #aaaaaa; /* Texto un poco más apagado para los derechos */
+}
+
+/* ========================================== */
+/* ZONA DE EDDY - NOSOTROS                    */
+/* ========================================== */
+/* Eddy: Escribe tus estilos aquí abajo */
+
+
+/* ========================================== */
+/* ZONA DE ÁNGEL - SERVICIOS                  */
+/* ========================================== */
+/* Ángel: Escribe tus estilos aquí abajo */
+
+
+/* ========================================== */
+/* ZONA DE ALYSON - TESTIMONIOS/TRANSPARENCIA */
+/* ========================================== */
+/* Alyson: Escribe tus estilos aquí abajo */
+
+
+/* ========================================== */
+/* ZONA DE ROYSER - CONTACTO Y CITAS           */
+/* ========================================== */
+/* Royser: Escribe tus estilos aquí abajo */
