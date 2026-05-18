@@ -31,9 +31,19 @@ header {
     z-index: 1000;
 }
 
+header .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Crea un espacio perfecto entre el logo y el texto */
+}
+
 header .logo-container img {
-    border-radius: 50%; /* Hace que el logo sea un círculo perfecto */
-    margin-right: 15px; /* Separa el logo del texto "Hospital Regional" */
+    border-radius: 50%; /* Mantiene el logo circular */
+}
+
+header .logo-container h1 {
+    font-size: 20px; /* Lo bajamos un poquito para que el nombre largo encaje bien */
+    margin: 0;
 }
 
 /* Estilos para la lista de enlaces */
