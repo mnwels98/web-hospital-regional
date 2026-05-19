@@ -14,3 +14,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
 });
+
+// ZONA DE ROYSER - Contacto
+function mostrarPanel() {
+    var val = document.getElementById('servicio-select').value;
+    document.querySelectorAll('.panel').forEach(function(p) {
+        p.classList.remove('active');
+    });
+    if (val) document.getElementById('panel-' + val).classList.add('active');
+}
+
+function enviar(msgId) {
+    document.getElementById(msgId).style.display = 'block';
+    setTimeout(function() {
+        document.getElementById(msgId).style.display = 'none';
+    }, 4000);
+}
