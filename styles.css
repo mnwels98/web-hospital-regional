@@ -14,6 +14,16 @@ body {
     color: #333;
 }
 
+/* Esto hace que todas las secciones con un ID se frenen 100px antes de llegar arriba */
+section, div[id], h2[id] {
+    scroll-margin-top: 100px; 
+}
+
+/* Opcional: Le da un deslizamiento suave a la página en lugar de un salto brusco */
+html {
+    scroll-behavior: smooth;
+}
+
 /* ========================================== */
 /* ZONA DE DIEGO - HEADER Y NAVEGACIÓN        */
 /* ========================================== */
@@ -76,6 +86,7 @@ footer {
     color: white;
     text-align: center;
     padding: 30px 20px;
+    padding-bottom: 140px;
     margin-top: 50px;
 }
 
