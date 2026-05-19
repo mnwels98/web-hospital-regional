@@ -165,6 +165,26 @@ footer .footer-legal {
     line-height: 1.5;
 }
 
+/* Estilos para el botón de las tarjetas */
+.btn-reserva {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f4f7f6;
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efecto Hover para el botón */
+.card:hover .btn-reserva {
+    background-color: #0056b3;
+    color: white;
+}
+
 /* ========================================== */
 /* ZONA DE ALYSON - TESTIMONIOS/TRANSPARENCIA */
 /* ========================================== */
