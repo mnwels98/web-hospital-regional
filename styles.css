@@ -579,3 +579,63 @@ footer .footer-legal {
     margin-top: 8px;
     font-weight: bold;
 }
+
+
+
+/* =========================================
+   ESTILOS GLOBALES - FASE DINÁMICA (JS)
+   ========================================= */
+
+/* Estilo profesional para todos los buscadores nuevos */
+.search-input-pro {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input-pro:focus {
+    border-color: #0056b3; /* Azul del hospital */
+}
+
+/* Estilo para las tablas de Convocatorias */
+.table-moderna {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table-moderna thead tr {
+    background-color: #0056b3;
+    color: white;
+    text-align: left;
+}
+
+.table-moderna th, .table-moderna td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* =========================================
+   ANIMACIONES DE SCROLL (FADE-IN)
+   ========================================= */
+.fade-section {
+    opacity: 0;
+    transform: translateY(40px); /* Empieza 40px más abajo */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+}
+
+/* Esta clase se añade con JS cuando haces scroll */
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
