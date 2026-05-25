@@ -275,22 +275,11 @@ if (formCita) {
 // CHAT FLOTANTE 
 // ==========================================
 
-const OPENAI_API_KEY = 'PEGA_TU_KEY_AQUI'; // ← Pega aquí tu API key de OpenAI
+// ==========================================
+// CHAT FLOTANTE - ZONA ROYSER
+// ==========================================
 
-const SYSTEM_PROMPT = `Eres el asistente virtual oficial del Hospital Regional Eleazar Guzmán Barrón (HEGB), ubicado en Av. Brasil S/N, Urb. Santa Cristina, Nuevo Chimbote, Áncash, Perú.
-Responde de forma amable, clara y breve. Solo responde preguntas relacionadas al hospital.
-Datos clave:
-- Emergencias: 946 249 521 (24 horas, todos los días)
-- Central: 934 290 087
-- Fonocitas: 934 274 553
-- Email: mesadepartes@hegb.gob.pe
-- Facebook: @hregb
-- Horarios: Emergencias 24h | Consulta externa Lun-Sáb 7:00-13:00 | Citas telefónicas 7:00-11:00
-- Especialidades: Pediatría, Cardiología, Neurología, Traumatología, Medicina General, Oftalmología, Nefrología, Psicología, Urología, Cirugía.
-- Para citas: formulario en la web o llamar al Fonocitas.
-Si preguntan algo fuera del hospital, indica amablemente que solo puedes ayudar con temas del HEGB.`;
-
-let historialChat = [];
+const SYSTEM_PROMPT = `Eres el asistente virtual oficial del Hospital Regional Eleazar Guzmán Barrón (HEGB), ubicado en Av. Brasil S/N, Urb. Santa Cristina, Nuevo Chimbote, Áncash, Perú.`;
 
 function toggleChat() {
     const w = document.getElementById('chat-window');
@@ -307,6 +296,7 @@ function preguntaRapida(texto) {
 async function enviarMensajeChat() {
     const input = document.getElementById('chat-input');
     const texto = input.value.trim();
+    const textoLower = texto.toLowerCase();
     if (!texto) return;
     input.value = '';
 
@@ -324,45 +314,135 @@ async function enviarMensajeChat() {
     msgs.appendChild(typing);
     msgs.scrollTop = msgs.scrollHeight;
 
-    historialChat.push({ role: 'user', content: texto });
+    await new Promise(r => setTimeout(r, 900));
 
-    try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + OPENAI_API_KEY
-            },
-            body: JSON.stringify({
-                model: 'gpt-4o-mini',
-                messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    ...historialChat
-                ],
-                max_tokens: 300,
-                temperature: 0.7
-            })
-        });
+    document.getElementById('typing-indicator').remove();
 
-        const data = await response.json();
-        const respuesta = data.choices[0].message.content;
-        historialChat.push({ role: 'assistant', content: respuesta });
+    const botDiv = document.createElement('div');
+    botDiv.className = 'msg-chat bot-msg';
+    botDiv.textContent = obtenerRespuesta(textoLower);
+    msgs.appendChild(botDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+}
 
-        document.getElementById('typing-indicator').remove();
-        const botDiv = document.createElement('div');
-        botDiv.className = 'msg-chat bot-msg';
-        botDiv.textContent = respuesta;
-        msgs.appendChild(botDiv);
+function obtenerRespuesta(texto) {
+    function obtenerRespuesta(texto) {
 
-    } catch (error) {
-        document.getElementById('typing-indicator').remove();
-        const errDiv = document.createElement('div');
-        errDiv.className = 'msg-chat bot-msg';
-        errDiv.textContent = 'Lo siento, hubo un error. Por favor llama al 934 290 087.';
-        msgs.appendChild(errDiv);
+    if (texto.includes('horario') || texto.includes('hora') || texto.includes('atiende') || 
+        texto.includes('abierto') || texto.includes('turno') || texto.includes('cuándo') || 
+        texto.includes('cuando') || texto.includes('qué días') || texto.includes('que dias')) {
+        return '🕐 Nuestros horarios son:\n• Emergencias: 24h todos los días\n• Consulta externa: 7:00–13:00 Lun a Sáb\n• Citas telefónicas: 7:00–11:00 Lun a Sáb';
     }
 
-    msgs.scrollTop = msgs.scrollHeight;
+    if (texto.includes('especialidad') || texto.includes('servicio') || texto.includes('área') || 
+        texto.includes('area') || texto.includes('atención') || texto.includes('atencion') || 
+        texto.includes('tienen') || texto.includes('ofrecen') || texto.includes('disponible')) {
+        return '🏥 Contamos con: Pediatría, Cardiología, Neurología, Traumatología, Medicina General, Oftalmología, Nefrología, Psicología, Urología y Cirugía.';
+    }
+
+    if (texto.includes('cita') || texto.includes('reserva') || texto.includes('agendar') || 
+        texto.includes('programar') || texto.includes('solicitar') || texto.includes('quiero atención') || 
+        texto.includes('quiero atencion') || texto.includes('consulta')) {
+        return '📅 Puedes sacar tu cita:\n• Llenando el formulario en esta página\n• Llamando al Fonocitas: 934 274 553\n• Horario de citas: Lun a Sáb 7:00–11:00';
+    }
+
+    if (texto.includes('direcci') || texto.includes('donde') || texto.includes('ubicaci') || 
+        texto.includes('llegar') || texto.includes('queda') || texto.includes('encuentran') || 
+        texto.includes('lugar') || texto.includes('mapa')) {
+        return '📍 Estamos en Av. Brasil S/N, Urb. Santa Cristina, Nuevo Chimbote, Áncash.';
+    }
+
+    if (texto.includes('emergencia') || texto.includes('urgencia') || texto.includes('urgente') || 
+        texto.includes('accidente') || texto.includes('grave') || texto.includes('crítico') || 
+        texto.includes('critico') || texto.includes('auxilio')) {
+        return '🚨 Para emergencias llama al: 946 249 521\nEstamos disponibles las 24 horas, todos los días.';
+    }
+
+    if (texto.includes('teléfono') || texto.includes('telefono') || texto.includes('llamar') || 
+        texto.includes('contacto') || texto.includes('número') || texto.includes('numero') || 
+        texto.includes('comunicar') || texto.includes('hablar')) {
+        return '📞 Nuestros teléfonos:\n• Central: 934 290 087\n• Emergencias: 946 249 521\n• Fonocitas: 934 274 553';
+    }
+
+    if (texto.includes('correo') || texto.includes('email') || texto.includes('mail') || 
+        texto.includes('mensaje') || texto.includes('escribir') || texto.includes('mesa de partes')) {
+        return '✉️ Correo institucional: mesadepartes@hegb.gob.pe\nTambién puedes usar nuestra Mesa de Partes Virtual desde esta página.';
+    }
+
+    if (texto.includes('doctor') || texto.includes('médico') || texto.includes('medico') || 
+        texto.includes('especialista') || texto.includes('profesional') || texto.includes('quién atiende') || 
+        texto.includes('quien atiende')) {
+        return '👨‍⚕️ Contamos con médicos especializados en todas las áreas. Para saber la disponibilidad llama al 934 290 087 o saca tu cita desde el formulario.';
+    }
+
+    if (texto.includes('precio') || texto.includes('costo') || texto.includes('pagar') || 
+        texto.includes('tarifa') || texto.includes('cobran') || texto.includes('cuánto') || 
+        texto.includes('cuanto') || texto.includes('gratuito') || texto.includes('gratis')) {
+        return '💰 Para información sobre tarifas, comunícate al 934 290 087 o visítanos en Av. Brasil S/N, Nuevo Chimbote.';
+    }
+
+    if (texto.includes('laboratorio') || texto.includes('análisis') || texto.includes('analisis') || 
+        texto.includes('examen') || texto.includes('sangre') || texto.includes('muestra') || 
+        texto.includes('resultado') || texto.includes('prueba')) {
+        return '🔬 Nuestro Laboratorio Clínico ofrece análisis precisos y rápidos.\n• Hematología, bioquímica y biología molecular\n• Entrega de resultados online\n• Para más info llama al 934 290 087';
+    }
+
+    if (texto.includes('niño') || texto.includes('nino') || texto.includes('bebe') || 
+        texto.includes('bebé') || texto.includes('pediatr') || texto.includes('infant') || 
+        texto.includes('hijo') || texto.includes('vacuna')) {
+        return '🩺 Nuestra área de Pediatría atiende desde recién nacidos hasta adolescentes.\n• Control de niño sano\n• Vacunación\n• Horario: Lun a Sáb 7:00–13:00\nSaca tu cita llamando al 934 274 553.';
+    }
+
+    if (texto.includes('corazón') || texto.includes('corazon') || texto.includes('cardiolog') || 
+        texto.includes('presión') || texto.includes('presion') || texto.includes('pecho') || 
+        texto.includes('infarto') || texto.includes('cardiovascular')) {
+        return '🫀 Nuestra área de Cardiología ofrece:\n• Electrocardiograma\n• Ecocardiografía 3D\n• Prevención y tratamiento cardiovascular\nSaca tu cita llamando al 934 274 553.';
+    }
+
+    if (texto.includes('cabeza') || texto.includes('neurolog') || texto.includes('cerebro') || 
+        texto.includes('migraña') || texto.includes('migrana') || texto.includes('epilepsia') || 
+        texto.includes('nervio')) {
+        return '🧠 Nuestra área de Neurología trata:\n• Migrañas y cefaleas\n• Epilepsia\n• Enfermedades degenerativas\nSaca tu cita llamando al 934 274 553.';
+    }
+
+    if (texto.includes('hueso') || texto.includes('fractura') || texto.includes('traumatolog') || 
+        texto.includes('articulacion') || texto.includes('articulación') || texto.includes('músculo') || 
+        texto.includes('musculo') || texto.includes('lesión') || texto.includes('lesion')) {
+        return '🦴 Nuestra área de Traumatología atiende:\n• Fracturas y lesiones óseas\n• Rehabilitación física\n• Medicina deportiva\nSaca tu cita llamando al 934 274 553.';
+    }
+
+    if (texto.includes('histor') || texto.includes('expediente') || texto.includes('registro') || 
+        texto.includes('documento') || texto.includes('archivo')) {
+        return '📋 Para solicitar tu historia clínica o documentos médicos acércate a nuestra Mesa de Partes o escríbenos a mesadepartes@hegb.gob.pe';
+    }
+
+    if (texto.includes('visita') || texto.includes('hospitaliz') || texto.includes('internado') || 
+        texto.includes('internamiento') || texto.includes('piso') || texto.includes('cama')) {
+        return '🏨 Para información sobre visitas a pacientes hospitalizados llama al 934 290 087 y te daremos los horarios y requisitos de visita.';
+    }
+
+    if (texto.includes('estacion') || texto.includes('parking') || texto.includes('carro') || 
+        texto.includes('auto') || texto.includes('vehículo') || texto.includes('vehiculo')) {
+        return '🚗 Contamos con zona de estacionamiento dentro del hospital. Para más información sobre el acceso llama al 934 290 087.';
+    }
+
+    if (texto.includes('hola') || texto.includes('buenos') || texto.includes('buenas') || 
+        texto.includes('saludos') || texto.includes('buen día') || texto.includes('buen dia')) {
+        return '👋 ¡Hola! Bienvenido al Hospital Regional EGB. ¿En qué puedo ayudarte hoy?';
+    }
+
+    if (texto.includes('gracias') || texto.includes('muchas gracias') || texto.includes('perfecto') || 
+        texto.includes('excelente') || texto.includes('genial')) {
+        return '😊 ¡Con gusto! Recuerda que estamos aquí para cuidar tu salud. ¿Hay algo más en lo que pueda ayudarte?';
+    }
+
+    if (texto.includes('adios') || texto.includes('adiós') || texto.includes('hasta luego') || 
+        texto.includes('chau') || texto.includes('bye')) {
+        return '👋 ¡Hasta luego! Que tengas un excelente día. Recuerda que estamos aquí para cuidar tu salud.';
+    }
+
+    return '🤔 No entendí tu consulta. Puedes preguntarme sobre horarios, especialidades, citas, dirección, teléfonos o laboratorio. También puedes llamarnos al 934 290 087.';
+}
 }
 // --- Panel Consultar ---
 const dniConsultar = document.getElementById('dni-consultar');
