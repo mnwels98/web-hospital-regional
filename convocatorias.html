@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Convocatorias - HEGB</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="convocatorias.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="Logo Hospital Regional" width="60">
+            <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#nosotros">Institucional</a></li>
+                <li><a href="index.html#servicios">Especialidades</a></li>
+                <li><a href="index.html#transparencia">Atención al Paciente</a></li>
+                <li><a href="index.html#contacto">Contacto y Citas</a></li>
+                <li><a href="convocatorias.html" style="color: #ffc107; font-weight: bold;">Convocatorias</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="convocatorias-page">
+        <div class="tabla-container">
+            
+            <div id="vista-procesos">
+                <h2 style="color: #333; margin-bottom: 5px;">Portal de Transparencia Organizacional</h2>
+                <p style="color: #6c757d; margin-bottom: 25px;">Consulte los procesos de selección CAS del Hospital Regional Eleazar Guzmán Barrón.</p>
+
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="cambiarPestana(event, 'conv-2026')">Convocatorias 2026</button>
+                    <button class="tab-btn" onclick="cambiarPestana(event, 'conv-anteriores')">Convocatorias Anteriores</button>
+                </div>
+
+                <div class="search-box-container">
+                    <input type="text" id="buscadorProcesos" class="search-input" placeholder="🔍 Buscar proceso por descripción o palabra clave...">
+                </div>
+
+                <div id="conv-2026" class="tab-content active">
+                    <div style="overflow-x: auto;">
+                        <table class="tabla-hegb">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Pub.</th>
+                                    <th>Descripción del Proceso Técnico</th>
+                                    <th>Evaluación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="filas-procesos">
+                                <tr>
+                                    <td>15/05/2026</td>
+                                    <td>PROCESO CAS N° 001-2026: Contratación de Médicos Especialistas y Cirujanos</td>
+                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 001-2026')">👁️ Ver Resultados</button></td>
+                                </tr>
+                                <tr>
+                                    <td>10/04/2026</td>
+                                    <td>PROCESO CAS N° 002-2026: Personal Técnico de Enfermería para UCI</td>
+                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 002-2026')">👁️ Ver Resultados</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="conv-anteriores" class="tab-content">
+                    <div style="overflow-x: auto;">
+                        <table class="tabla-hegb">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Pub.</th>
+                                    <th>Descripción del Proceso Técnico</th>
+                                    <th>Evaluación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="filas-procesos">
+                                <tr>
+                                    <td>12/11/2025</td>
+                                    <td>PROCESO CAS N° 015-2025: Personal Administrativo y Soporte de Sistemas TI</td>
+                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 015-2025')">👁️ Ver Resultados</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="vista-resultados" class="hidden">
+                <button class="btn-volver" onclick="volverAProcesos()">⬅ Volver al Listado General</button>
+                <h3 id="titulo-resultados" style="color: #0056b3; margin-bottom: 20px;"></h3>
+                
+                <div style="overflow-x: auto;">
+                    <table class="tabla-hegb">
+                        <thead>
+                            <tr>
+                                <th>Postulante Evaluado</th>
+                                <th>Cargo de Postulación</th>
+                                <th>Condición Final</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoResultados">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
+            <p>📍 Av. Brasil S/N, Distrito de Nuevo Chimbote</p>
+        </div>
+        <div class="footer-legal">
+            <p>© <span id="year">2026</span> - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="convocatorias.js"></script>
+</body>
+</html>

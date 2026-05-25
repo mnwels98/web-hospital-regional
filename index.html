@@ -19,7 +19,7 @@
                 <li><a href="#servicios">Especialidades</a></li>
                 <li><a href="#contacto">Contacto y Citas</a></li>
                 <li><a href="#pacientes">Atención al Paciente</a></li>
-                <li><a href="#convocatorias">Portal de Transparencia: Convocatoria</a></li>
+                <li><a href="convocatorias.html" style="color: #ffc107; font-weight: bold;">Convocatorias</a></li>
             </ul>
         </nav>
     </header>
@@ -243,93 +243,6 @@
 
         </div>
         </section>
-
-    <section id="convocatorias" class="servicios-section">
-        <div class="tabla-container">
-            <h2 style="color: #0056b3; text-align: center; margin-bottom: 20px;">Portal de Transparencia: Convocatorias</h2>
-
-            <div id="vista-procesos">
-                
-                <div class="tabs-container">
-                    <button class="tab-btn active" onclick="cambiarPestana(event, 'conv-2026')">Convocatorias 2026</button>
-                    <button class="tab-btn" onclick="cambiarPestana(event, 'conv-anteriores')">Convocatorias Anteriores</button>
-                </div>
-
-                <div class="header-tabla">
-                    <input type="text" id="buscadorProcesos" placeholder="🔍 Buscar proceso...">
-                </div>
-
-                <div id="conv-2026" class="tab-content active">
-                    <div style="overflow-x: auto;">
-                        <table class="tabla-hegb">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Descripción del Proceso</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody class="filas-procesos">
-                                <tr>
-                                    <td>15/05/2026</td>
-                                    <td>CAS N° 001-2026: Contratación de Médicos Especialistas y Cirujanos</td>
-                                    <td><button class="btn-ver" onclick="verPostulantes('CAS N° 001-2026')">👁️ Ver Resultados</button></td>
-                                </tr>
-                                <tr>
-                                    <td>10/04/2026</td>
-                                    <td>CAS N° 002-2026: Personal Técnico de Enfermería para UCI</td>
-                                    <td><button class="btn-ver" onclick="verPostulantes('CAS N° 002-2026')">👁️ Ver Resultados</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div id="conv-anteriores" class="tab-content">
-                    <div style="overflow-x: auto;">
-                        <table class="tabla-hegb">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Descripción del Proceso</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody class="filas-procesos">
-                                <tr>
-                                    <td>12/11/2025</td>
-                                    <td>CAS N° 015-2025: Personal Administrativo y Soporte TI</td>
-                                    <td><button class="btn-ver" onclick="verPostulantes('CAS N° 015-2025')">👁️ Ver Resultados</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="vista-resultados" class="hidden">
-                <button class="btn-volver" onclick="volverAProcesos()">⬅ Volver a las Convocatorias</button>
-                <h3 id="titulo-resultados" style="color: #0056b3; margin: 20px 0; border-bottom: 2px solid #eee; padding-bottom: 10px;"></h3>
-                
-                <div style="overflow-x: auto;">
-                    <table class="tabla-hegb">
-                        <thead>
-                            <tr>
-                                <th>Postulante</th>
-                                <th>Cargo al que postula</th>
-                                <th>Estado de Evaluación</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cuerpoResultados">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    </main>
-
     
 <section id="pacientes" class="testimonios-section">
     
