@@ -410,4 +410,33 @@ function enviarConsulta() {
 
     document.getElementById('dni-consultar').value = '';
     document.getElementById('fecha-consultar').value = '';
+
+}
+
+// ==========================================
+// MISIÓN ALYSON: LÓGICA DEL MODAL PACIENTE
+// ==========================================
+
+const modalPaciente = document.getElementById('modalPaciente');
+const btnAbrirModal = document.getElementById('btnPortalPaciente');
+const btnCerrarModal = document.getElementById('closeModal');
+
+if (btnAbrirModal && modalPaciente) {
+    btnAbrirModal.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita que la página salte o se recargue
+        modalPaciente.classList.add('is-active'); // Agrega la clase CSS que lo hace visible
+    });
+}
+
+if (btnCerrarModal && modalPaciente) {
+    btnCerrarModal.addEventListener('click', () => {
+        modalPaciente.classList.remove('is-active'); // Quita la clase y se vuelve a ocultar
+    });
+
+    // 4. CORRECCIÓN DE BUG: Cerrar también si el usuario hace clic en el fondo oscuro
+    window.addEventListener('click', (e) => {
+        if (e.target === modalPaciente) {
+            modalPaciente.classList.remove('is-active');
+        }
+    });
 }
