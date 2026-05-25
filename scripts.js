@@ -385,25 +385,46 @@ function enviarConsulta() {
     );
 }
 function enviarConsulta() {
-    const dni   = document.getElementById('dni-consultar').value.trim();
-    const fecha = document.getElementById('fecha-consultar').value;
+    // --- Configurar inputs del panel consultar al cargar ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const dniConsultar   = document.getElementById('dni-consultar');
+        const fechaConsultar = document.getElementById('fecha-consultar');
 
-    if (!dni || !fecha) {
-        mostrarNotificacion('Campos incompletos', 'Por favor ingresa tu DNI y la fecha de tu cita.', 'warning');
-        return;
+        // Solo permite números en el DNI de consulta
+        if (dniConsultar) {
+            dniConsultar.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        }
+
+        // No permite fechas futuras en consultar
+        if (fechaConsultar) {
+            const hoy = new Date().toISOString().split('T')[0];
+            fechaConsultar.setAttribute('max', hoy);
+        }
+    });
+
+    function enviarConsulta() {
+        const dni   = document.getElementById('dni-consultar').value.trim();
+        const fecha = document.getElementById('fecha-consultar').value;
+
+        if (!dni || !fecha) {
+            mostrarNotificacion('Campos incompletos', 'Por favor ingresa tu DNI y la fecha de tu cita.', 'warning');
+            return;
+        }
+
+        if (!/^\d{8}$/.test(dni)) {
+            mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos numéricos.', 'error');
+            return;
+        }
+
+        mostrarNotificacion(
+            '🔍 Búsqueda realizada',
+            'Cita encontrada para el DNI ' + dni + '. Revisa tu correo o llama al 934 274 553.',
+            'success'
+        );
+
+        document.getElementById('dni-consultar').value = '';
+        document.getElementById('fecha-consultar').value = '';
     }
-
-    if (!/^\d{8}$/.test(dni)) {
-        mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos numéricos.', 'error');
-        return;
-    }
-
-    mostrarNotificacion(
-        '🔍 Búsqueda realizada',
-        'Cita encontrada para el DNI ' + dni + '. Revisa tu correo o llama al 934 274 553.',
-        'success'
-    );
-
-    document.getElementById('dni-consultar').value = '';
-    document.getElementById('fecha-consultar').value = '';
 }
