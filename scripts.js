@@ -275,9 +275,6 @@ if (formCita) {
 // CHAT FLOTANTE 
 // ==========================================
 
-// ==========================================
-// CHAT FLOTANTE - ZONA ROYSER
-// ==========================================
 
 const SYSTEM_PROMPT = `Eres el asistente virtual oficial del Hospital Regional Eleazar Guzmán Barrón (HEGB), ubicado en Av. Brasil S/N, Urb. Santa Cristina, Nuevo Chimbote, Áncash, Perú.`;
 
