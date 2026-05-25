@@ -266,22 +266,41 @@
         </div>
     </div>
 
-    <hr class="divisor-suave">
+   <hr class="divisor-suave">
 
-    <div class="transparencia-container">
-        <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
+<div class="transparencia-container">
+    <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
+    
+    <div class="botones-transparencia">
+        <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones btn-abrir-modal">
+            📕 Libro de Reclamaciones Virtual
+        </a>
         
-        <div class="botones-transparencia">
-            <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones">
-                📕 Libro de Reclamaciones Virtual
-            </a>
-            
-            <a href="javascript:void(0)" class="btn-transparencia btn-mesa">
-                💻 Mesa de Partes Virtual
-            </a>
-        </div>
+        <a href="javascript:void(0)" class="btn-transparencia btn-mesa btn-abrir-modal">
+            💻 Mesa de Partes Virtual
+        </a>
     </div>
+</div>
 
+</section> <div id="modalPaciente" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <span id="closeModal" class="custom-modal-close">&times;</span>
+        <h2>Portal del Paciente</h2>
+        <p>Ingresa tus datos para acceder al sistema de la clínica.</p>
+        
+        <form id="formModalPaciente">
+            <div class="input-group">
+                <label for="modalUser">Usuario / Correo:</label>
+                <input type="email" id="modalUser" required placeholder="ejemplo@correo.com">
+            </div>
+            <div class="input-group">
+                <label for="modalPassword">Contraseña:</label>
+                <input type="password" id="modalPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Iniciar Sesión</button>
+        </form>
+    </div>
+</div>
 </section>
 
     <footer>
@@ -334,5 +353,27 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="scripts.js"></script>
-</body>
+
+//// Modal para pacientes
+<div id="modalPaciente" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <span id="closeModal" class="custom-modal-close">&times;</span>
+        <h2>Portal del Paciente</h2>
+        <p>Ingresa tus datos para acceder al sistema del hospital.</p>
+        
+        <form id="formModalPaciente">
+            <div class="input-group">
+                <label for="modalUser">Usuario / Correo:</label>
+                <input type="email" id="modalUser" required placeholder="ejemplo@correo.com">
+            </div>
+            <div class="input-group">
+                <label for="modalPassword">Contraseña:</label>
+                <input type="password" id="modalPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Iniciar Sesión</button>
+        </form>
+    </div>
+</div>
+
+    </body>
 </html>
