@@ -326,7 +326,6 @@ async function enviarMensajeChat() {
 }
 
 function obtenerRespuesta(texto) {
-    function obtenerRespuesta(texto) {
 
     if (texto.includes('horario') || texto.includes('hora') || texto.includes('atiende') || 
         texto.includes('abierto') || texto.includes('turno') || texto.includes('cuándo') || 
@@ -442,7 +441,6 @@ function obtenerRespuesta(texto) {
     }
 
     return '🤔 No entendí tu consulta. Puedes preguntarme sobre horarios, especialidades, citas, dirección, teléfonos o laboratorio. También puedes llamarnos al 934 290 087.';
-}
 }
 // --- Panel Consultar ---
 const dniConsultar = document.getElementById('dni-consultar');
