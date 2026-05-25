@@ -364,17 +364,41 @@ async function enviarMensajeChat() {
 
     msgs.scrollTop = msgs.scrollHeight;
 }
+// --- Panel Consultar ---
+const dniConsultar = document.getElementById('dni-consultar');
+const fechaConsultar = document.getElementById('fecha-consultar');
+
+if (dniConsultar) {
+    dniConsultar.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '');
+    });
+}
+
+if (fechaConsultar) {
+    const hoy = new Date().toISOString().split('T')[0];
+    fechaConsultar.setAttribute('max', hoy);
+}
+
 function enviarConsulta() {
-    const dni   = document.querySelector('#panel-consultar input[type="text"]').value.trim();
-    const fecha = document.querySelector('#panel-consultar input[type="date"]').value;
+    const dni   = document.getElementById('dni-consultar').value.trim();
+    const fecha = document.getElementById('fecha-consultar').value;
 
     if (!dni || !fecha) {
-        mostrarNotificacion('Campos incompletos', 'Ingresa tu DNI y la fecha de tu cita.', 'warning');
+        mostrarNotificacion('Campos incompletos o incorrectos', 'Por favor ingresa tu DNI y la fecha de tu cita.', 'warning');
         return;
     }
 
     if (!/^\d{8}$/.test(dni)) {
-        mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos.', 'error');
+        mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos numéricos.', 'error');
+        return;
+    }
+
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const elegida = new Date(fecha + 'T00:00:00');
+
+    if (elegida > hoy) {
+        mostrarNotificacion('Fecha inválida', 'La fecha no puede ser futura. Ingresa la fecha real de tu cita.', 'error');
         return;
     }
 
@@ -383,48 +407,7 @@ function enviarConsulta() {
         'Cita encontrada para el DNI ' + dni + '. Revisa tu correo o llama al 934 274 553.',
         'success'
     );
-}
-function enviarConsulta() {
-    // --- Configurar inputs del panel consultar al cargar ---
-    document.addEventListener('DOMContentLoaded', function() {
-        const dniConsultar   = document.getElementById('dni-consultar');
-        const fechaConsultar = document.getElementById('fecha-consultar');
 
-        // Solo permite números en el DNI de consulta
-        if (dniConsultar) {
-            dniConsultar.addEventListener('input', function() {
-                this.value = this.value.replace(/\D/g, '');
-            });
-        }
-
-        // No permite fechas futuras en consultar
-        if (fechaConsultar) {
-            const hoy = new Date().toISOString().split('T')[0];
-            fechaConsultar.setAttribute('max', hoy);
-        }
-    });
-
-    function enviarConsulta() {
-        const dni   = document.getElementById('dni-consultar').value.trim();
-        const fecha = document.getElementById('fecha-consultar').value;
-
-        if (!dni || !fecha) {
-            mostrarNotificacion('Campos incompletos', 'Por favor ingresa tu DNI y la fecha de tu cita.', 'warning');
-            return;
-        }
-
-        if (!/^\d{8}$/.test(dni)) {
-            mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos numéricos.', 'error');
-            return;
-        }
-
-        mostrarNotificacion(
-            '🔍 Búsqueda realizada',
-            'Cita encontrada para el DNI ' + dni + '. Revisa tu correo o llama al 934 274 553.',
-            'success'
-        );
-
-        document.getElementById('dni-consultar').value = '';
-        document.getElementById('fecha-consultar').value = '';
-    }
+    document.getElementById('dni-consultar').value = '';
+    document.getElementById('fecha-consultar').value = '';
 }
