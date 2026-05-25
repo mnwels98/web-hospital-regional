@@ -17,6 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+// --- NUEVO: Modales Institucionales (Eddy) ---
+    const modalSobre = document.getElementById("modal-sobre");
+    const btnSobre = document.getElementById("btn-modal-sobre");
+    const closeSobreBtn = document.getElementById("close-sobre-btn");
+
+    if (btnSobre && modalSobre && closeSobreBtn) {
+        // Abrir modal al hacer clic en el submenú
+        btnSobre.addEventListener("click", (e) => {
+            e.preventDefault(); // Evita que la página salte
+            modalSobre.classList.add("active");
+        });
+
+        // Cerrar con la X
+        closeSobreBtn.addEventListener("click", () => {
+            modalSobre.classList.remove("active");
+        });
+
+        // Cerrar al hacer clic afuera
+        modalSobre.addEventListener("click", (e) => {
+            if (e.target === modalSobre) modalSobre.classList.remove("active");
+        });
+    }
+
 // ========================================== 
 // LÓGICA DEL BUSCADOR INTERACTIVO Y MODAL (EDDY)
 // ========================================== 

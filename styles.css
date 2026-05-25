@@ -391,6 +391,71 @@ footer .footer-legal {
 .no-results { color: #666; font-size: 14px; padding: 20px; }
 
 /* ========================================== */
+/* MENÚ DESPLEGABLE (DROPDOWN) DEL HEADER     */
+/* ========================================== */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+/* Caja oculta del menú desplegable */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 10px 0;
+    list-style: none;
+    z-index: 3000;
+}
+
+.dropdown-menu li a {
+    color: #333333 !important;
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f5f9;
+    color: #0056b3 !important;
+}
+
+/* Mostrar el menú al pasar el cursor sobre la opción principal */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Estilos específicos para las ventanas institucionales */
+.modal-institucional-content {
+    max-width: 600px;
+    border-top: 5px solid #0056b3;
+}
+
+.modal-institucional-header h2 {
+    color: #0056b3;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.modal-institucional-body p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+/* ========================================== */
 /* ZONA DE ÁNGEL - SERVICIOS                  */
 /* ========================================== */
 /* Ángel: Escribe tus estilos aquí abajo */

@@ -20,7 +20,15 @@
 
         <nav>
             <ul>
-                <li><a href="#nosotros">Institucional</a></li>
+                <li class="dropdown">
+                    <a href="#nosotros">Institucional ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btn-modal-sobre">Sobre el Hospital</a></li>
+                        <li><a href="#" id="btn-modal-resena">Reseña Histórica</a></li>
+                        <li><a href="#" id="btn-modal-mision">Misión y Visión</a></li>
+                    </ul>
+                </li>
+                
                 <li><a href="#servicios">Especialidades</a></li>
                 <li><a href="#transparencia">Atención al Paciente</a></li>
                 <li><a href="#contacto">Contacto y Citas</a></li>
@@ -29,7 +37,7 @@
     </header>
 
     <main>
-        <section id="nosotros" class="about-section">
+       <section id="nosotros" class="about-section">
             <div class="about-container">
                 
                 <div class="about-header">
@@ -37,9 +45,20 @@
                     <p class="subtitle">Comprometidos con la salud y el bienestar de Nuevo Chimbote y la región Áncash.</p>
                 </div>
 
-                <div class="about-description-block">
-                    <h3>Sobre el Hospital</h3>
-                    <p>El Hospital Regional Eleazar Guzmán Barrón es una institución pública de salud de categoría de alta complejidad, encargada de brindar atención médica especializada, quirúrgica y de emergencia...</p>
+                <div id="modal-sobre" class="modal-overlay">
+                    <div class="modal-content modal-institucional-content">
+                        <button id="close-sobre-btn" class="modal-close">&times;</button>
+                        
+                        <div class="modal-institucional-header">
+                            <h2>Sobre el Hospital</h2>
+                            <p class="subtitle">Nivel de Complejidad II-2</p>
+                        </div>
+                        
+                        <div class="modal-institucional-body">
+                            <p><strong>El Hospital Regional Eleazar Guzmán Barrón</strong> es una institución pública de salud de categoría de alta complejidad, encargada de brindar atención médica especializada, quirúrgica y de emergencia a toda la población de Nuevo Chimbote y la región Áncash.</p>
+                            <p>Contamos con un equipo de profesionales altamente calificados y tecnología médica avanzada para garantizar servicios de salud con calidad, calidez y equidad social.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="about-content">
