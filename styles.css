@@ -162,17 +162,25 @@ footer .footer-legal {
     text-align: justify;
 }
 
+/* ======================================================= */
+/* CONFIGURACIÓN CONTROLADA DE LA IMAGEN (VERSION BLINDADA)*/
+/* ======================================================= */
 .about-image {
-    flex: 1;
-    min-width: 300px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 20px auto !important;
 }
 
 .about-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    object-fit: cover;
+    width: 100% !important;
+    max-width: 600px !important;  /* Tamaño ideal para que se vea compacta y centrada */
+    height: auto !important;
+    max-height: 350px !important; /* Altura controlada para que no sature la pantalla */
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+    object-fit: cover !important;
 }
 
 /* Contenedor de Misión y Visión (Tarjetas paralelas) */
@@ -393,46 +401,61 @@ footer .footer-legal {
 /* ========================================== */
 /* MENÚ DESPLEGABLE (DROPDOWN) DEL HEADER     */
 /* ========================================== */
-.dropdown {
-    position: relative;
+
+/* Evita que el contenedor del menú oculte tu lista desplegable */
+header, .logo-container, nav, nav ul {
+    overflow: visible !important;
 }
 
-.dropdown-toggle {
-    cursor: pointer;
+/* Configuración para tu contenedor dropdown */
+nav ul li.dropdown {
+    position: relative !important; /* Base obligatoria para el posicionamiento absoluto */
+    display: inline-block;
 }
 
-/* Caja oculta del menú desplegable */
-.dropdown-menu {
-    display: none;
+/* Caja oculta del menú desplegable totalmente aislada */
+nav ul li .dropdown-menu {
+    display: none; 
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 100%; /* Aparece justo abajo del enlace 'Institucional' */
+    left: 50%;
+    transform: translateX(-50%); /* Lo centra perfectamente debajo del texto */
     background-color: #ffffff;
     min-width: 180px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
     border-radius: 4px;
-    padding: 10px 0;
-    list-style: none;
-    z-index: 3000;
+    padding: 8px 0;
+    list-style: none !important;
+    z-index: 9999; /* Máxima prioridad para que flote sobre banners, sliders o imágenes */
 }
 
-.dropdown-menu li a {
+/* Fuerza a que las opciones internas se listen de forma vertical */
+nav ul li .dropdown-menu li {
+    display: block !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Estilos de los enlaces del submenú */
+nav ul li .dropdown-menu li a {
     color: #333333 !important;
-    padding: 10px 20px;
-    display: block;
-    font-size: 14px;
-    text-decoration: none;
+    padding: 10px 20px !important;
+    display: block !important;
+    font-size: 14px !important;
+    text-align: left !important;
+    text-decoration: none !important;
     transition: background-color 0.2s;
 }
 
-.dropdown-menu li a:hover {
+nav ul li .dropdown-menu li a:hover {
     background-color: #f1f5f9;
     color: #0056b3 !important;
 }
 
 /* Mostrar el menú al pasar el cursor sobre la opción principal */
-.dropdown:hover .dropdown-menu {
-    display: block;
+nav ul li.dropdown:hover .dropdown-menu {
+    display: block !important;
 }
 
 /* Estilos específicos para las ventanas institucionales */
@@ -454,6 +477,8 @@ footer .footer-legal {
     margin-bottom: 12px;
     text-align: justify;
 }
+
+
 
 /* ========================================== */
 /* ZONA DE ÁNGEL - SERVICIOS                  */

@@ -21,7 +21,7 @@
         <nav>
             <ul>
                 <li class="dropdown">
-                    <a href="#nosotros">Institucional ▼</a>
+                    <a href="#nosotros">Nosotros ▼</a>
                     <ul class="dropdown-menu">
                         <li><a href="#" id="btn-modal-sobre">Sobre el Hospital</a></li>
                         <li><a href="#" id="btn-modal-resena">Reseña Histórica</a></li>
@@ -37,7 +37,7 @@
     </header>
 
     <main>
-       <section id="nosotros" class="about-section">
+      <section id="nosotros" class="about-section">
             <div class="about-container">
                 
                 <div class="about-header">
@@ -45,15 +45,20 @@
                     <p class="subtitle">Comprometidos con la salud y el bienestar de Nuevo Chimbote y la región Áncash.</p>
                 </div>
 
+                <div class="about-image">
+                    <img src="images/foto_hospital.jpg" alt="Hospital Regional Eleazar Guzmán Barrón">
+                </div>
+
+                </div>
+        </section>
+
                 <div id="modal-sobre" class="modal-overlay">
                     <div class="modal-content modal-institucional-content">
                         <button id="close-sobre-btn" class="modal-close">&times;</button>
-                        
                         <div class="modal-institucional-header">
                             <h2>Sobre el Hospital</h2>
                             <p class="subtitle">Nivel de Complejidad II-2</p>
                         </div>
-                        
                         <div class="modal-institucional-body">
                             <p><strong>El Hospital Regional Eleazar Guzmán Barrón</strong> es una institución pública de salud de categoría de alta complejidad, encargada de brindar atención médica especializada, quirúrgica y de emergencia a toda la población de Nuevo Chimbote y la región Áncash.</p>
                             <p>Contamos con un equipo de profesionales altamente calificados y tecnología médica avanzada para garantizar servicios de salud con calidad, calidez y equidad social.</p>
@@ -61,83 +66,38 @@
                     </div>
                 </div>
 
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Reseña Histórica</h3>
-                        <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa...</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="images/foto_hospital.jpg" alt="Hospital Regional Eleazar Guzmán Barrón">
-                    </div>
-                </div>
-
-                <div class="about-mision-vision">
-                    <div class="card-mv">
-                        <div class="icon-mv">🎯</div>
-                        <h3>Misión</h3>
-                        <p>Brindar servicios de salud especializados y de alta calidad...</p>
-                    </div>
-
-                    <div class="card-mv">
-                        <div class="icon-mv">👁️</div>
-                        <h3>Visión</h3>
-                        <p>Ser un hospital líder a nivel nacional...</p>
-                    </div>
-                </div>
-
-                <div id="search-modal" class="modal-overlay">
-                    <div class="modal-content">
-                        <button id="close-search-btn" class="modal-close">&times;</button>
-                        
-                        <div class="search-header">
-                            <h3>Búsqueda Inteligente por Síntomas</h3>
-                            <p>Escribe lo que sientes o la población a atender. ¡Haz clic en la tarjeta para separar tu cita!</p>
+                <div id="modal-resena" class="modal-overlay">
+                    <div class="modal-content modal-institucional-content">
+                        <button id="close-resena-btn" class="modal-close">&times;</button>
+                        <div class="modal-institucional-header">
+                            <h2>Reseña Histórica</h2>
+                            <p class="subtitle">Nuestra Trayectoria</p>
                         </div>
-                        
-                        <div class="search-input-container">
-                            <input type="text" id="search-input" placeholder="Ej: dolor de pecho, dolor de cabeza, gastritis, niño..." autocomplete="off">
+                        <div class="modal-institucional-body">
+                            <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa y la costa de la región Áncash.</p>
+                            <p>Fundado para responder a la alta demanda de salud especializada, ha evolucionado constantemente incorporando nuevas especialidades médicas y quirúrgicas, convirtiéndose en el pilar fundamental del bienestar de nuestra comunidad.</p>
                         </div>
-
-                        <div id="specialties-grid" class="specialties-grid"></div>
                     </div>
                 </div>
 
-                <div id="appointment-modal" class="modal-overlay">
-                    <div class="modal-content modal-form-content">
-                        <button id="close-appointment-btn" class="modal-close">&times;</button>
-                        
-                        <div class="form-header">
-                            <h3>Solicitud de Cita Médica</h3>
-                            <p>Completa tus datos para pre-agendar tu atención preferencial.</p>
+                <div id="modal-mision" class="modal-overlay">
+                    <div class="modal-content modal-institucional-content">
+                        <button id="close-mision-btn" class="modal-close">&times;</button>
+                        <div class="modal-institucional-header">
+                            <h2>Misión y Visión</h2>
+                            <p class="subtitle">Nuestros Objetivos Institucionales</p>
                         </div>
-
-                        <form id="appointment-form" class="appointment-form">
-                            <div class="form-group">
-                                <label for="selected-specialty">Especialidad Asignada:</label>
-                                <input type="text" id="selected-specialty" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="patient-name">Nombre y Apellidos del Paciente:</label>
-                                <input type="text" id="patient-name" placeholder="Ej. Juan Pérez López" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="patient-phone">Número de Celular:</label>
-                                <input type="tel" id="patient-phone" placeholder="Ej. 987654321" required pattern="[0-9]{9}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="appointment-date">Fecha Deseada Tentativa:</label>
-                                <input type="date" id="appointment-date" required>
-                            </div>
-
-                            <button type="submit" class="btn-submit-appointment">Confirmar Solicitud de Cita</button>
-                        </form>
+                        <div class="modal-institucional-body">
+                            <h3>🎯 Misión</h3>
+                            <p>Brindar servicios de salud especializados y de alta calidad a la población asignada y referida, con un equipo humano altamente calificado, tecnología moderna y un enfoque de equidad, calidez y eficiencia.</p>
+                            <br>
+                            <h3>👁️ Visión</h3>
+                            <p>Ser un hospital líder a nivel nacional en la atención integral de salud especializada, reconocido por la excelencia de sus servicios, la docencia e investigación, logrando la plena satisfacción y confianza de nuestros usuarios.</p>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                </div>
         </section>
 
         <section id="servicios">
