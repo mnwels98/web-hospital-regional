@@ -33,8 +33,12 @@
                 <p style="color: #6c757d; margin-bottom: 25px;">Consulte los procesos de selección CAS del Hospital Regional Eleazar Guzmán Barrón.</p>
 
                 <div class="tabs-container">
-                    <button class="tab-btn active" onclick="cambiarPestana(event, 'conv-2026')">Convocatorias 2026</button>
-                    <button class="tab-btn" onclick="cambiarPestana(event, 'conv-anteriores')">Convocatorias Anteriores</button>
+                    <button class="tab-btn active" onclick="cambiarPestana(event, 'conv-2026')">
+                        Convocatorias 2026 <span class="badge-count" id="count-2026">0</span>
+                    </button>
+                    <button class="tab-btn" onclick="cambiarPestana(event, 'conv-anteriores')">
+                        Años Anteriores <span class="badge-count" id="count-anteriores">0</span>
+                    </button>
                 </div>
 
                 <div class="search-box-container">
@@ -51,18 +55,8 @@
                                     <th>Evaluación</th>
                                 </tr>
                             </thead>
-                            <tbody class="filas-procesos">
-                                <tr>
-                                    <td>15/05/2026</td>
-                                    <td>PROCESO CAS N° 001-2026: Contratación de Médicos Especialistas y Cirujanos</td>
-                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 001-2026')">👁️ Ver Resultados</button></td>
-                                </tr>
-                                <tr>
-                                    <td>10/04/2026</td>
-                                    <td>PROCESO CAS N° 002-2026: Personal Técnico de Enfermería para UCI</td>
-                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 002-2026')">👁️ Ver Resultados</button></td>
-                                </tr>
-                            </tbody>
+                            <tbody id="tbody-2026" class="filas-procesos">
+                                </tbody>
                         </table>
                     </div>
                 </div>
@@ -77,13 +71,8 @@
                                     <th>Evaluación</th>
                                 </tr>
                             </thead>
-                            <tbody class="filas-procesos">
-                                <tr>
-                                    <td>12/11/2025</td>
-                                    <td>PROCESO CAS N° 015-2025: Personal Administrativo y Soporte de Sistemas TI</td>
-                                    <td><button class="btn-moderno" onclick="verPostulantes('CAS N° 015-2025')">👁️ Ver Resultados</button></td>
-                                </tr>
-                            </tbody>
+                            <tbody id="tbody-anteriores" class="filas-procesos">
+                                </tbody>
                         </table>
                     </div>
                 </div>
