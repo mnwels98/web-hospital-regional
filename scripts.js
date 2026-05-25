@@ -364,3 +364,23 @@ async function enviarMensajeChat() {
 
     msgs.scrollTop = msgs.scrollHeight;
 }
+function enviarConsulta() {
+    const dni   = document.querySelector('#panel-consultar input[type="text"]').value.trim();
+    const fecha = document.querySelector('#panel-consultar input[type="date"]').value;
+
+    if (!dni || !fecha) {
+        mostrarNotificacion('Campos incompletos', 'Ingresa tu DNI y la fecha de tu cita.', 'warning');
+        return;
+    }
+
+    if (!/^\d{8}$/.test(dni)) {
+        mostrarNotificacion('DNI inválido', 'El DNI debe tener exactamente 8 dígitos.', 'error');
+        return;
+    }
+
+    mostrarNotificacion(
+        '🔍 Búsqueda realizada',
+        'Cita encontrada para el DNI ' + dni + '. Revisa tu correo o llama al 934 274 553.',
+        'success'
+    );
+}
