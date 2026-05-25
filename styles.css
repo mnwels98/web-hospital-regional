@@ -843,3 +843,51 @@ footer .footer-legal {
     opacity: 1;
     transform: translateY(0);
 }
+css
+/* Contenedor principal que cubre toda la pantalla */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Oculto por defecto */
+    pointer-events: none; /* No se puede clickear mientras esté oculto */
+    transition: opacity 0.3s ease;
+}
+
+/* Clase activa que agregaremos con JavaScript para mostrar el modal */
+.custom-modal-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* La tarjeta blanca central */
+.custom-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de cerrar (X) */
+.custom-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+}
+
+.custom-modal-close:hover {
+    color: #000;
+}
