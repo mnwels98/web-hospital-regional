@@ -364,3 +364,124 @@ async function enviarMensajeChat() {
 
     msgs.scrollTop = msgs.scrollHeight;
 }
+
+
+/**
+ * ============================================================================
+ * SISTEMA DE CONVOCATORIAS - HOSPITAL REGIONAL ELEAZAR GUZMÁN BARRÓN
+ * ============================================================================
+ */
+
+// ==========================================
+// 1. INICIALIZACIÓN (Cuando el DOM carga)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    configurarBuscador();
+});
+
+// ==========================================
+// 2. MÓDULO DE BÚSQUEDA
+// ==========================================
+function configurarBuscador() {
+    const buscador = document.getElementById('buscadorProcesos');
+    
+    // Protección: Si no existe el buscador en la página actual, salimos de la función
+    if (!buscador) return; 
+
+    buscador.addEventListener('keyup', (e) => {
+        const textoBusqueda = e.target.value.toLowerCase();
+        const filas = document.querySelectorAll('.filas-procesos tr');
+
+        filas.forEach(fila => {
+            const textoFila = fila.textContent.toLowerCase();
+            // Operador ternario: si incluye el texto, se muestra; si no, se oculta (display: none)
+            fila.style.display = textoFila.includes(textoBusqueda) ? '' : 'none';
+        });
+    });
+}
+
+// ==========================================
+// 3. MÓDULO DE PESTAÑAS (TABS)
+// ==========================================
+function cambiarPestana(evento, idPestana) {
+    // 3.1. Limpiar todos los estados 'active' previos
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+    // 3.2. Aplicar el estado 'active' al botón presionado
+    evento.currentTarget.classList.add('active');
+
+    // 3.3. Mostrar el contenido de la pestaña correspondiente
+    const contenidoSeleccionado = document.getElementById(idPestana);
+    if (contenidoSeleccionado) {
+        contenidoSeleccionado.classList.add('active');
+    }
+}
+
+// ==========================================
+// 4. MÓDULO DE VISTA MAESTRO-DETALLE
+// ==========================================
+function verPostulantes(nombreProceso) {
+    alternarVistas('vista-procesos', 'vista-resultados');
+    
+    // Actualizamos el título dinámicamente
+    const titulo = document.getElementById('titulo-resultados');
+    if (titulo) {
+        titulo.innerText = `Resultados del Proceso: ${nombreProceso}`;
+    }
+
+    // Inyectamos los datos en la tabla
+    generarPostulantes(nombreProceso);
+}
+
+function volverAProcesos() {
+    alternarVistas('vista-resultados', 'vista-procesos');
+}
+
+// Función auxiliar para no repetir código de ocultar/mostrar
+function alternarVistas(idOcultar, idMostrar) {
+    document.getElementById(idOcultar).classList.add('hidden');
+    document.getElementById(idMostrar).classList.remove('hidden');
+}
+
+// ==========================================
+// 5. MÓDULO DE GENERACIÓN DE DATOS (MOCK DATA)
+// ==========================================
+function generarPostulantes(proceso) {
+    const cuerpoTabla = document.getElementById('cuerpoResultados');
+    if (!cuerpoTabla) return;
+    
+    // Limpiamos registros anteriores
+    cuerpoTabla.innerHTML = ''; 
+
+    // Bases de datos ficticias
+    const nombres = ["Juan Pérez", "Ana García", "Luis Torres", "María López", "Carlos Díaz", "Elena Ruiz", "Jorge Soto", "Lucía Vega"];
+    const cargosMedicos = ["Médico Cirujano", "Médico Pediatra"];
+    const cargosEnfermeria = ["Enfermera UCI", "Enfermera General"];
+    const cargosAdmin = ["Administrativo", "Soporte TI"];
+
+    // Asignar el cargo lógico según el nombre del proceso
+    let cargosAsignados = cargosAdmin;
+    if (proceso.includes("Médico") || proceso.includes("Cirujanos")) cargosAsignados = cargosMedicos;
+    if (proceso.includes("Enfermería") || proceso.includes("UCI")) cargosAsignados = cargosEnfermeria;
+
+    // Generar 8 registros dinámicos
+    for (let i = 0; i < 8; i++) {
+        const nombre = nombres[i];
+        const cargo = cargosAsignados[Math.floor(Math.random() * cargosAsignados.length)];
+        const aprobo = Math.random() > 0.4; // 60% de probabilidad de aprobar
+
+        // Creamos la fila HTML
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${nombre}</td>
+            <td>${cargo}</td>
+            <td>
+                <span class="${aprobo ? 'badge-aprobado' : 'badge-rechazado'}">
+                    ${aprobo ? 'APTO / APROBADO' : 'NO APTO'}
+                </span>
+            </td>
+        `;
+        cuerpoTabla.appendChild(fila);
+    }
+}
