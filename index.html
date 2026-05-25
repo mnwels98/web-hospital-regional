@@ -167,61 +167,57 @@
            <div class="panel" id="panel-solicitar">
                 <h4>📅 Solicitar cita médica</h4>
                 <form id="form-cita" novalidate>
-                
                     <div class="form-row">
-                    <div class="form-group">
-                        <label for="nombre-paciente">Nombre completo</label>
-                        <input type="text" id="nombre-paciente" placeholder="Ej: Juan Pérez López">
+                        <div class="form-group">
+                            <label for="nombre-paciente">Nombre completo</label>
+                            <input type="text" id="nombre-paciente" placeholder="Ingresa tu nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="dni-paciente">DNI</label>
+                            <input type="text" id="dni-paciente" placeholder="Ingresa tu DNI" maxlength="8">
+                            <span class="dni-counter" id="dni-counter">0/8 dígitos</span>
+                            <span class="error-field" id="error-dni">⚠️ El DNI debe tener exactamente 8 números.</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dni-paciente">DNI</label>
-                        <input type="text" id="dni-paciente" placeholder="Ej: 12345678" maxlength="8">
-                        <span class="dni-counter" id="dni-counter">0/8 dígitos</span>
-                        <span class="error-field" id="error-dni">⚠️ El DNI debe tener exactamente 8 números.</span>
-                    </div>
-                    </div>
-                
                     <div class="form-row">
-                    <div class="form-group">
-                        <label for="select-especialidad">Especialidad</label>
-                        <select id="select-especialidad">
-                        <option value="">-- Selecciona --</option>
-                        <option value="Medicina General">Medicina General</option>
-                        <option value="Pediatría">Pediatría</option>
-                        <option value="Cardiología">Cardiología</option>
-                        <option value="Neurología">Neurología</option>
-                        <option value="Traumatología">Traumatología</option>
-                        <option value="Oftalmología">Oftalmología</option>
-                        <option value="Nefrología">Nefrología</option>
-                        <option value="Psicología">Psicología</option>
-                        <option value="Urología">Urología</option>
-                        <option value="Cirugía">Cirugía</option>
-                        </select>
+                        <div class="form-group">
+                            <label for="select-especialidad">Especialidad</label>
+                            <select id="select-especialidad">
+                                <option value="">-- Selecciona --</option>
+                                <option value="Medicina General">Medicina General</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Cardiología">Cardiología</option>
+                                <option value="Neurología">Neurología</option>
+                                <option value="Traumatología">Traumatología</option>
+                                <option value="Oftalmología">Oftalmología</option>
+                                <option value="Nefrología">Nefrología</option>
+                                <option value="Psicología">Psicología</option>
+                                <option value="Urología">Urología</option>
+                                <option value="Cirugía">Cirugía</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="select-doctor">Doctor</label>
+                            <select id="select-doctor">
+                                <option value="">-- Primero elige especialidad --</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="select-doctor">Doctor</label>
-                        <select id="select-doctor">
-                        <option value="">-- Primero elige especialidad --</option>
-                        </select>
-                    </div>
-                    </div>
-                
                     <div class="form-row">
-                    <div class="form-group">
-                        <label for="fecha-cita">Fecha preferida</label>
-                        <input type="date" id="fecha-cita">
-                        <span class="error-field" id="error-fecha">⚠️ La fecha no puede ser en el pasado.</span>
+                        <div class="form-group">
+                            <label for="fecha-cita">Fecha preferida</label>
+                            <input type="date" id="fecha-cita">
+                            <span class="error-field" id="error-fecha">⚠️ La fecha no puede ser en el pasado.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-paciente">Teléfono de contacto</label>
+                            <input type="tel" id="telefono-paciente" placeholder="Ingresa tu teléfono" maxlength="9">
+                            <span class="error-field" id="error-tel">⚠️ El teléfono debe tener 9 dígitos.</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="telefono-paciente">Teléfono de contacto</label>
-                        <input type="tel" id="telefono-paciente" placeholder="Ej: 987654321" maxlength="9">
-                        <span class="error-field" id="error-tel">⚠️ El teléfono debe tener 9 dígitos.</span>
-                    </div>
-                    </div>
-                
                     <button type="submit" class="btn-enviar" id="btn-enviar-cita" disabled>Enviar solicitud</button>
                 </form>
-                </div>
+            </div>
 
             <div class="panel" id="panel-consultar">
                 <h4>🔍 Consultar cita programada</h4>
