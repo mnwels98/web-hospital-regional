@@ -22,20 +22,109 @@ document.addEventListener("DOMContentLoaded", function() {
 // ========================================== 
 const HOSPITAL_DATA = {
     especialidades: [
-        { id: 1, nombre: "Pediatría", descripcion: "Atención médica integral para bebés, niños y adolescentes.", icono: "👶", sintomas: ["niño", "bebe", "fiebre", "vacunas", "crecimiento", "tos", "vomito", "pediatra", "desarrollo", "infantil"] },
-        { id: 2, nombre: "Cardiología", descripcion: "Prevención, diagnóstico y tratamiento de enfermedades del corazón y presión arterial.", icono: "❤️", sintomas: ["corazon", "pecho", "presion", "taquicardia", "infarto", "palpitaciones", "fatiga", "dolor de pecho", "soplo"] },
-        { id: 3, nombre: "Traumatología", descripcion: "Especialistas en lesiones del aparato locomotor, huesos, articulaciones y fracturas.", icono: "🦴", sintomas: ["hueso", "fractura", "esguince", "dolor de espalda", "caida", "rodilla", "golpe", "columna", "yeso"] },
-        { id: 4, nombre: "Ginecología y Obstetricia", descripcion: "Cuidado integral de la salud de la mujer, control del embarazo y parto.", icono: "🤰", sintomas: ["embarazo", "mujer", "parto", "control", "utero", "menstruacion", "ovarios", "gestante"] },
-        { id: 5, nombre: "Medicina Interna", descripcion: "Atención integral del adulto, diagnóstico de enfermedades complejas y crónicas.", icono: "🩺", sintomas: ["fiebre", "diabetes", "hipertension", "chequeo", "dolor general", "infeccion", "adulto", "cronico"] },
-        { id: 6, nombre: "Gastroenterología", descripcion: "Especialistas en enfermedades del aparato digestivo, estómago e intestinos.", icono: "🤢", sintomas: ["estomago", "gastritis", "dolor de panza", "vómito", "diarrea", "acidez", "reflujo", "colon", "higado"] },
-        { id: 7, nombre: "Oftalmología", descripcion: "Cuidado de la visión, diagnóstico y tratamiento de enfermedades oculares.", icono: "👁️", sintomas: ["ojos", "vista", "lentes", "borroso", "ceguera", "medida", "miopia", "catarata", "ardor"] },
-        { id: 8, nombre: "Neurología", descripcion: "Tratamiento de trastornos del sistema nervioso y el cerebro.", icono: "🧠", sintomas: ["cerebro", "migraña", "dolor de cabeza", "paralisis", "convulsion", "mareo", "olvido", "nervios"] },
-        { id: 9, nombre: "Urología", descripcion: "Atención del sistema urinario en general y del aparato reproductor masculino.", icono: "💧", sintomas: ["orina", "riñon", "prostata", "vejiga", "calculos", "dolor al orinar", "varon", "hombre"] }
+        { 
+            id: 1, 
+            nombre: "Pediatría", 
+            descripcion: "Atención médica integral para bebés, niños y adolescentes.", 
+            icono: "👶", 
+            sintomas: ["nino", "bebe", "fiebre", "vacunas", "crecimiento", "tos", "vomito", "pediatra", "desarrollo", "infantil", "control de crecimiento", "lactancia", "estimulacion"] 
+        },
+        { 
+            id: 2, 
+            nombre: "Cardiología", 
+            descripcion: "Prevención, diagnóstico y tratamiento de enfermedades del corazón y presión arterial.", 
+            icono: "❤️", 
+            sintomas: ["corazon", "pecho", "presion", "taquicardia", "infarto", "palpitaciones", "fatiga", "dolor de pecho", "soplo", "hipertension", "arritmia", "agitacion"] 
+        },
+        { 
+            id: 3, 
+            nombre: "Traumatología", 
+            descripcion: "Especialistas en lesiones del aparato locomotor, huesos, articulaciones y fracturas.", 
+            icono: "🦴", 
+            sintomas: ["hueso", "fractura", "esguince", "dolor de espalda", "caida", "rodilla", "golpe", "columna", "yeso", "articulacion", "esguince", "dislocacion", "luxacion", "cintura"] 
+        },
+        { 
+            id: 4, 
+            nombre: "Ginecología y Obstetricia", 
+            descripcion: "Cuidado integral de la salud de la mujer, control del embarazo y parto.", 
+            icono: "🤰", 
+            sintomas: ["embarazo", "mujer", "parto", "control", "utero", "menstruacion", "ovarios", "gestante", "reproduccion", "quistes", "flujo", "cesarea", "papanicolau"] 
+        },
+        { 
+            id: 5, 
+            nombre: "Medicina Interna", 
+            descripcion: "Atención integral del adulto, diagnóstico de enfermedades complejas y crónicas.", 
+            icono: "🩺", 
+            sintomas: ["fiebre", "diabetes", "hipertension", "chequeo", "dolor general", "infeccion", "adulto", "cronico", "malestar عمومی", "fatiga"] 
+        },
+        { 
+            id: 6, 
+            nombre: "Gastroenterología", 
+            descripcion: "Especialistas en enfermedades del aparato digestivo, estómago e intestinos.", 
+            icono: "🤢", 
+            sintomas: ["estomago", "gastritis", "dolor de panza", "dolor de barriga", "vomito", "diarrea", "acidez", "reflujo", "colon", "higado", "vesicula", "estreñimiento", "gases", "indigestion", "intoxicacion"] 
+        },
+        { 
+            id: 7, 
+            nombre: "Oftalmología", 
+            descripcion: "Cuidado de la visión, diagnóstico y tratamiento de enfermedades oculares.", 
+            icono: "👁️", 
+            sintomas: ["ojos", "vista", "lentes", "borroso", "ceguera", "medida", "miopia", "catarata", "ardor", "conjuntivitis", "lagañas", "parpado", "orzuelo"] 
+        },
+        { 
+            id: 8, 
+            nombre: "Neurología y Neurocirugía", 
+            descripcion: "Tratamiento médico y quirúrgico de trastornos del sistema nervioso y el cerebro.", 
+            icono: "🧠", 
+            sintomas: ["cerebro", "migraña", "dolor de cabeza", "paralisis", "convulsion", "mareo", "olvido", "nervios", "derrame", "epilepsia", "tirones", "columna", "adormecimiento"] 
+        },
+        { 
+            id: 9, 
+            nombre: "Urología", 
+            descripcion: "Atención del sistema urinario en general y del aparato reproductor masculino.", 
+            icono: "💧", 
+            sintomas: ["orina", "riñon", "prostata", "vejiga", "calculos", "dolor al orinar", "varon", "hombre", "testiculo", "infeccion urinaria", "mal de orina"] 
+        },
+        { 
+            id: 10, 
+            nombre: "Neumología", 
+            descripcion: "Especialistas en enfermedades del sistema respiratorio y los pulmones.", 
+            icono: "🫁", 
+            sintomas: ["pulmon", "asma", "tos", "resfriado", "gripe", "ahogo", "flema", "bronquios", "neumonia", "bronquitis", "respirar", "pecho congestionado"] 
+        },
+        { 
+            id: 11, 
+            nombre: "Dermatología", 
+            descripcion: "Diagnóstico y tratamiento de afecciones de la piel, cabello y uñas.", 
+            icono: "✨", 
+            sintomas: ["piel", "manchas", "acne", "granitos", "alergia", "ronchas", "hongo", "caspa", "caida de cabello", "comezon", "picazon", "quemadura", "uñero"] 
+        },
+        { 
+            id: 12, 
+            nombre: "Otorrinolaringología", 
+            descripcion: "Especialistas en oído, nariz, senos paranasales y garganta.", 
+            icono: "👂", 
+            sintomas: ["oido", "nariz", "garganta", "dolor de garganta", "ronquera", "amigdalas", "sordera", "zumbido", "gripe", "resfriado", "congestion nasal", "sinusitis", "sangrado de nariz"] 
+        },
+        { 
+            id: 13, 
+            nombre: "Endocrinología", 
+            descripcion: "Estudio y tratamiento del sistema endocrino, hormonas y metabolismo.", 
+            icono: "⚖️", 
+            sintomas: ["diabetes", "tiroides", "hormonas", "obesidad", "peso", "bajar de peso", "colesterol", "trigliceridos", "crecimiento"] 
+        },
+        { 
+            id: 14, 
+            nombre: "Psiquiatría", 
+            descripcion: "Evaluación, diagnóstico y tratamiento de trastornos de la salud mental.", 
+            icono: "🧘", 
+            sintomas: ["ansiedad", "depresion", "estres", "sueño", "insomnio", "animo", "panico", "mente", "psicosis", "tristeza", "bipolaridad"] 
+        }
     ]
 };
 
 // Conectores comunes en español que debemos ignorar en las búsquedas
-const STOP_WORDS = ["de", "del", "el", "la", "los", "las", "un", "una", "con", "en", "por", "para", "me", "duele", "tengo", "dolor"];
+const STOP_WORDS = ["de", "del", "el", "la", "los", "las", "un", "una", "con", "en", "por", "para", "me", "duele", "tengo", "dolor", "siento", "fuerte", "mucho", "mi", "mis"];
 
 // ========================================== 
 // LÓGICA INTERACTIVA AVANZADA
@@ -95,16 +184,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Dividir la frase en palabras individuales y filtrar las que no aportan valor (Stopwords)
+        // Dividir la frase en palabras individuales y filtrar Stopwords
         const searchTerms = cleanQuery.split(/\s+/).filter(word => !STOP_WORDS.includes(word) && word.length > 1);
 
-        // Si el filtro limpió todo (ej: si escribe "de el"), usamos la query original para no romper nada
+        // Si el filtro limpió todo, usamos la query original para no romper nada
         const finalTerms = searchTerms.length > 0 ? searchTerms : [cleanQuery];
 
         const filtered = HOSPITAL_DATA.especialidades.filter(item => {
             const nombreLimpio = cleanText(item.nombre);
             
-            // Evaluar si alguno de los términos clave ingresados coincide con la especialidad o síntomas
             return finalTerms.some(term => {
                 const matchNombre = nombreLimpio.includes(term);
                 const matchSintomas = item.sintomas.some(sintoma => cleanText(sintoma).includes(term));
@@ -119,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderSpecialties(list) {
         specialtiesGrid.innerHTML = "";
         if (list.length === 0) {
-            specialtiesGrid.innerHTML = `<div class="no-results">🔍 No encontramos una coincidencia exacta. Prueba escribiendo palabras directas como "ojo", "estómago" o "cabeza".</div>`;
+            specialtiesGrid.innerHTML = `<div class="no-results">🔍 No encontramos una coincidencia exacta. Prueba escribiendo palabras directas como "ojo", "garganta", "barriga" o "cabeza".</div>`;
             return;
         }
 
@@ -136,9 +224,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Evento para abrir el flujo de citas al hacer clic en la tarjeta
             card.addEventListener("click", () => {
-                searchModal.classList.remove("active"); // Cerramos el buscador
-                selectedSpecialtyInput.value = item.nombre; // Precargamos la especialidad
-                appointmentModal.classList.add("active"); // Abrimos el formulario de citas
+                searchModal.classList.remove("active"); 
+                selectedSpecialtyInput.value = item.nombre; 
+                appointmentModal.classList.add("active"); 
             });
 
             specialtiesGrid.appendChild(card);
