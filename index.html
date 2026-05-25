@@ -72,14 +72,49 @@
                         
                         <div class="search-header">
                             <h3>Búsqueda Inteligente por Síntomas</h3>
-                            <p>Escribe tu síntoma (ej: "fiebre", "niño", "pecho") para encontrar la especialidad médica adecuada.</p>
+                            <p>Escribe lo que sientes o la población a atender. ¡Haz clic en la tarjeta para separar tu cita!</p>
                         </div>
                         
                         <div class="search-input-container">
-                            <input type="text" id="search-input" placeholder="Escribe un síntoma aquí..." autocomplete="off">
+                            <input type="text" id="search-input" placeholder="Ej: dolor de pecho, dolor de cabeza, gastritis, niño..." autocomplete="off">
                         </div>
 
                         <div id="specialties-grid" class="specialties-grid"></div>
+                    </div>
+                </div>
+
+                <div id="appointment-modal" class="modal-overlay">
+                    <div class="modal-content modal-form-content">
+                        <button id="close-appointment-btn" class="modal-close">&times;</button>
+                        
+                        <div class="form-header">
+                            <h3>Solicitud de Cita Médica</h3>
+                            <p>Completa tus datos para pre-agendar tu atención preferencial.</p>
+                        </div>
+
+                        <form id="appointment-form" class="appointment-form">
+                            <div class="form-group">
+                                <label for="selected-specialty">Especialidad Asignada:</label>
+                                <input type="text" id="selected-specialty" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patient-name">Nombre y Apellidos del Paciente:</label>
+                                <input type="text" id="patient-name" placeholder="Ej. Juan Pérez López" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patient-phone">Número de Celular:</label>
+                                <input type="tel" id="patient-phone" placeholder="Ej. 987654321" required pattern="[0-9]{9}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="appointment-date">Fecha Deseada Tentativa:</label>
+                                <input type="date" id="appointment-date" required>
+                            </div>
+
+                            <button type="submit" class="btn-submit-appointment">Confirmar Solicitud de Cita</button>
+                        </form>
                     </div>
                 </div>
 
