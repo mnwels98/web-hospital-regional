@@ -413,27 +413,30 @@ function enviarConsulta() {
 
 }
 
-// ==========================================
-// MISIÓN ALYSON: LÓGICA DEL MODAL PACIENTE
-// ==========================================
-
+// ========================================================
+// FUNCIONALIDAD: MODAL PORTAL DEL PACIENTE (ALYSON)
+// ========================================================
 const modalPaciente = document.getElementById('modalPaciente');
-const btnAbrirModal = document.getElementById('btnPortalPaciente');
+const botonesAbrir = document.querySelectorAll('.btn-abrir-modal');
 const btnCerrarModal = document.getElementById('closeModal');
 
-if (btnAbrirModal && modalPaciente) {
-    btnAbrirModal.addEventListener('click', (e) => {
-        e.preventDefault(); // Evita que la página salte o se recargue
-        modalPaciente.classList.add('is-active'); // Agrega la clase CSS que lo hace visible
+// Escuchar clics en los botones asignados
+botonesAbrir.forEach(boton => {
+    boton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (modalPaciente) {
+            modalPaciente.classList.add('is-active'); // Despierta el modal
+        }
     });
-}
+});
 
+// Cerrar el modal con la X
 if (btnCerrarModal && modalPaciente) {
     btnCerrarModal.addEventListener('click', () => {
-        modalPaciente.classList.remove('is-active'); // Quita la clase y se vuelve a ocultar
+        modalPaciente.classList.remove('is-active');
     });
 
-    // 4. CORRECCIÓN DE BUG: Cerrar también si el usuario hace clic en el fondo oscuro
+    // Cerrar si hace clic en el espacio negro de afuera
     window.addEventListener('click', (e) => {
         if (e.target === modalPaciente) {
             modalPaciente.classList.remove('is-active');
