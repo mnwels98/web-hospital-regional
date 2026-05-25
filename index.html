@@ -299,6 +299,43 @@
         </div>
     </footer>
 
+    <button id="chat-btn" class="chat-flotante-btn" onclick="toggleChat()" aria-label="Abrir chat de asistencia">
+    <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+    </svg>
+    <div class="chat-badge">1</div>
+    </button>
+    
+    <!-- Ventana del chat -->
+    <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+        <div class="chat-header-left">
+        <div class="chat-avatar">🏥</div>
+        <div>
+            <h4>Asistente HEGB</h4>
+            <p>IA disponible 24/7</p>
+        </div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
+    </div>
+    
+    <div class="chat-messages" id="chat-messages">
+        <div class="msg-chat bot-msg">¡Hola! 👋 Soy el asistente virtual del Hospital Regional EGB. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    
+    <div class="chat-sugerencias">
+        <button class="sugerencia" onclick="preguntaRapida('¿Cuáles son los horarios de atención?')">Horarios</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Qué especialidades tienen?')">Especialidades</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Cómo saco una cita?')">Citas</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Cuál es la dirección?')">Dirección</button>
+    </div>
+    
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter') enviarMensajeChat()">
+        <button class="chat-send" onclick="enviarMensajeChat()" aria-label="Enviar">&#10148;</button>
+    </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="scripts.js"></script>
