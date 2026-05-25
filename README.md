@@ -16,7 +16,7 @@ A diferencia de un sitio estático tradicional, esta versión incorpora lógica 
 * **Hinostroza Melo Diego Jeanpiere - 0202414019** - (Arquitecto de Software, Integración Global y Gestión del Repositorio `main`)
 * **Rojas León Ángel Edmundo - 0202414044** - (Desarrollo de Tabla Dinámica de Convocatorias [`feat-js-convocatorias`])
 * **Giraldo Barreto Eddy Joseph - 0202114032** - (Desarrollo de Buscador de Especialidades por Síntomas [`feat-js-filtros`])
-* **Ávila Robles Jorge Royser - 0202414003** - (Desarrollo de Formulario Inteligente y Validación de Citas [`feat-js-citas`])
+* **Avila Robles Jorge Royser - 0202414003** - (Desarrollo de Formulario Inteligente y Validación de Citas [`feat-js-citas`])
 * **Moreno Carranza Alyson Gianella - 0202414030** - (Desarrollo de Modales de Acceso y Libro de Reclamaciones [`feat-js-modales`])
 
 ## 🛠️ Tecnologías Utilizadas
