@@ -1664,19 +1664,19 @@ nav ul li.dropdown:hover .dropdown-menu {
         background-color: rgba(255,255,255,0.15) !important; white-space: nowrap !important;
     }
 
-    /* 3. EL TRUCO: El submenú de Eddy ahora es un Popup en el centro de la pantalla */
+    /* 3. EL TRUCO: El submenú escapa, pero lo pegamos justo debajo del botón */
     nav ul li ul {
         display: none !important; 
-        position: fixed !important; /* Escapa de la barra azul */
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important; /* Centrado perfecto */
+        position: fixed !important; 
+        top: 160px !important; /* Lo subimos justo debajo de la franja azul */
+        left: 15px !important; /* Lo alineamos a la izquierda con el botón 'Nosotros' */
         z-index: 99999 !important;
         background: #ffffff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; /* Sombra de ventana emergente */
-        width: 220px !important;
-        padding: 10px 0 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; 
+        width: 180px !important;
+        padding: 5px 0 !important;
+        border: 1px solid #e0e0e0 !important; /* Un bordecito fino para que se vea elegante */
     }
 
     /* Aparece al tocar 'Nosotros' */
