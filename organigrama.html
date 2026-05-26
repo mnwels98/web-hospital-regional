@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organigrama | Hospital Regional Eleazar Guzmán Barrón</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="Logo Hospital Regional" width="60">
+            <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
+        </div>
+ 
+        <div class="header-search-trigger">
+            <button id="open-search-btn" title="Buscar especialidad por síntomas">🔍 Buscar Síntomas</button>
+        </div>
+ 
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="index.html#nosotros">Nosotros ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="resena-historica.html">Reseña Histórica</a></li>
+                        <li><a href="mision-vision.html">Misión y Visión</a></li>
+                        <li><a href="directivos.html">Directivos</a></li>
+                        <li><a href="organigrama.html">Organigrama</a></li>
+                        <li><a href="directorio.html">Directorio</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#servicios">Especialidades</a></li>
+                <li><a href="index.html#contacto">Contacto y Citas</a></li>
+                <li><a href="index.html#pacientes">Atención al Paciente</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Inicio</a> / 
+                    <a href="index.html#nosotros">Nosotros</a> / 
+                    <span>Organigrama</span>
+                </div>
+                <h1>Organigrama Institucional</h1>
+                <p class="hero-subtitle">Estructura organizacional del Hospital Regional</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="content-container">
+                <div class="org-chart-shell">
+                    <div class="org-chart">
+                        <div class="org-node org-root">Dirección Ejecutiva</div>
+                        <div class="org-node">Órgano de Control Institucional</div>
+
+                        <div class="org-block">
+                            <div class="org-node org-package">Oficina de Administración</div>
+                            <div class="org-children">
+                                <div class="org-node">Unidad de Economía</div>
+                                <div class="org-node">Unidad de Logística</div>
+                                <div class="org-node">Unidad de Personal</div>
+                                <div class="org-node">Unidad de Servicios Generales y Mantenimiento</div>
+                            </div>
+                        </div>
+
+                        <div class="org-block">
+                            <div class="org-node org-package">Oficina de Planeamiento Estratégico</div>
+                            <div class="org-children">
+                                <div class="org-node">Unidad de Gestión de la Calidad</div>
+                                <div class="org-node">Unidad de Epidemiología y Salud Ambiental</div>
+                                <div class="org-node">Unidad de Estadística e Informática</div>
+                                <div class="org-node">Unidad de Seguros</div>
+                                <div class="org-node">Unidad de Apoyo a Docencia e Investigación</div>
+                            </div>
+                        </div>
+
+                        <div class="org-node org-department">Departamento de Medicina</div>
+                        <div class="org-node org-department">Departamento de Cirugía</div>
+                        <div class="org-node org-department">Departamento de Pediatría</div>
+                        <div class="org-node org-department">Departamento de Ginecología y Obstetricia</div>
+                        <div class="org-node org-department">Departamento de Patología Clínica y Anatomía Patológica</div>
+                        <div class="org-node org-department">Departamento de Anestesiología y Centro Quirúrgico</div>
+                        <div class="org-node org-department">Departamento de Enfermería</div>
+                        <div class="org-node org-department">Departamento de Apoyo al Tratamiento</div>
+                        <div class="org-node org-department">Departamento de Diagnóstico por Imágenes</div>
+                        <div class="org-node org-department">Departamento de Consultorios Externos y Hospitalización</div>
+                        <div class="org-node org-department">Departamento de Farmacia</div>
+                        <div class="org-node org-department">Departamento de Odontoestomatología</div>
+                        <div class="org-node org-department">Departamento de Emergencia y Cuidados Críticos</div>
+                    </div>
+                </div>
+
+                <div class="org-info">
+                    <h3>Estructura Organizacional</h3>
+                    <p>La organización del Hospital Regional Eleazar Guzmán Barrón está diseñada para garantizar atención médica segura, eficiente y coordinada en todas las áreas. La estructura facilita la comunicación, la toma de decisiones y la provisión de servicios de salud de calidad.</p>
+                    
+                    <h4>Niveles Organizacionales:</h4>
+                    <ul class="org-levels">
+                        <li><strong>Nivel Ejecutivo:</strong> Dirección general y órganos de control</li>
+                        <li><strong>Oficinas Administrativas:</strong> Administración y planeamiento estratégico</li>
+                        <li><strong>Departamentos Clínicos:</strong> Servicios de salud especializados</li>
+                        <li><strong>Unidades de Apoyo:</strong> Servicios complementarios y support</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
+            <p>📍 Av. Brasil S/N, Distrito de Nuevo Chimbote</p>
+        </div>
+        <div class="footer-legal">
+            <p>© <span id="year"></span> - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
