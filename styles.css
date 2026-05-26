@@ -25,6 +25,289 @@ html {
 }
 
 /* ========================================== */
+/* ESTILOS BASE PARA PÁGINAS INTERNAS        */
+/* ========================================== */
+.page-hero {
+    padding: 42px 20px 28px;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #dbeafe 100%);
+    border-bottom: 1px solid #dbe7f1;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.breadcrumb a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.page-hero h1 {
+    font-size: clamp(1.8rem, 2vw + 1rem, 2.4rem);
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    color: #334155;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.content-section {
+    padding: 36px 20px 60px;
+    background-color: #f4f7f6;
+}
+
+.content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.content-main,
+.content-sidebar {
+    min-width: 0;
+}
+
+.content-card,
+.sidebar-card,
+.org-info {
+    background-color: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #dbe7f1;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.content-card {
+    padding: 30px;
+}
+
+.content-card h2,
+.content-card h3,
+.org-info h3,
+.org-info h4 {
+    color: #0f172a;
+}
+
+.content-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+}
+
+.content-card h3 {
+    font-size: 1.2rem;
+    margin: 24px 0 10px;
+}
+
+.content-card p,
+.org-info p,
+.sidebar-card p,
+.org-levels {
+    color: #334155;
+    line-height: 1.7;
+}
+
+.content-card p {
+    margin-bottom: 14px;
+    text-align: justify;
+}
+
+.content-figure {
+    margin: 0 0 18px;
+}
+
+.content-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    display: block;
+}
+
+.content-figure figcaption {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.history-list {
+    padding-left: 20px;
+    margin: 12px 0 0;
+}
+
+.history-list li {
+    margin-bottom: 8px;
+}
+
+.content-sidebar {
+    display: grid;
+    gap: 16px;
+}
+
+.sidebar-card {
+    padding: 20px;
+}
+
+.sidebar-card h4 {
+    color: #0f172a;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.org-info {
+    padding: 24px;
+}
+
+.org-info h3 {
+    margin-bottom: 12px;
+}
+
+.org-info h4 {
+    margin: 20px 0 10px;
+}
+
+.org-levels {
+    padding-left: 20px;
+}
+
+.org-levels li {
+    margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+    .page-hero {
+        padding: 36px 14px 22px;
+    }
+
+    .content-section {
+        padding: 28px 14px 48px;
+    }
+
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-hero {
+        padding: 28px 12px 18px;
+    }
+
+    .page-hero h1 {
+        font-size: 1.45rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.98rem;
+    }
+
+    .content-card {
+        padding: 22px;
+    }
+
+    .sidebar-card {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 16px;
+    }
+
+    header .logo-container {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    header .logo-container h1 {
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+    .header-search-trigger {
+        width: 100%;
+    }
+
+    .header-search-trigger button {
+        width: 100%;
+        justify-content: center;
+        padding: 7px 14px;
+        font-size: 0.9rem;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 8px 10px;
+    }
+
+    nav ul li a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 10px;
+        line-height: 1.1;
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    header .logo-container {
+        gap: 10px;
+    }
+
+    header .logo-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    header .logo-container h1 {
+        font-size: 0.9rem;
+    }
+
+    nav ul {
+        gap: 6px;
+    }
+
+    nav ul li a {
+        font-size: 0.84rem;
+        padding: 6px 8px;
+    }
+}
+
+/* ========================================== */
 /* ZONA DE DIEGO - HEADER Y NAVEGACIÓN        */
 /* ========================================== */
 header {
@@ -495,476 +778,6 @@ nav ul li.dropdown:hover .dropdown-menu {
     color: #334155;
     margin-bottom: 12px;
     text-align: justify;
-}
-
-/* Directivos moderno */
-.directivos-shell {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.directivos-hero {
-    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #dbeafe 100%);
-    border: 1px solid #cfe0f7;
-    border-radius: 24px;
-    padding: 22px 22px 20px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-}
-
-.directivos-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: rgba(0, 86, 179, 0.08);
-    color: #0056b3;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.directivos-hero h2 {
-    color: #0f172a;
-    font-size: 1.8rem;
-    margin: 12px 0 10px;
-}
-
-.directivos-hero p {
-    margin: 0 0 16px;
-    color: #334155;
-    font-size: 0.98rem;
-    line-height: 1.6;
-}
-
-.directivos-pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.directivos-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    color: #0f172a;
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.directivos-section-block {
-    background: rgba(248, 251, 255, 0.9);
-    border: 1px solid #dbe7f1;
-    border-radius: 24px;
-    padding: 20px;
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
-}
-
-.section-title-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.section-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #dbeafe, #eff6ff);
-    font-size: 1.2rem;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-}
-
-.eyebrow {
-    color: #0056b3;
-    font-size: 0.8rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 2px;
-}
-
-.section-title-row h3 {
-    margin: 0;
-    color: #0f172a;
-    font-size: 1.1rem;
-}
-
-.directivos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-}
-
-.directivos-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 18px;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248, 250, 252, 0.95));
-    border: 1px solid #dbe7f1;
-    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
-    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    overflow: hidden;
-}
-
-.directivos-card::after {
-    content: "";
-    position: absolute;
-    inset: auto auto 0 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #60a5fa, #0056b3);
-}
-
-.directivos-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 22px 34px rgba(15, 23, 42, 0.12);
-    border-color: #93c5fd;
-}
-
-.card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.directivos-avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0056b3 0%, #60a5fa 100%);
-    color: #ffffff;
-    box-shadow: 0 10px 20px rgba(0, 86, 179, 0.22);
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-}
-
-.card-badges {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-}
-
-.area-badge,
-.profession-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-align: center;
-}
-
-.area-badge {
-    background: #eff6ff;
-    color: #1d4ed8;
-}
-
-.profession-badge {
-    background: #0f172a;
-    color: #ffffff;
-}
-
-.directivos-card h4 {
-    margin: 0;
-    color: #0f172a;
-    font-size: 1rem;
-    line-height: 1.4;
-}
-
-.cargo {
-    margin: 0;
-    color: #0f172a;
-    font-weight: 700;
-    font-size: 0.95rem;
-}
-
-.email-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 2px;
-    color: #0f172a;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.88rem;
-    word-break: break-word;
-}
-
-.email-link:hover {
-    color: #0056b3;
-}
-
-.meta {
-    margin: 0;
-    color: #475569;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.card-icon {
-    align-self: flex-start;
-    font-size: 1.3rem;
-    margin-top: auto;
-}
-
-.directivos-summary {
-    color: #475569;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin: 0 0 18px;
-}
-
-.directivos-name-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 10px 18px;
-}
-
-.directivos-name-list li {
-    color: #0f172a;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: #ffffff;
-    border: 1px solid #dbe7f1;
-}
-
-.page-directivos-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-@media (max-width: 768px) {
-    .modal-directivos-content {
-        max-width: 100%;
-    }
-
-    .directivos-hero {
-        padding: 18px;
-    }
-
-    .directivos-hero h2 {
-        font-size: 1.5rem;
-    }
-
-    .page-hero {
-        padding: 36px 14px;
-    }
-
-    .content-section {
-        padding: 20px 12px;
-    }
-
-    .page-directivos-container {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        gap: 18px;
-    }
-
-    .directivos-section-block {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        padding: 14px;
-    }
-
-    .directivos-grid {
-        width: 100% !important;
-        max-width: 100%;
-        min-width: 0;
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .directivos-card {
-        width: 100% !important;
-        max-width: 100%;
-        min-width: 0;
-        padding: 14px;
-        gap: 8px;
-    }
-
-    .directivos-card h4 {
-        font-size: 0.95rem;
-        line-height: 1.35;
-    }
-
-    .cargo {
-        font-size: 0.9rem;
-    }
-
-    .meta {
-        display: none;
-    }
-
-    .card-top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .card-badges {
-        align-items: flex-start;
-    }
-
-    .email-link {
-        font-size: 0.82rem;
-    }
-
-    .card-icon {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 900px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 14px 16px;
-    }
-
-    header .logo-container {
-        width: 100%;
-        align-items: flex-start;
-    }
-
-    header .logo-container h1 {
-        font-size: 1rem;
-        line-height: 1.35;
-    }
-
-    .header-search-trigger {
-        width: 100%;
-    }
-
-    .header-search-trigger button {
-        width: 100%;
-        justify-content: center;
-        padding: 7px 14px;
-        font-size: 0.9rem;
-    }
-
-    nav {
-        width: 100%;
-    }
-
-    nav ul {
-        flex-wrap: wrap;
-        gap: 8px 10px;
-    }
-
-    nav ul li a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 7px 10px;
-        line-height: 1.1;
-        font-size: 0.92rem;
-    }
-}
-
-@media (max-width: 640px) {
-    header {
-        padding: 12px;
-        gap: 10px;
-    }
-
-    header .logo-container {
-        gap: 10px;
-    }
-
-    header .logo-container img {
-        width: 40px;
-        height: 40px;
-    }
-
-    header .logo-container h1 {
-        font-size: 0.9rem;
-    }
-
-    nav ul {
-        gap: 6px;
-    }
-
-    nav ul li a {
-        font-size: 0.84rem;
-        padding: 6px 8px;
-    }
-
-    .page-hero {
-        padding: 16px 12px 12px;
-    }
-
-    .breadcrumb {
-        display: none;
-    }
-
-    .page-hero h1 {
-        font-size: 1.2rem;
-        line-height: 1.25;
-        margin-bottom: 6px;
-    }
-
-    .hero-subtitle {
-        display: none;
-    }
-
-    .directivos-section-block {
-        padding: 12px;
-    }
-
-    .directivos-avatar {
-        width: 44px;
-        height: 44px;
-        font-size: 0.88rem;
-    }
-
-    .card-top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .card-badges {
-        align-items: flex-start;
-    }
-
-    .email-link {
-        font-size: 0.8rem;
-    }
-
-    .card-icon {
-        display: none;
-    }
 }
 
 /* Organigrama visual compacto */
