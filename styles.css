@@ -1638,7 +1638,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 }
 
 /* =========================================
-   PARCHE RESPONSIVO DE EMERGENCIA (MÓVILES)
+   PARCHE RESPONSIVO DE EMERGENCIA (MÓVILES) - VERSIÓN FINAL BLINDADA
    ========================================= */
 @media screen and (max-width: 768px) {
     /* 1. Achicamos el contenedor azul principal */
@@ -1650,7 +1650,7 @@ nav ul li.dropdown:hover .dropdown-menu {
         padding: 15px 10px !important;
     }
 
-    /* 2. Achicamos el título y logo para que no roben espacio */
+    /* 2. Achicamos el título y logo */
     header h1, .sidebar h1, .logo-text {
         font-size: 20px !important;
         margin-bottom: 10px !important;
@@ -1662,17 +1662,18 @@ nav ul li.dropdown:hover .dropdown-menu {
     /* 3. Menú deslizable (Swipe) horizontal tipo App */
     nav ul {
         display: flex !important;
-        flex-wrap: nowrap !important; /* Evita que salten a la segunda línea */
-        overflow-x: auto !important;  /* Activa el deslizamiento con el dedo */
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
         justify-content: flex-start !important;
         gap: 10px !important;
         padding-bottom: 8px !important;
-        -webkit-overflow-scrolling: touch; /* Hace que el deslizamiento sea suave */
+        -webkit-overflow-scrolling: touch;
     }
     
     nav ul li {
         margin: 0 !important;
-        flex: 0 0 auto !important; /* Congela el tamaño del botón */
+        flex: 0 0 auto !important;
+        position: relative !important; /* Eje para que el submenú no flote en cualquier lado */
     }
 
     nav ul li a {
@@ -1680,17 +1681,42 @@ nav ul li.dropdown:hover .dropdown-menu {
         padding: 8px 12px !important;
         border-radius: 6px !important;
         background-color: rgba(255,255,255,0.15) !important;
-        white-space: nowrap !important; /* Evita que el texto dentro del botón se parta */
+        white-space: nowrap !important;
     }
 
-    /* Arreglo para que el submenú de Nosotros flote sobre el texto y no lo aplaste */
+    /* EL FIX: Forzamos a que el submenú de 'Nosotros' entre oculto en celulares */
     nav ul li ul {
+        display: none !important; /* Oculto por defecto al cargar la página */
         position: absolute !important;
         z-index: 9999 !important;
         background: #ffffff !important;
         border-radius: 8px !important;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
         margin-top: 5px !important;
+        left: 0 !important;
+        width: 180px !important;
+        padding: 5px 0 !important;
+    }
+
+    /* SOLUCIÓN AL TOQUE: Solo se despliega cuando el usuario lo toca (hover/focus en móvil) */
+    nav ul li:hover ul, nav ul li:focus-within ul {
+        display: block !important;
+    }
+    
+    /* Le damos color oscuro a las letras del submenú porque ahora el fondo es blanco */
+    nav ul li ul li {
+        width: 100% !important;
+    }
+    nav ul li ul li a {
+        color: #333333 !important;
+        background: transparent !important;
+        display: block !important;
+        padding: 10px 15px !important;
+        font-size: 13px !important;
+        text-align: left !important;
+    }
+    nav ul li ul li a:hover {
+        background-color: #f0f4f8 !important;
     }
 
     /* 4. Arreglamos los textos amontonados de abajo */
