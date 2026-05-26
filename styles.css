@@ -1668,15 +1668,16 @@ nav ul li.dropdown:hover .dropdown-menu {
     nav ul li ul {
         display: none !important; 
         position: fixed !important; 
-        top: 160px !important; /* Lo subimos justo debajo de la franja azul */
-        left: 15px !important; /* Lo alineamos a la izquierda con el botón 'Nosotros' */
+        top: 160px !important;
+        left: 20px !important; 
+        transform: none !important; /* <--- LA CURA CONTRA EL CORTE */
         z-index: 99999 !important;
         background: #ffffff !important;
         border-radius: 8px !important;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; 
         width: 180px !important;
         padding: 5px 0 !important;
-        border: 1px solid #e0e0e0 !important; /* Un bordecito fino para que se vea elegante */
+        border: 1px solid #e0e0e0 !important;
     }
 
     /* Aparece al tocar 'Nosotros' */
