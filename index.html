@@ -7,283 +7,354 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+ 
     <header>
         <div class="logo-container">
             <img src="images/logo.jpg" alt="Logo Hospital Regional" width="60">
             <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
         </div>
+ 
+        <div class="header-search-trigger">
+            <button id="open-search-btn" title="Buscar especialidad por síntomas">🔍 Buscar Síntomas</button>
+        </div>
+ 
         <nav>
             <ul>
-                <li><a href="#nosotros">Institucional</a></li>
+                <li class="dropdown">
+                    <a href="#nosotros">Nosotros ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btn-modal-sobre">Sobre el Hospital</a></li>
+                        <li><a href="#" id="btn-modal-resena">Reseña Histórica</a></li>
+                        <li><a href="#" id="btn-modal-mision">Misión y Visión</a></li>
+                    </ul>
+                </li>
                 <li><a href="#servicios">Especialidades</a></li>
                 <li><a href="#contacto">Contacto y Citas</a></li>
                 <li><a href="#pacientes">Atención al Paciente</a></li>
             </ul>
         </nav>
     </header>
-
+ 
+    <!-- =============================================
+         MODAL: BUSCADOR DE SÍNTOMAS (FALTABA ESTO)
+         ============================================= -->
+    <div id="search-modal" class="modal-overlay">
+        <div class="modal-content modal-buscador-content">
+            <button id="close-search-btn" class="modal-close">&times;</button>
+            <div class="modal-buscador-header">
+                <h2>🔍 Buscar por Síntomas</h2>
+                <p>Escribe lo que sientes y te recomendamos la especialidad adecuada</p>
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Ej: dolor de cabeza, fiebre, fractura, ojos..."
+                    autocomplete="off"
+                >
+            </div>
+            <div id="specialties-grid" class="specialties-grid">
+                <!-- Las tarjetas se renderizan aquí con JavaScript -->
+            </div>
+        </div>
+    </div>
+ 
+    <!-- =============================================
+         MODAL: SOLICITAR CITA (desde el buscador)
+         ============================================= -->
+    <div id="appointment-modal" class="modal-overlay">
+        <div class="modal-content modal-cita-content">
+            <button id="close-appointment-btn" class="modal-close">&times;</button>
+            <h2>📅 Solicitar Cita</h2>
+            <p id="appointment-specialty-label">Especialidad seleccionada: <strong id="appointment-specialty-name"></strong></p>
+            <form id="appointment-form">
+                <input type="hidden" id="selected-specialty">
+                <div class="form-group">
+                    <label for="patient-name">Nombre completo</label>
+                    <input type="text" id="patient-name" placeholder="Ingresa tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="patient-dni">DNI</label>
+                    <input type="text" id="patient-dni" placeholder="Ingresa tu DNI" maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="patient-phone">Teléfono</label>
+                    <input type="tel" id="patient-phone" placeholder="Ingresa tu teléfono">
+                </div>
+                <button type="submit" class="btn-enviar">Enviar solicitud</button>
+            </form>
+        </div>
+    </div>
+ 
     <main>
         <section id="nosotros" class="about-section">
             <div class="about-container">
-                
                 <div class="about-header">
                     <h2>Nuestra Institución</h2>
-                    <p class="subtitle">Comprometidos con la salud y el bienestar de Nuevo Chimbote y la región Áncash.</p>
+                    <p class="subtitle">El Hospital Regional Eleazar Guzmán Barrón es una institución pública de salud de categoría de alta complejidad, encargada de brindar atención médica especializada, quirúrgica y de emergencia a toda la población de Nuevo Chimbote y la región Áncash.
+ 
+Contamos con un equipo de profesionales altamente calificados y tecnología médica avanzada para garantizar servicios de salud con calidad, calidez y equidad social.</p>
                 </div>
-
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Reseña Histórica</h3>
-                        <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa. Fundado para atender las necesidades médicas de alta complejidad, lleva con orgullo el nombre del ilustre médico e investigador ancashino Eleazar Guzmán Barrón, brindando atención de calidad con calidez humana.</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="images/foto_hospital.jpg" alt="Hospital Regional Eleazar Guzmán Barrón">
-                    </div>
+                <div class="about-image">
+                    <img src="images/foto_hospital.jpg" alt="Hospital Regional Eleazar Guzmán Barrón">
                 </div>
-
-                <div class="about-mision-vision">
-                    <div class="card-mv">
-                        <div class="icon-mv">🎯</div>
-                        <h3>Misión</h3>
-                        <p>Brindar servicios de salud especializados y de alta calidad a la población, promoviendo la prevención, recuperación y rehabilitación de la salud, con un equipo humano altamente calificado y comprometido con el respeto a la vida.</p>
-                    </div>
-
-                    <div class="card-mv">
-                        <div class="icon-mv">👁️</div>
-                        <h3>Visión</h3>
-                        <p>Ser un hospital líder a nivel nacional, reconocido por su excelencia en la atención médica integral, modernización tecnológica, investigación científica y calidez en el trato, garantizando un acceso universal y oportuno a la salud.</p>
-                    </div>
-                </div>
-
             </div>
-            </section>
-
-    <section id="servicios" class="servicios-section">
-        <div class="servicios-container">
-            <h2>Nuestras Especialidades Médicas</h2>
-            <p class="servicios-desc">Contamos con un equipo multidisciplinario altamente capacitado y tecnología de punta para cuidar de tu salud en cada etapa de tu vida.</p>
-            
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🩺</div>
-                    <h3>Pediatría</h3>
-                    <p>Atención integral para el desarrollo de los más pequeños, desde recién nacidos hasta adolescentes. Control de niño sano y vacunación.</p>
-                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+        </section>
+ 
+        <!-- Modal: Sobre el Hospital -->
+        <div id="modal-sobre" class="modal-overlay">
+            <div class="modal-content modal-institucional-content">
+                <button id="close-sobre-btn" class="modal-close">&times;</button>
+                <div class="modal-institucional-header">
+                    <h2>Sobre el Hospital</h2>
+                    <p class="subtitle">Nivel de Complejidad II-2</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-icon">🫀</div>
-                    <h3>Cardiología</h3>
-                    <p>Prevención, diagnóstico y tratamiento de enfermedades cardiovasculares. Contamos con electrocardiograma y ecocardiografía 3D.</p>
-                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                <div class="modal-institucional-body">
+                    <p><strong>El Hospital Regional Eleazar Guzmán Barrón</strong> es una institución pública de salud de categoría de alta complejidad, encargada de brindar atención médica especializada, quirúrgica y de emergencia a toda la población de Nuevo Chimbote y la región Áncash.</p>
+                    <p>Contamos con un equipo de profesionales altamente calificados y tecnología médica avanzada para garantizar servicios de salud con calidad, calidez y equidad social.</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-icon">🚨</div>
-                    <h3>UCI / Emergencias</h3>
-                    <p>Unidad de Cuidados Intensivos equipada para pacientes críticos. Atención de emergencias médicas y quirúrgicas las 24 horas del día.</p>
-                    <a href="#contacto" class="btn-reserva">Atención 24/7</a>
+            </div>
+        </div>
+ 
+        <!-- Modal: Reseña Histórica -->
+        <div id="modal-resena" class="modal-overlay">
+            <div class="modal-content modal-institucional-content">
+                <button id="close-resena-btn" class="modal-close">&times;</button>
+                <div class="modal-institucional-header">
+                    <h2>Reseña Histórica</h2>
+                    <p class="subtitle">Nuestra Trayectoria</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-icon">🧠</div>
-                    <h3>Neurología</h3>
-                    <p>Especialistas en el diagnóstico y tratamiento de trastornos del sistema nervioso central, migrañas, epilepsia y enfermedades degenerativas.</p>
-                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                <div class="modal-institucional-body">
+                    <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa y la costa de la región Áncash.</p>
+                    <p>Fundado para responder a la alta demanda de salud especializada, ha evolucionado constantemente incorporando nuevas especialidades médicas y quirúrgicas, convirtiéndose en el pilar fundamental del bienestar de nuestra comunidad.</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-icon">🦴</div>
-                    <h3>Traumatología</h3>
-                    <p>Tratamiento de lesiones óseas, musculares y articulares. Rehabilitación física, medicina deportiva y cirugías ortopédicas de alta complejidad.</p>
-                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+            </div>
+        </div>
+ 
+        <!-- Modal: Misión y Visión -->
+        <div id="modal-mision" class="modal-overlay">
+            <div class="modal-content modal-institucional-content">
+                <button id="close-mision-btn" class="modal-close">&times;</button>
+                <div class="modal-institucional-header">
+                    <h2>Misión y Visión</h2>
+                    <p class="subtitle">Nuestros Objetivos Institucionales</p>
                 </div>
-
-                <div class="card">
-                    <div class="card-icon">🔬</div>
-                    <h3>Laboratorio Clínico</h3>
-                    <p>Análisis clínicos precisos y rápidos. Toma de muestras, hematología, bioquímica y biología molecular con entrega de resultados online.</p>
-                    <a href="#contacto" class="btn-reserva">Ver Exámenes</a>
+                <div class="modal-institucional-body">
+                    <h3>🎯 Misión</h3>
+                    <p>Brindar servicios de salud especializados y de alta calidad a la población asignada y referida, con un equipo humano altamente calificado, tecnología moderna y un enfoque de equidad, calidez y eficiencia.</p>
+                    <br>
+                    <h3>👁️ Visión</h3>
+                    <p>Ser un hospital líder a nivel nacional en la atención integral de salud especializada, reconocido por la excelencia de sus servicios, la docencia e investigación, logrando la plena satisfacción y confianza de nuestros usuarios.</p>
                 </div>
+            </div>
+        </div>
+ 
+        <section id="servicios" class="servicios-section">
+            <div class="servicios-container">
+                <h2>Nuestras Especialidades Médicas</h2>
+                <p class="servicios-desc">Contamos con un equipo multidisciplinario altamente capacitado y tecnología de punta para cuidar de tu salud en cada etapa de tu vida.</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🩺</div>
+                        <h3>Pediatría</h3>
+                        <p>Atención integral para el desarrollo de los más pequeños, desde recién nacidos hasta adolescentes. Control de niño sano y vacunación.</p>
+                        <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🫀</div>
+                        <h3>Cardiología</h3>
+                        <p>Prevención, diagnóstico y tratamiento de enfermedades cardiovasculares. Contamos con electrocardiograma y ecocardiografía 3D.</p>
+                        <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🚨</div>
+                        <h3>UCI / Emergencias</h3>
+                        <p>Unidad de Cuidados Intensivos equipada para pacientes críticos. Atención de emergencias médicas y quirúrgicas las 24 horas del día.</p>
+                        <a href="#contacto" class="btn-reserva">Atención 24/7</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Neurología</h3>
+                        <p>Especialistas en el diagnóstico y tratamiento de trastornos del sistema nervioso central, migrañas, epilepsia y enfermedades degenerativas.</p>
+                        <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🦴</div>
+                        <h3>Traumatología</h3>
+                        <p>Tratamiento de lesiones óseas, musculares y articulares. Rehabilitación física, medicina deportiva y cirugías ortopédicas de alta complejidad.</p>
+                        <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔬</div>
+                        <h3>Laboratorio Clínico</h3>
+                        <p>Análisis clínicos precisos y rápidos. Toma de muestras, hematología, bioquímica y biología molecular con entrega de resultados online.</p>
+                        <a href="#contacto" class="btn-reserva">Ver Exámenes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <section id="contacto">
+            <div class="contacto-wrap">
+                <h2>Contacto y Citas</h2>
+                <p class="seccion-subtitulo">Estamos disponibles para atenderte en persona, por teléfono o en línea.</p>
+ 
+                <div class="contacto-cards">
+                    <div class="contacto-card">
+                        <h3>📍 Dirección</h3>
+                        <p>Av. Brasil S/N, Urb. Santa Cristina<br>Nuevo Chimbote, Áncash</p>
+                    </div>
+                    <div class="contacto-card">
+                        <h3>📞 Teléfonos</h3>
+                        <p><strong>Central:</strong> 934 290 087<br>
+                        <strong>Emergencias:</strong> 946 249 521<br>
+                        <strong>Fonocitas:</strong> 934 274 553</p>
+                    </div>
+                    <div class="contacto-card">
+                        <h3>✉️ Correo</h3>
+                        <p>mesadepartes@hegb.gob.pe</p>
+                    </div>
+                </div>
+ 
+                <div class="horarios-box">
+                    <h3>🕐 Horarios de atención</h3>
+                    <div class="horarios-grid">
+                        <div class="horario-item">
+                            <span class="horario-tipo">Emergencias</span>
+                            <span class="horario-hora">24 horas</span>
+                            <span class="horario-dias">Todos los días</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-tipo">Consulta externa</span>
+                            <span class="horario-hora">7:00 – 13:00</span>
+                            <span class="horario-dias">Lunes a sábado</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-tipo">Citas telefónicas</span>
+                            <span class="horario-hora">7:00 – 11:00</span>
+                            <span class="horario-dias">Lunes a sábado</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="online-box">
+                    <h3>🗓️ Atención en línea</h3>
+                    <div class="selector-wrap">
+                        <select id="servicio-select" onchange="mostrarPanel()">
+                            <option value=""> Selecciona un servicio </option>
+                            <option value="solicitar">📅 Solicitar cita</option>
+                            <option value="consultar">🔍 Consultar cita</option>
+                        </select>
+                    </div>
+ 
+                    <div class="panel" id="panel-solicitar">
+                        <h4>📅 Solicitar cita médica</h4>
+                        <form id="form-cita" novalidate>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nombre-paciente">Nombre completo</label>
+                                    <input type="text" id="nombre-paciente" placeholder="Ingresa tu nombre completo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dni-paciente">DNI</label>
+                                    <input type="text" id="dni-paciente" placeholder="Ingresa tu DNI" maxlength="8">
+                                    <span class="dni-counter" id="dni-counter">0/8 dígitos</span>
+                                    <span class="error-field" id="error-dni">⚠️ El DNI debe tener exactamente 8 números.</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="select-especialidad">Especialidad</label>
+                                    <select id="select-especialidad">
+                                        <option value="">-- Selecciona --</option>
+                                        <option value="Medicina General">Medicina General</option>
+                                        <option value="Pediatría">Pediatría</option>
+                                        <option value="Cardiología">Cardiología</option>
+                                        <option value="Neurología">Neurología</option>
+                                        <option value="Traumatología">Traumatología</option>
+                                        <option value="Oftalmología">Oftalmología</option>
+                                        <option value="Nefrología">Nefrología</option>
+                                        <option value="Psicología">Psicología</option>
+                                        <option value="Urología">Urología</option>
+                                        <option value="Cirugía">Cirugía</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="select-doctor">Doctor</label>
+                                    <select id="select-doctor">
+                                        <option value="">-- Primero elige especialidad --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fecha-cita">Fecha preferida</label>
+                                    <input type="date" id="fecha-cita">
+                                    <span class="error-field" id="error-fecha">⚠️ La fecha no puede ser en el pasado.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono-paciente">Teléfono de contacto</label>
+                                    <input type="tel" id="telefono-paciente" placeholder="Ingresa tu teléfono" maxlength="9">
+                                    <span class="error-field" id="error-tel">⚠️ El teléfono debe tener 9 dígitos.</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-enviar" id="btn-enviar-cita" disabled>Enviar solicitud</button>
+                        </form>
+                    </div>
+ 
+                    <div class="panel" id="panel-consultar">
+                        <h4>🔍 Consultar cita programada</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>DNI del paciente</label>
+                                <input type="text" id="dni-consultar" placeholder="Ingresa tu DNI" maxlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de la cita</label>
+                                <input type="date" id="fecha-consultar">
+                            </div>
+                        </div>
+                        <button class="btn-enviar" onclick="enviarConsulta()">Buscar cita</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+ 
+    <section id="pacientes" class="testimonios-section">
+        <div class="testimonios-container">
+            <h2 class="testimonios-titulo">Lo que dicen nuestros pacientes</h2>
+            <p class="testimonios-subtitulo">Brindando atención con calidad y calidez en Nuevo Chimbote</p>
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <p class="testimonio-texto">"La atención en el área de Pediatría fue excelente. Los médicos trataron a mi hijo con mucha paciencia y calidez. ¡Muy agradecida!"</p>
+                    <strong class="testimonio-autor">- María Fernández (Nuevo Chimbote)</strong>
+                </div>
+                <div class="testimonio-card">
+                    <p class="testimonio-texto">"Me realicé una tomografía con el nuevo equipo de 128 cortes y los resultados fueron veloces. Gran avance tecnológico en el hospital."</p>
+                    <strong class="testimonio-autor">- Juan Carlos Ramos (Chimbote)</strong>
+                </div>
+                <div class="testimonio-card">
+                    <p class="testimonio-texto">"Fui por una emergencia nocturna y la atención médica fue muy oportuna y profesional. Un hito de salud en nuestra región Ancash."</p>
+                    <strong class="testimonio-autor">- Rosa Elena Vite (Casma)</strong>
+                </div>
+            </div>
+        </div>
+ 
+        <hr class="divisor-suave">
+ 
+        <div class="transparencia-container">
+            <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
+            <div class="botones-transparencia">
+                <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones">
+                    📕 Libro de Reclamaciones Virtual
+                </a>
+                <a href="javascript:void(0)" class="btn-transparencia btn-mesa">
+                    💻 Mesa de Partes Virtual
+                </a>
             </div>
         </div>
     </section>
-
-
-        <section id="contacto">
-        <div class="contacto-wrap">
-            <h2>Contacto y Citas</h2>
-            <p class="seccion-subtitulo">Estamos disponibles para atenderte en persona, por teléfono o en línea.</p>
-
-            <div class="contacto-cards">
-            <div class="contacto-card">
-                <h3>📍 Dirección</h3>
-                <p>Av. Brasil S/N, Urb. Santa Cristina<br>Nuevo Chimbote, Áncash</p>
-            </div>
-            <div class="contacto-card">
-                <h3>📞 Teléfonos</h3>
-                <p><strong>Central:</strong> 934 290 087<br>
-                <strong>Emergencias:</strong> 946 249 521<br>
-                <strong>Fonocitas:</strong> 934 274 553</p>
-            </div>
-            <div class="contacto-card">
-                <h3>✉️ Correo</h3>
-                <p>mesadepartes@hegb.gob.pe</p>
-            </div>
-            </div>
-
-            <div class="horarios-box">
-            <h3>🕐 Horarios de atención</h3>
-            <div class="horarios-grid">
-                <div class="horario-item">
-                <span class="horario-tipo">Emergencias</span>
-                <span class="horario-hora">24 horas</span>
-                <span class="horario-dias">Todos los días</span>
-                </div>
-                <div class="horario-item">
-                <span class="horario-tipo">Consulta externa</span>
-                <span class="horario-hora">7:00 – 13:00</span>
-                <span class="horario-dias">Lunes a sábado</span>
-                </div>
-                <div class="horario-item">
-                <span class="horario-tipo">Citas telefónicas</span>
-                <span class="horario-hora">7:00 – 11:00</span>
-                <span class="horario-dias">Lunes a sábado</span>
-                </div>
-            </div>
-            </div>
-
-            <div class="online-box">
-            <h3>🗓️ Atención en línea</h3>
-            <div class="selector-wrap">
-                <select id="servicio-select" onchange="mostrarPanel()">
-                <option value=""> Selecciona un servicio </option>
-                <option value="solicitar">📅 Solicitar cita</option>
-                <option value="consultar">🔍 Consultar cita</option>
-                </select>
-            </div>
-
-           <div class="panel" id="panel-solicitar">
-                <h4>📅 Solicitar cita médica</h4>
-                <form id="form-cita" novalidate>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre-paciente">Nombre completo</label>
-                            <input type="text" id="nombre-paciente" placeholder="Ingresa tu nombre completo">
-                        </div>
-                        <div class="form-group">
-                            <label for="dni-paciente">DNI</label>
-                            <input type="text" id="dni-paciente" placeholder="Ingresa tu DNI" maxlength="8">
-                            <span class="dni-counter" id="dni-counter">0/8 dígitos</span>
-                            <span class="error-field" id="error-dni">⚠️ El DNI debe tener exactamente 8 números.</span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="select-especialidad">Especialidad</label>
-                            <select id="select-especialidad">
-                                <option value="">-- Selecciona --</option>
-                                <option value="Medicina General">Medicina General</option>
-                                <option value="Pediatría">Pediatría</option>
-                                <option value="Cardiología">Cardiología</option>
-                                <option value="Neurología">Neurología</option>
-                                <option value="Traumatología">Traumatología</option>
-                                <option value="Oftalmología">Oftalmología</option>
-                                <option value="Nefrología">Nefrología</option>
-                                <option value="Psicología">Psicología</option>
-                                <option value="Urología">Urología</option>
-                                <option value="Cirugía">Cirugía</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="select-doctor">Doctor</label>
-                            <select id="select-doctor">
-                                <option value="">-- Primero elige especialidad --</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="fecha-cita">Fecha preferida</label>
-                            <input type="date" id="fecha-cita">
-                            <span class="error-field" id="error-fecha">⚠️ La fecha no puede ser en el pasado.</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono-paciente">Teléfono de contacto</label>
-                            <input type="tel" id="telefono-paciente" placeholder="Ingresa tu teléfono" maxlength="9">
-                            <span class="error-field" id="error-tel">⚠️ El teléfono debe tener 9 dígitos.</span>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-enviar" id="btn-enviar-cita" disabled>Enviar solicitud</button>
-                </form>
-            </div>
-
-            <div class="panel" id="panel-consultar">
-                <h4>🔍 Consultar cita programada</h4>
-                <div class="form-row">
-                <div class="form-group">
-                    <label>DNI del paciente</label>
-                   <input type="text" id="dni-consultar" placeholder="Ingresa tu DNI" maxlength="8">
-                </div>
-                <div class="form-group">
-                    <label>Fecha de la cita</label>
-                   <input type="date" id="fecha-consultar">
-                </div>
-                </div>
-                <button class="btn-enviar" onclick="enviarConsulta()">Buscar cita</button>
-            </div>
-            </div>
-
-        </div>
-        </section>
-    </main>
-
-    
-<section id="pacientes" class="testimonios-section">
-    
-    <div class="testimonios-container">
-        <h2 class="testimonios-titulo">Lo que dicen nuestros pacientes</h2>
-        <p class="testimonios-subtitulo">Brindando atención con calidad y calidez en Nuevo Chimbote</p>
-        
-        <div class="testimonios-grid">
-            
-            <div class="testimonio-card">
-                <p class="testimonio-texto">"La atención en el área de Pediatría fue excelente. Los médicos trataron a mi hijo con mucha paciencia y calidez. ¡Muy agradecida!"</p>
-                <strong class="testimonio-autor">- María Fernández (Nuevo Chimbote)</strong>
-            </div>
-
-            <div class="testimonio-card">
-                <p class="testimonio-texto">"Me realicé una tomografía con el nuevo equipo de 128 cortes y los resultados fueron veloces. Gran avance tecnológico en el hospital."</p>
-                <strong class="testimonio-autor">- Juan Carlos Ramos (Chimbote)</strong>
-            </div>
-
-            <div class="testimonio-card">
-                <p class="testimonio-texto">"Fui por una emergencia nocturna y la atención médica fue muy oportuna y profesional. Un hito de salud en nuestra región Ancash."</p>
-                <strong class="testimonio-autor">- Rosa Elena Vite (Casma)</strong>
-            </div>
-            
-        </div>
-    </div>
-
-    <hr class="divisor-suave">
-
-    <div class="transparencia-container">
-        <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
-        
-        <div class="botones-transparencia">
-            <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones">
-                📕 Libro de Reclamaciones Virtual
-            </a>
-            
-            <a href="javascript:void(0)" class="btn-transparencia btn-mesa">
-                💻 Mesa de Partes Virtual
-            </a>
-        </div>
-    </div>
-
-</section>
-
+ 
     <footer>
         <div class="footer-info">
             <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
@@ -293,46 +364,183 @@
             <p>© <span id="year"></span> - Todos los derechos reservados.</p>
         </div>
     </footer>
-
+ 
+    <!-- Chat flotante -->
     <button id="chat-btn" class="chat-flotante-btn" onclick="toggleChat()" aria-label="Abrir chat de asistencia">
-    <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-    </svg>
-    <div class="chat-badge">1</div>
+        <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <div class="chat-badge">1</div>
     </button>
-    
-    <!-- Ventana del chat -->
+ 
     <div id="chat-window" class="chat-window">
-    <div class="chat-header">
-        <div class="chat-header-left">
-        <div class="chat-avatar">🏥</div>
-        <div>
-            <h4>Asistente HEGB</h4>
-            <p>Consulta en línea 24/7</p>
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="chat-avatar">🏥</div>
+                <div>
+                    <h4>Asistente HEGB</h4>
+                    <p>Consulta en línea 24/7</p>
+                </div>
+            </div>
+            <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
         </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="msg-chat bot-msg">¡Hola! 👋 Soy el asistente virtual del Hospital Regional EGB. ¿En qué puedo ayudarte hoy?</div>
         </div>
-        <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
+        <div class="chat-sugerencias">
+            <button class="sugerencia" onclick="preguntaRapida('¿Cuáles son los horarios de atención?')">Horarios</button>
+            <button class="sugerencia" onclick="preguntaRapida('¿Qué especialidades tienen?')">Especialidades</button>
+            <button class="sugerencia" onclick="preguntaRapida('¿Cómo saco una cita?')">Citas</button>
+            <button class="sugerencia" onclick="preguntaRapida('¿Cuál es la dirección?')">Dirección</button>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter') enviarMensajeChat()">
+            <button class="chat-send" onclick="enviarMensajeChat()" aria-label="Enviar">&#10148;</button>
+        </div>
     </div>
-    
-    <div class="chat-messages" id="chat-messages">
-        <div class="msg-chat bot-msg">¡Hola! 👋 Soy el asistente virtual del Hospital Regional EGB. ¿En qué puedo ayudarte hoy?</div>
-    </div>
-    
-    <div class="chat-sugerencias">
-        <button class="sugerencia" onclick="preguntaRapida('¿Cuáles son los horarios de atención?')">Horarios</button>
-        <button class="sugerencia" onclick="preguntaRapida('¿Qué especialidades tienen?')">Especialidades</button>
-        <button class="sugerencia" onclick="preguntaRapida('¿Cómo saco una cita?')">Citas</button>
-        <button class="sugerencia" onclick="preguntaRapida('¿Cuál es la dirección?')">Dirección</button>
-    </div>
-    
-    <div class="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter') enviarMensajeChat()">
-        <button class="chat-send" onclick="enviarMensajeChat()" aria-label="Enviar">&#10148;</button>
-    </div>
-    </div>
-
+ 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="scripts.js"></script>
+ 
+    <!-- Estilos base para los modales del buscador (añadir a styles.css si prefieres) -->
+    <style>
+        /* Modal overlay general */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+ 
+        /* Modal buscador */
+        .modal-buscador-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 860px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-buscador-header h2 {
+            margin: 0 0 0.25rem;
+            font-size: 1.5rem;
+            color: #0056b3;
+        }
+        .modal-buscador-header p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        #search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #0056b3;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+        }
+ 
+        /* Grid de especialidades */
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+        .card-specialty {
+            border: 1px solid #dce4f0;
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            background: #f8faff;
+        }
+        .card-specialty:hover {
+            box-shadow: 0 4px 16px rgba(0,86,179,0.15);
+            transform: translateY(-2px);
+        }
+        .icon-specialty {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+        }
+        .card-specialty h4 {
+            margin: 0 0 0.3rem;
+            font-size: 0.95rem;
+            color: #0056b3;
+        }
+        .card-specialty p {
+            font-size: 0.8rem;
+            color: #555;
+            margin: 0 0 0.5rem;
+            line-height: 1.4;
+        }
+        .action-badge {
+            font-size: 0.75rem;
+            color: #fff;
+            background: #0056b3;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            display: inline-block;
+        }
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+ 
+        /* Modal cita desde buscador */
+        .modal-cita-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+        .modal-cita-content h2 {
+            margin: 0 0 0.5rem;
+            color: #0056b3;
+        }
+        .modal-cita-content .form-group {
+            margin-bottom: 1rem;
+        }
+        .modal-cita-content label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+        .modal-cita-content input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #c00; }
+    </style>
 </body>
 </html>
