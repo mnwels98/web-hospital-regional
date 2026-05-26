@@ -664,4 +664,52 @@ function enviarConsulta() {
 
     document.getElementById('dni-consultar').value   = '';
     document.getElementById('fecha-consultar').value = '';
+
+}
+
+// ========================================================
+// FUNCIONALIDAD: MODAL PORTAL DEL PACIENTE (ALYSON)
+// ========================================================
+const modalPaciente = document.getElementById('modalPaciente');
+const botonesAbrir = document.querySelectorAll('.btn-abrir-modal');
+const btnCerrarModal = document.getElementById('closeModal');
+const formularioPaciente = document.getElementById('formModalPaciente');
+
+// Escuchar clics en los botones asignados
+botonesAbrir.forEach(boton => {
+    boton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (modalPaciente) {
+            modalPaciente.classList.add('is-active');
+        }
+    });
+});
+
+// Cerrar el modal con la X
+if (btnCerrarModal && modalPaciente) {
+    btnCerrarModal.addEventListener('click', () => {
+        modalPaciente.classList.remove('is-active');
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modalPaciente) {
+            modalPaciente.classList.remove('is-active');
+        }
+    });
+}
+
+// 🚀 SIMULACIÓN DE ENVÍO (Esto demuestra iniciativa de ingeniería)
+if (formularioPaciente) {
+    formularioPaciente.addEventListener('submit', (e) => {
+        e.preventDefault(); // Evita que la página se recargue de golpe
+        
+        const usuario = document.getElementById('modalUser').value;
+        
+        // Simulamos una respuesta del servidor
+        alert(`¡Conexión simulada con éxito!\nUsuario: ${usuario}\n\nNota: El inicio de sesión real será conectado en la siguiente fase por el especialista de Backend.`);
+        
+        // Cerramos el modal automáticamente después de aceptar
+        modalPaciente.classList.remove('is-active');
+        formularioPaciente.reset(); // Limpia las cajas de texto
+    });
 }

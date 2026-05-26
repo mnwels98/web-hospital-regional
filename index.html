@@ -703,22 +703,45 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
 
             </div>
         </div>
- 
-        <hr class="divisor-suave">
- 
-        <div class="transparencia-container">
-            <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
-            <div class="botones-transparencia">
-                <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones">
-                    📕 Libro de Reclamaciones Virtual
-                </a>
-                <a href="javascript:void(0)" class="btn-transparencia btn-mesa">
-                    💻 Mesa de Partes Virtual
-                </a>
-            </div>
+</div>
+
+    <hr class="divisor-suave">
+
+    <div class="transparencia-container">
+        <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
+        
+        <div class="botones-transparencia">
+            <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones btn-abrir-modal">
+                📕 Libro de Reclamaciones Virtual
+            </a>
+            
+            <a href="javascript:void(0)" class="btn-transparencia btn-mesa btn-abrir-modal">
+                💻 Mesa de Partes Virtual
+            </a>
         </div>
-    </section>
- 
+    </div>
+
+</section>
+
+<div id="modalPaciente" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <span id="closeModal" class="custom-modal-close">&times;</span>
+        <h2>Portal del Paciente</h2>
+        <p>Ingresa tus datos para acceder al sistema de la clínica.</p>
+        
+        <form id="formModalPaciente">
+            <div class="input-group">
+                <label for="modalUser">Usuario / Correo:</label>
+                <input type="email" id="modalUser" required placeholder="ejemplo@correo.com">
+            </div>
+            <div class="input-group">
+                <label for="modalPassword">Contraseña:</label>
+                <input type="password" id="modalPassword" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit">Iniciar Sesión</button>
+        </form>
+    </div>
+</div>
     <footer>
         <div class="footer-info">
             <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
@@ -765,9 +788,8 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts.js"></script>
- 
-    <!-- Estilos base para los modales del buscador (añadir a styles.css si prefieres) -->
-    <style>
+  
+<style>
         /* Modal overlay general */
         .modal-overlay {
             display: none;
@@ -782,7 +804,7 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
         .modal-overlay.active {
             display: flex;
         }
- 
+
         /* Modal buscador */
         .modal-buscador-content {
             background: #fff;
@@ -812,7 +834,7 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
             outline: none;
             box-sizing: border-box;
         }
- 
+
         /* Grid de especialidades */
         .specialties-grid {
             display: grid;
@@ -861,7 +883,7 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
             padding: 2rem;
             color: #666;
         }
- 
+
         /* Modal cita desde buscador */
         .modal-cita-content {
             background: #fff;
