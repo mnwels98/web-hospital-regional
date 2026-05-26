@@ -1638,10 +1638,10 @@ nav ul li.dropdown:hover .dropdown-menu {
 }
 
 /* =========================================
-   PARCHE RESPONSIVO DE EMERGENCIA (MÓVILES) - VERSIÓN FINAL BLINDADA
+   PARCHE RESPONSIVO DE EMERGENCIA (MÓVILES) - VERSIÓN FINAL SEGURA
    ========================================= */
 @media screen and (max-width: 768px) {
-    /* 1. Achicamos el contenedor azul principal */
+    /* 1. Contenedor principal */
     header, .sidebar, .menu-lateral { 
         position: relative !important;
         width: 100% !important;
@@ -1650,30 +1650,21 @@ nav ul li.dropdown:hover .dropdown-menu {
         padding: 15px 10px !important;
     }
 
-    /* 2. Achicamos el título y logo */
-    header h1, .sidebar h1, .logo-text {
-        font-size: 20px !important;
-        margin-bottom: 10px !important;
-    }
-    header img, .sidebar img {
-        width: 60px !important;
-    }
+    header h1, .sidebar h1, .logo-text { font-size: 20px !important; margin-bottom: 10px !important; }
+    header img, .sidebar img { width: 60px !important; }
 
-    /* 3. Menú deslizable (Swipe) horizontal tipo App */
+    /* 2. Botones en múltiples líneas ordenadas (Sin scroll horizontal para evitar cortes) */
     nav ul {
         display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        justify-content: flex-start !important;
-        gap: 10px !important;
-        padding-bottom: 8px !important;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
     }
     
     nav ul li {
         margin: 0 !important;
-        flex: 0 0 auto !important;
-        position: relative !important; /* Eje para que el submenú no flote en cualquier lado */
+        position: relative !important; /* Eje para el submenú */
     }
 
     nav ul li a {
@@ -1682,46 +1673,38 @@ nav ul li.dropdown:hover .dropdown-menu {
         border-radius: 6px !important;
         background-color: rgba(255,255,255,0.15) !important;
         white-space: nowrap !important;
+        display: block !important;
     }
 
-    /* EL FIX: Forzamos a que el submenú de 'Nosotros' entre oculto en celulares */
+    /* 3. Submenú Oculto que flota sobre el texto al tocarlo */
     nav ul li ul {
-        display: none !important; /* Oculto por defecto al cargar la página */
+        display: none !important; /* Oculto por defecto */
         position: absolute !important;
         z-index: 9999 !important;
         background: #ffffff !important;
         border-radius: 8px !important;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
         margin-top: 5px !important;
-        left: 0 !important;
-        width: 180px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important; /* Lo centra bonito debajo del botón */
+        width: 160px !important;
         padding: 5px 0 !important;
     }
 
-    /* SOLUCIÓN AL TOQUE: Solo se despliega cuando el usuario lo toca (hover/focus en móvil) */
-    nav ul li:hover ul, nav ul li:focus-within ul {
+    /* Mostrar solo cuando el usuario toca "Nosotros" */
+    nav ul li:hover ul, 
+    nav ul li:active ul,
+    nav ul li:focus-within ul {
         display: block !important;
     }
     
-    /* Le damos color oscuro a las letras del submenú porque ahora el fondo es blanco */
-    nav ul li ul li {
-        width: 100% !important;
-    }
+    nav ul li ul li { width: 100% !important; }
+    
     nav ul li ul li a {
         color: #333333 !important;
         background: transparent !important;
-        display: block !important;
         padding: 10px 15px !important;
         font-size: 13px !important;
-        text-align: left !important;
-    }
-    nav ul li ul li a:hover {
-        background-color: #f0f4f8 !important;
-    }
-
-    /* 4. Arreglamos los textos amontonados de abajo */
-    .about-container {
-        padding: 15px !important;
-        margin-top: 10px !important;
+        text-align: center !important;
     }
 }
