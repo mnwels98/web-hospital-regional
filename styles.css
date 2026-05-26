@@ -173,17 +173,25 @@ footer .footer-legal {
     text-align: justify;
 }
 
+/* ======================================================= */
+/* CONFIGURACIÓN CONTROLADA DE LA IMAGEN (VERSION BLINDADA)*/
+/* ======================================================= */
 .about-image {
-    flex: 1;
-    min-width: 300px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 20px auto !important;
 }
 
 .about-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    object-fit: cover;
+    width: 100% !important;
+    max-width: 600px !important;  /* Tamaño ideal para que se vea compacta y centrada */
+    height: auto !important;
+    max-height: 350px !important; /* Altura controlada para que no sature la pantalla */
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+    object-fit: cover !important;
 }
 
 /* Contenedor de Misión y Visión (Tarjetas paralelas) */
@@ -226,6 +234,593 @@ footer .footer-legal {
     text-align: justify;
 }
 
+.about-header .subtitle {
+    color: #666;
+    font-size: 18px;
+}
+
+/* NUEVO: Estilos para el bloque de descripción que te pidieron */
+.about-description-block {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    border-top: 4px solid #0056b3; /* Detalle azul superior */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.about-description-block h3 {
+    font-size: 22px;
+    color: #0056b3;
+    margin-bottom: 12px;
+}
+
+.about-description-block p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+}
+
+/* Botón de la lupa en el Header */
+.header-search-trigger button {
+    background-color: #003d82; /* Azul más oscuro para contrastar con el header */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-search-trigger button:hover {
+    background-color: #ffffff;
+    color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Fondo oscuro translúcido de la ventana emergente */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px); /* Desenfoque estético al fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Por encima de todo, incluso del header sticky */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Clase que activará JavaScript para mostrar la ventana */
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Caja blanca contenedora del buscador */
+.modal-content {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 750px;
+    max-height: 85vh;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    overflow-y: auto; /* Permite scroll interno si hay muchas tarjetas */
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+/* Botón para cerrar (X) */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #334155;
+}
+
+/* Estilos del buscador interno (Similares a los anteriores) */
+.search-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-header h3 {
+    font-size: 24px;
+    color: #0056b3;
+    margin-bottom: 6px;
+}
+
+.search-header p {
+    font-size: 14px;
+    color: #666;
+}
+
+.search-input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #cbd5e1;
+    border-radius: 25px;
+    outline: none;
+}
+
+#search-input:focus {
+    border-color: #0056b3;
+}
+
+/* Grid y tarjetas dentro de la ventana */
+.specialties-grid {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-specialty {
+    background-color: #f8f9fa;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    border-top: 4px solid #0056b3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.icon-specialty { font-size: 28px; margin-bottom: 8px; }
+.card-specialty h4 { font-size: 16px; margin-bottom: 6px; }
+.card-specialty p { font-size: 13px; color: #555; flex-grow: 1; margin-bottom: 10px; }
+.tags-container { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { background-color: #e2e8f0; color: #475569; font-size: 10px; padding: 2px 6px; border-radius: 8px; }
+.no-results { color: #666; font-size: 14px; padding: 20px; }
+
+/* ========================================== */
+/* MENÚ DESPLEGABLE (DROPDOWN) DEL HEADER     */
+/* ========================================== */
+
+/* Evita que el contenedor del menú oculte tu lista desplegable */
+header, .logo-container, nav, nav ul {
+    overflow: visible !important;
+}
+
+/* Configuración para tu contenedor dropdown */
+nav ul li.dropdown {
+    position: relative !important; /* Base obligatoria para el posicionamiento absoluto */
+    display: inline-block;
+}
+
+/* Caja oculta del menú desplegable totalmente aislada */
+nav ul li .dropdown-menu {
+    display: none; 
+    position: absolute;
+    top: 100%; /* Aparece justo abajo del enlace 'Institucional' */
+    left: 50%;
+    transform: translateX(-50%); /* Lo centra perfectamente debajo del texto */
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 8px 0;
+    list-style: none !important;
+    z-index: 9999; /* Máxima prioridad para que flote sobre banners, sliders o imágenes */
+}
+
+/* Fuerza a que las opciones internas se listen de forma vertical */
+nav ul li .dropdown-menu li {
+    display: block !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Estilos de los enlaces del submenú */
+nav ul li .dropdown-menu li a {
+    color: #333333 !important;
+    padding: 10px 20px !important;
+    display: block !important;
+    font-size: 14px !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    transition: background-color 0.2s;
+}
+
+nav ul li .dropdown-menu li a:hover {
+    background-color: #f1f5f9;
+    color: #0056b3 !important;
+}
+
+/* Mostrar el menú al pasar el cursor sobre la opción principal */
+nav ul li.dropdown:hover .dropdown-menu {
+    display: block !important;
+}
+
+/* Estilos específicos para las ventanas institucionales */
+.modal-institucional-content {
+    max-width: 600px;
+    border-top: 5px solid #0056b3;
+}
+
+.modal-organigrama-content {
+    max-width: 760px;
+}
+
+.modal-directivos-content {
+    max-width: 980px;
+}
+
+.modal-institucional-header h2 {
+    color: #0056b3;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.modal-institucional-body p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+/* Directivos moderno */
+.directivos-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.directivos-hero {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 55%, #dbeafe 100%);
+    border: 1px solid #cfe0f7;
+    border-radius: 24px;
+    padding: 22px 22px 20px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.directivos-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 86, 179, 0.08);
+    color: #0056b3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.directivos-hero h2 {
+    color: #0f172a;
+    font-size: 1.8rem;
+    margin: 12px 0 10px;
+}
+
+.directivos-hero p {
+    margin: 0 0 16px;
+    color: #334155;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.directivos-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.directivos-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.directivos-section-block {
+    background: rgba(248, 251, 255, 0.9);
+    border: 1px solid #dbe7f1;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+}
+
+.section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    font-size: 1.2rem;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.eyebrow {
+    color: #0056b3;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+}
+
+.section-title-row h3 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+
+.directivos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.directivos-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248, 250, 252, 0.95));
+    border: 1px solid #dbe7f1;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    overflow: hidden;
+}
+
+.directivos-card::after {
+    content: "";
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #60a5fa, #0056b3);
+}
+
+.directivos-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 34px rgba(15, 23, 42, 0.12);
+    border-color: #93c5fd;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.directivos-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0056b3 0%, #60a5fa 100%);
+    color: #ffffff;
+    box-shadow: 0 10px 20px rgba(0, 86, 179, 0.22);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.area-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.directivos-card h4 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.cargo {
+    margin: 0;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.meta {
+    margin: 0;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.card-icon {
+    align-self: flex-start;
+    font-size: 1.3rem;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .modal-directivos-content {
+        max-width: 100%;
+    }
+
+    .directivos-hero {
+        padding: 18px;
+    }
+
+    .directivos-hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .directivos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Organigrama visual compacto */
+.org-chart-shell {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    border: 1px solid #dbe7f1;
+    border-radius: 18px;
+    padding: 16px;
+    overflow-x: auto;
+}
+
+.org-chart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 10px 0 10px 28px;
+    min-width: 360px;
+}
+
+.org-chart::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(180deg, #93c5fd 0%, #cbd5e1 100%);
+}
+
+.org-node {
+    position: relative;
+    width: min(100%, 360px);
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.org-node::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    width: 16px;
+    height: 2px;
+    background: #94a3b8;
+    transform: translateY(-50%);
+}
+
+.org-root {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    font-size: 1rem;
+}
+
+.org-package {
+    background: #eef2ff;
+    border-color: #c7d2fe;
+}
+
+.org-department {
+    background: #f8fafc;
+}
+
+.org-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 0;
+}
+
+.org-block::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 30px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, #cbd5e1 0%, #e2e8f0 100%);
+}
+
+.org-children {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 24px;
+}
+
+.org-children::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: #dbe7f1;
+}
+
+.org-children .org-node::before {
+    left: -24px;
+    width: 20px;
+}
 
 /* ========================================== */
 /* ZONA DE ÁNGEL - SERVICIOS                  */
@@ -867,4 +1462,353 @@ footer .footer-legal {
 .fade-section.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* =====================================================
+   RESPONSIVE MÓVIL - HOSPITAL REGIONAL HEGB
+   Agregar al FINAL de styles.css
+   ===================================================== */
+
+/* =====================================================
+   TABLET (max 1024px)
+   ===================================================== */
+@media (max-width: 1024px) {
+
+    header {
+        padding: 12px 20px;
+        gap: 12px;
+    }
+
+    header .logo-container h1 {
+        font-size: 16px;
+    }
+
+    nav ul {
+        gap: 8px;
+    }
+
+    nav ul li a {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .directivos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =====================================================
+   MÓVIL GRANDE (max 768px)
+   ===================================================== */
+@media (max-width: 768px) {
+
+    /* --- HEADER --- */
+    header {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    header .logo-container {
+        flex: 1;
+        min-width: 0; /* Evita desbordamiento */
+    }
+
+    header .logo-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    header .logo-container h1 {
+        font-size: 13px;
+        line-height: 1.3;
+        /* Corta texto largo con puntos suspensivos */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 180px;
+    }
+
+    /* Botón de búsqueda */
+    .header-search-trigger {
+        order: 3;
+        width: 100%;
+    }
+
+    .header-search-trigger button {
+        width: 100%;
+        justify-content: center;
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    /* --- NAVEGACIÓN MÓVIL --- */
+    nav {
+        order: 4;
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        padding: 4px 0;
+    }
+
+    nav ul li a {
+        font-size: 12px;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+
+    /* Dropdown: se despliega hacia abajo correctamente */
+    nav ul li .dropdown-menu {
+        left: 0;
+        transform: none;
+        min-width: 160px;
+        font-size: 13px;
+    }
+
+    /* --- SECCIÓN NOSOTROS --- */
+    .about-section {
+        padding: 30px 16px;
+    }
+
+    .about-header h2 {
+        font-size: 24px;
+    }
+
+    .about-header .subtitle {
+        font-size: 14px;
+    }
+
+    .about-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .about-image img {
+        max-height: 220px !important;
+    }
+
+    .about-mision-vision {
+        flex-direction: column;
+    }
+
+    /* --- SERVICIOS --- */
+    .servicios-section {
+        padding: 30px 16px;
+    }
+
+    .servicios-section h2 {
+        font-size: 24px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* --- CONTACTO --- */
+    .contacto-wrap {
+        padding: 2rem 1rem;
+    }
+
+    .contacto-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .horarios-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-enviar {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* --- TESTIMONIOS --- */
+    .testimonios-section {
+        padding: 30px 16px;
+    }
+
+    .testimonios-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .botones-transparencia {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-transparencia {
+        min-width: unset;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+        padding: 24px 16px;
+        padding-bottom: 120px;
+        font-size: 14px;
+    }
+
+    /* --- MODALES GENERALES --- */
+    .modal-content {
+        width: 95% !important;
+        max-width: 95% !important;
+        padding: 20px 16px !important;
+        margin: 10px auto;
+        max-height: 88vh;
+    }
+
+    .modal-institucional-content {
+        max-width: 95% !important;
+    }
+
+    .modal-directivos-content,
+    .modal-organigrama-content {
+        max-width: 95% !important;
+    }
+
+    /* --- DIRECTIVOS --- */
+    .directivos-hero h2 {
+        font-size: 1.3rem;
+    }
+
+    .directivos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .directivos-pill-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    /* --- ORGANIGRAMA --- */
+    .org-chart-shell {
+        padding: 10px;
+    }
+
+    .org-chart {
+        min-width: 280px;
+        padding-left: 20px;
+    }
+
+    .org-node {
+        font-size: 0.82rem;
+        padding: 10px 12px;
+    }
+
+    /* --- BUSCADOR MODAL --- */
+    .modal-buscador-content {
+        padding: 1.2rem 1rem !important;
+    }
+
+    .specialties-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    /* --- CHAT FLOTANTE --- */
+    .chat-flotante-btn {
+        bottom: 16px;
+        right: 16px;
+        width: 54px;
+        height: 54px;
+    }
+
+    .chat-window {
+        bottom: 84px;
+        right: 10px;
+        left: 10px;       /* Se expande a todo el ancho en móvil */
+        width: auto;
+    }
+
+    .chat-messages {
+        max-height: 230px;
+    }
+}
+
+/* =====================================================
+   MÓVIL PEQUEÑO (max 480px)
+   ===================================================== */
+@media (max-width: 480px) {
+
+    header .logo-container h1 {
+        font-size: 11px;
+        max-width: 140px;
+    }
+
+    header .logo-container img {
+        width: 34px;
+        height: 34px;
+    }
+
+    nav ul li a {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+
+    .about-header h2,
+    .servicios-section h2,
+    .testimonios-titulo {
+        font-size: 20px;
+    }
+
+    .specialties-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 14px 12px !important;
+    }
+
+    .contacto-wrap h2 {
+        font-size: 22px;
+    }
+
+    .horario-hora {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+
+    .card-icon {
+        font-size: 32px;
+    }
+
+    .directivos-hero {
+        padding: 14px;
+    }
+
+    .directivos-badge {
+        font-size: 0.72rem;
+    }
+
+    /* Evita que los botones de sugerencias del chat se salgan */
+    .chat-sugerencias {
+        gap: 4px;
+    }
+
+    .sugerencia {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
 }
