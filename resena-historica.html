@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseña Histórica | Hospital Regional Eleazar Guzmán Barrón</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="Logo Hospital Regional" width="60">
+            <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
+        </div>
+ 
+        <div class="header-search-trigger">
+            <button id="open-search-btn" title="Buscar especialidad por síntomas">🔍 Buscar Síntomas</button>
+        </div>
+ 
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="index.html#nosotros">Nosotros ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="resena-historica.html">Reseña Histórica</a></li>
+                        <li><a href="mision-vision.html">Misión y Visión</a></li>
+                        <li><a href="directivos.html">Directivos</a></li>
+                        <li><a href="organigrama.html">Organigrama</a></li>
+                        <li><a href="directorio.html">Directorio</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#servicios">Especialidades</a></li>
+                <li><a href="index.html#contacto">Contacto y Citas</a></li>
+                <li><a href="index.html#pacientes">Atención al Paciente</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Inicio</a> / 
+                    <a href="index.html#nosotros">Nosotros</a> / 
+                    <span>Reseña Histórica</span>
+                </div>
+                <h1>Reseña Histórica</h1>
+                <p class="hero-subtitle">Nuestra Trayectoria en el Servicio de la Salud</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="content-container">
+                <div class="content-main">
+                    <div class="content-card">
+                        <h2>Nuestra Historia</h2>
+                        <figure class="content-figure">
+                            <img src="images/foto_hospital.jpg" alt="Fotografía del Hospital Regional Eleazar Guzmán Barrón">
+                            <figcaption>Vista del Hospital Regional Eleazar Guzmán Barrón.</figcaption>
+                        </figure>
+                        <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa y la costa de la región Áncash.</p>
+                        
+                        <h3>Origen e Importancia</h3>
+                        <p>Fundado para responder a la alta demanda de salud especializada en la región, ha evolucionado constantemente incorporando nuevas especialidades médicas y quirúrgicas, convirtiéndose en el pilar fundamental del bienestar de nuestra comunidad.</p>
+                        
+                        <h3>Evolución y Crecimiento</h3>
+                        <p>A lo largo de los años, el Hospital Regional ha experimentado un crecimiento significativo en su infraestructura, equipamiento y recursos humanos. Ha pasado de ser una institución con servicios básicos a convertirse en un referente regional de salud de alta complejidad.</p>
+                        
+                        <h3>Reconocimiento Regional</h3>
+                        <p>Actualmente, el Hospital Regional Eleazar Guzmán Barrón es reconocido como un centro de excelencia en la región, atendiendo a miles de pacientes provenientes de diferentes provincias de Áncash y del norte del país.</p>
+
+                        <h3>Compromiso Permanente</h3>
+                        <p>A pesar de los retos que enfrentamos, nuestro compromiso permanente es seguir mejorando nuestros servicios, incorporando tecnología moderna, capacitando continuamente a nuestro personal, y priorizando siempre la salud y el bienestar de nuestros usuarios.</p>
+
+                        <h3>Hitos Importantes</h3>
+                        <ul class="history-list">
+                            <li>Categorización como Institución de Salud de Alta Complejidad (Nivel II-2)</li>
+                            <li>Implementación de nuevas especialidades médicas y quirúrgicas</li>
+                            <li>Adquisición de equipamiento diagnóstico de última generación</li>
+                            <li>Programas de capacitación continua para el personal</li>
+                            <li>Mejora sostenida en indicadores de atención y satisfacción del usuario</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-sidebar">
+                    <div class="sidebar-card">
+                        <h4>📊 Estadísticas Relevantes</h4>
+                        <p>El Hospital atiende a miles de pacientes anualmente, con un crecimiento constante en la demanda de servicios especializados.</p>
+                    </div>
+                    <div class="sidebar-card">
+                        <h4>🏥 Servicios Modernos</h4>
+                        <p>Disponemos de más de 20 especialidades médicas y quirúrgicas, equipadas con tecnología de vanguardia.</p>
+                    </div>
+                    <div class="sidebar-card">
+                        <h4>👥 Equipo Profesional</h4>
+                        <p>Contamos con médicos especialistas, enfermeras, técnicos y personal administrativo altamente calificado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
+            <p>📍 Av. Brasil S/N, Distrito de Nuevo Chimbote</p>
+        </div>
+        <div class="footer-legal">
+            <p>© <span id="year"></span> - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

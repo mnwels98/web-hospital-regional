@@ -1,0 +1,217 @@
+:root {
+    --hegb-blue: #0b5cad;
+    --hegb-blue-dark: #08458a;
+    --hegb-blue-soft: #e9f2fb;
+    --hegb-text: #1f2a37;
+    --hegb-muted: #5b6a78;
+    --hegb-border: #d7e3f1;
+    --hegb-shadow: 0 20px 45px rgba(11, 92, 173, 0.12);
+}
+
+body {
+    background: linear-gradient(180deg, #f7fbff 0%, #eef4fa 100%);
+}
+
+.mision-vision-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+}
+
+.mv-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: center;
+    background: linear-gradient(135deg, var(--hegb-blue) 0%, #1184d8 100%);
+    color: #ffffff;
+    border-radius: 28px;
+    padding: 34px;
+    box-shadow: var(--hegb-shadow);
+    margin-bottom: 26px;
+}
+
+.mv-kicker,
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    opacity: 0.92;
+}
+
+.mv-hero h1 {
+    font-size: clamp(1.8rem, 2.1vw + 1rem, 2.4rem);
+    margin-bottom: 8px;
+}
+
+.mv-subtitle {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.mv-intro {
+    max-width: 640px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.mv-hero-visual img {
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+    min-height: 260px;
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.mv-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 26px;
+}
+
+.mv-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: var(--hegb-shadow);
+    border: 1px solid rgba(11, 92, 173, 0.08);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.card-header h2 {
+    font-size: 1.5rem;
+    color: var(--hegb-blue-dark);
+}
+
+.icon-circle {
+    min-width: 58px;
+    min-height: 58px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--hegb-blue-soft), #e4eff8);
+    display: grid;
+    place-items: center;
+    font-size: 1.45rem;
+}
+
+.card-body p {
+    color: var(--hegb-text);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.mv-principios-section,
+.mv-contact-panel {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: var(--hegb-shadow);
+    margin-bottom: 26px;
+    border: 1px solid rgba(11, 92, 173, 0.08);
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    font-size: 1.65rem;
+    color: var(--hegb-blue-dark);
+}
+
+.principios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.principio-item {
+    background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+    border: 1px solid var(--hegb-border);
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--hegb-text);
+    font-weight: 700;
+}
+
+.p-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.contact-card {
+    background: #f8fbff;
+    border: 1px solid var(--hegb-border);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.contact-card h3 {
+    color: var(--hegb-blue-dark);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+}
+
+.contact-card p,
+.contact-card small {
+    color: var(--hegb-text);
+    line-height: 1.7;
+}
+
+.contact-card small {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+    .mv-hero,
+    .mv-overview-grid,
+    .principios-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mv-hero {
+        padding: 24px;
+    }
+
+    .mision-vision-page {
+        padding: 20px 14px 42px;
+    }
+}
+
+@media (max-width: 640px) {
+    .mv-hero {
+        border-radius: 20px;
+    }
+
+    .mv-card,
+    .mv-principios-section,
+    .mv-contact-panel {
+        border-radius: 20px;
+        padding: 22px;
+    }
+
+    .principio-item {
+        align-items: flex-start;
+    }
+}

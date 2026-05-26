@@ -1,0 +1,420 @@
+/* ==========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================== */
+:root {
+    --primary-color: #0056b3;
+    --primary-hover: #003d82;
+    --secondary-color: #0b5ed7;
+    --emergency-color: #dc3545;
+    --emergency-bg: #fff5f5;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --bg-light: #f4f7f6;
+    --bg-white: #ffffff;
+    --border-color: #e2e8f0;
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 10px 25px rgba(15, 23, 42, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+}
+
+/* ==========================================
+   HEADER Y NAVEGACIÓN
+   ========================================== */
+.main-header {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-white);
+    padding: 2px;
+}
+
+.logo-text h1 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.logo-text h2 {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.main-nav ul li a {
+    color: var(--bg-white);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   HERO SECTION (BANNER)
+   ========================================== */
+.hero-section {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 60%, #dbeafe 100%);
+    padding: 50px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.hero-section h1 {
+    font-size: 32px;
+    color: #0f172a;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   SECCIÓN PRINCIPAL (MAPA + INFO BÁSICA)
+   ========================================== */
+.directory-main-section {
+    padding: 40px 0;
+}
+
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+.map-container {
+    min-height: 450px;
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.quick-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.info-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.info-card h3 {
+    font-size: 18px;
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.info-card p {
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.email-text {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.info-card small {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.btn-link {
+    display: inline-block;
+    margin-top: 12px;
+    background-color: var(--secondary-color);
+    color: var(--bg-white);
+    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.btn-link:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   SECCIÓN DE TARJETAS DE SERVICIOS
+   ========================================== */
+.services-directory-section {
+    padding: 50px 0 60px 0;
+    background-color: var(--bg-white);
+    border-top: 1px solid var(--border-color);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 28px;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.services-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--secondary-color);
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    background: var(--bg-white);
+    border-color: #cbd5e1;
+}
+
+.service-card.emergency {
+    border-top-color: var(--emergency-color);
+    background-color: var(--emergency-bg);
+}
+
+.service-card.emergency:hover {
+    background-color: var(--bg-white);
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.service-icon {
+    font-size: 24px;
+}
+
+.service-header h3 {
+    font-size: 16px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.service-body p {
+    font-size: 13px;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.service-body p strong {
+    color: #0f172a;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.main-footer {
+    background-color: #343a40;
+    color: #aaaaaa;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-content p {
+    margin-bottom: 6px;
+}
+
+.footer-content strong {
+    color: var(--bg-white);
+}
+
+.footer-copy {
+    font-size: 12px;
+    margin-top: 12px;
+    color: #888888;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 992px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .map-container {
+        min-height: 380px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-nav ul {
+        justify-content: center;
+    }
+
+    .hero-section h1 {
+        font-size: 26px;
+    }
+}
+
+/* Menú desplegable de navegación */
+.main-nav ul li.dropdown {
+    position: relative;
+}
+
+.main-nav .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    display: none;
+    min-width: 220px;
+    padding: 8px 0;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    z-index: 1001;
+}
+
+.main-nav .dropdown:hover .dropdown-menu,
+.main-nav .dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.main-nav .dropdown-menu li {
+    display: block;
+}
+
+.main-nav .dropdown-menu li a {
+    display: block;
+    color: #0f172a;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.main-nav .dropdown-menu li a:hover {
+    background-color: #eef4fb;
+    color: var(--primary-color);
+}
