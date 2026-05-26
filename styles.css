@@ -1636,3 +1636,53 @@ nav ul li.dropdown:hover .dropdown-menu {
 .btn-submit:hover {
     background-color: #004085;
 }
+
+/* =========================================
+   PARCHE RESPONSIVO DE EMERGENCIA (MÓVILES)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    /* 1. Achicamos el contenedor azul principal */
+    header, .sidebar, .menu-lateral { 
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 15px 10px !important;
+    }
+
+    /* 2. Achicamos el título y logo para que no roben espacio */
+    header h1, .sidebar h1, .logo-text {
+        font-size: 20px !important;
+        margin-bottom: 10px !important;
+    }
+    header img, .sidebar img {
+        width: 60px !important;
+    }
+
+    /* 3. Convertimos la lista vertical en botones horizontales */
+    nav ul {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
+    }
+    
+    nav ul li {
+        margin: 0 !important;
+        width: auto !important;
+    }
+
+    nav ul li a {
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        border-radius: 6px !important;
+        background-color: rgba(255,255,255,0.1); 
+    }
+
+    /* 4. Arreglamos los textos amontonados de abajo */
+    .about-container {
+        padding: 15px !important;
+        margin-top: 10px !important;
+    }
+}
