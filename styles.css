@@ -911,6 +911,31 @@ nav ul li.dropdown:hover .dropdown-menu {
     color: white;
 }
 
+/* Estilo para botones modernos tipo 2024 (Adiós 1987) */
+.btn-moderno {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #0056b3; /* Azul institucional */
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none; /* Quita el subrayado si es un enlace */
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-moderno:hover {
+    background-color: #004494;
+    transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    color: #ffffff;
+}
 /* ========================================== */
 /* ZONA DE ALYSON - TESTIMONIOS/TRANSPARENCIA */
 /* ========================================== */
