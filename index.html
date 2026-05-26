@@ -30,8 +30,8 @@
                 </li>
                 
                 <li><a href="#servicios">Especialidades</a></li>
-                <li><a href="#transparencia">Atención al Paciente</a></li>
                 <li><a href="#contacto">Contacto y Citas</a></li>
+                <li><a href="#pacientes">Atención al Paciente</a></li>
             </ul>
         </nav>
     </header>
@@ -102,15 +102,230 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
                 </div>
         </section>
 
-        <section id="servicios">
-            </section>
+    <section id="servicios" class="servicios-section">
+        <div class="servicios-container">
+            <h2>Nuestras Especialidades Médicas</h2>
+            <p class="servicios-desc">Contamos con un equipo multidisciplinario altamente capacitado y tecnología de punta para cuidar de tu salud en cada etapa de tu vida.</p>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🩺</div>
+                    <h3>Pediatría</h3>
+                    <p>Atención integral para el desarrollo de los más pequeños, desde recién nacidos hasta adolescentes. Control de niño sano y vacunación.</p>
+                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                </div>
 
-        <section id="transparencia">
-            </section>
+                <div class="card">
+                    <div class="card-icon">🫀</div>
+                    <h3>Cardiología</h3>
+                    <p>Prevención, diagnóstico y tratamiento de enfermedades cardiovasculares. Contamos con electrocardiograma y ecocardiografía 3D.</p>
+                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚨</div>
+                    <h3>UCI / Emergencias</h3>
+                    <p>Unidad de Cuidados Intensivos equipada para pacientes críticos. Atención de emergencias médicas y quirúrgicas las 24 horas del día.</p>
+                    <a href="#contacto" class="btn-reserva">Atención 24/7</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Neurología</h3>
+                    <p>Especialistas en el diagnóstico y tratamiento de trastornos del sistema nervioso central, migrañas, epilepsia y enfermedades degenerativas.</p>
+                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🦴</div>
+                    <h3>Traumatología</h3>
+                    <p>Tratamiento de lesiones óseas, musculares y articulares. Rehabilitación física, medicina deportiva y cirugías ortopédicas de alta complejidad.</p>
+                    <a href="#contacto" class="btn-reserva">Agendar Cita</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Laboratorio Clínico</h3>
+                    <p>Análisis clínicos precisos y rápidos. Toma de muestras, hematología, bioquímica y biología molecular con entrega de resultados online.</p>
+                    <a href="#contacto" class="btn-reserva">Ver Exámenes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
         <section id="contacto">
-            </section>
+        <div class="contacto-wrap">
+            <h2>Contacto y Citas</h2>
+            <p class="seccion-subtitulo">Estamos disponibles para atenderte en persona, por teléfono o en línea.</p>
+
+            <div class="contacto-cards">
+            <div class="contacto-card">
+                <h3>📍 Dirección</h3>
+                <p>Av. Brasil S/N, Urb. Santa Cristina<br>Nuevo Chimbote, Áncash</p>
+            </div>
+            <div class="contacto-card">
+                <h3>📞 Teléfonos</h3>
+                <p><strong>Central:</strong> 934 290 087<br>
+                <strong>Emergencias:</strong> 946 249 521<br>
+                <strong>Fonocitas:</strong> 934 274 553</p>
+            </div>
+            <div class="contacto-card">
+                <h3>✉️ Correo</h3>
+                <p>mesadepartes@hegb.gob.pe</p>
+            </div>
+            </div>
+
+            <div class="horarios-box">
+            <h3>🕐 Horarios de atención</h3>
+            <div class="horarios-grid">
+                <div class="horario-item">
+                <span class="horario-tipo">Emergencias</span>
+                <span class="horario-hora">24 horas</span>
+                <span class="horario-dias">Todos los días</span>
+                </div>
+                <div class="horario-item">
+                <span class="horario-tipo">Consulta externa</span>
+                <span class="horario-hora">7:00 – 13:00</span>
+                <span class="horario-dias">Lunes a sábado</span>
+                </div>
+                <div class="horario-item">
+                <span class="horario-tipo">Citas telefónicas</span>
+                <span class="horario-hora">7:00 – 11:00</span>
+                <span class="horario-dias">Lunes a sábado</span>
+                </div>
+            </div>
+            </div>
+
+            <div class="online-box">
+            <h3>🗓️ Atención en línea</h3>
+            <div class="selector-wrap">
+                <select id="servicio-select" onchange="mostrarPanel()">
+                <option value=""> Selecciona un servicio </option>
+                <option value="solicitar">📅 Solicitar cita</option>
+                <option value="consultar">🔍 Consultar cita</option>
+                </select>
+            </div>
+
+           <div class="panel" id="panel-solicitar">
+                <h4>📅 Solicitar cita médica</h4>
+                <form id="form-cita" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre-paciente">Nombre completo</label>
+                            <input type="text" id="nombre-paciente" placeholder="Ingresa tu nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="dni-paciente">DNI</label>
+                            <input type="text" id="dni-paciente" placeholder="Ingresa tu DNI" maxlength="8">
+                            <span class="dni-counter" id="dni-counter">0/8 dígitos</span>
+                            <span class="error-field" id="error-dni">⚠️ El DNI debe tener exactamente 8 números.</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="select-especialidad">Especialidad</label>
+                            <select id="select-especialidad">
+                                <option value="">-- Selecciona --</option>
+                                <option value="Medicina General">Medicina General</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Cardiología">Cardiología</option>
+                                <option value="Neurología">Neurología</option>
+                                <option value="Traumatología">Traumatología</option>
+                                <option value="Oftalmología">Oftalmología</option>
+                                <option value="Nefrología">Nefrología</option>
+                                <option value="Psicología">Psicología</option>
+                                <option value="Urología">Urología</option>
+                                <option value="Cirugía">Cirugía</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="select-doctor">Doctor</label>
+                            <select id="select-doctor">
+                                <option value="">-- Primero elige especialidad --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fecha-cita">Fecha preferida</label>
+                            <input type="date" id="fecha-cita">
+                            <span class="error-field" id="error-fecha">⚠️ La fecha no puede ser en el pasado.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-paciente">Teléfono de contacto</label>
+                            <input type="tel" id="telefono-paciente" placeholder="Ingresa tu teléfono" maxlength="9">
+                            <span class="error-field" id="error-tel">⚠️ El teléfono debe tener 9 dígitos.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-enviar" id="btn-enviar-cita" disabled>Enviar solicitud</button>
+                </form>
+            </div>
+
+            <div class="panel" id="panel-consultar">
+                <h4>🔍 Consultar cita programada</h4>
+                <div class="form-row">
+                <div class="form-group">
+                    <label>DNI del paciente</label>
+                   <input type="text" id="dni-consultar" placeholder="Ingresa tu DNI" maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de la cita</label>
+                   <input type="date" id="fecha-consultar">
+                </div>
+                </div>
+                <button class="btn-enviar" onclick="enviarConsulta()">Buscar cita</button>
+            </div>
+            </div>
+
+        </div>
+        </section>
     </main>
+
+    
+<section id="pacientes" class="testimonios-section">
+    
+    <div class="testimonios-container">
+        <h2 class="testimonios-titulo">Lo que dicen nuestros pacientes</h2>
+        <p class="testimonios-subtitulo">Brindando atención con calidad y calidez en Nuevo Chimbote</p>
+        
+        <div class="testimonios-grid">
+            
+            <div class="testimonio-card">
+                <p class="testimonio-texto">"La atención en el área de Pediatría fue excelente. Los médicos trataron a mi hijo con mucha paciencia y calidez. ¡Muy agradecida!"</p>
+                <strong class="testimonio-autor">- María Fernández (Nuevo Chimbote)</strong>
+            </div>
+
+            <div class="testimonio-card">
+                <p class="testimonio-texto">"Me realicé una tomografía con el nuevo equipo de 128 cortes y los resultados fueron veloces. Gran avance tecnológico en el hospital."</p>
+                <strong class="testimonio-autor">- Juan Carlos Ramos (Chimbote)</strong>
+            </div>
+
+            <div class="testimonio-card">
+                <p class="testimonio-texto">"Fui por una emergencia nocturna y la atención médica fue muy oportuna y profesional. Un hito de salud en nuestra región Ancash."</p>
+                <strong class="testimonio-autor">- Rosa Elena Vite (Casma)</strong>
+            </div>
+            
+        </div>
+    </div>
+
+    <hr class="divisor-suave">
+
+    <div class="transparencia-container">
+        <h3 class="transparencia-titulo">Transparencia y Atención al Ciudadano</h3>
+        
+        <div class="botones-transparencia">
+            <a href="javascript:void(0)" class="btn-transparencia btn-reclamaciones">
+                📕 Libro de Reclamaciones Virtual
+            </a>
+            
+            <a href="javascript:void(0)" class="btn-transparencia btn-mesa">
+                💻 Mesa de Partes Virtual
+            </a>
+        </div>
+    </div>
+
+</section>
 
     <footer>
         <div class="footer-info">
@@ -121,6 +336,45 @@ Contamos con un equipo de profesionales altamente calificados y tecnología méd
             <p>© <span id="year"></span> - Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <button id="chat-btn" class="chat-flotante-btn" onclick="toggleChat()" aria-label="Abrir chat de asistencia">
+    <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+    </svg>
+    <div class="chat-badge">1</div>
+    </button>
+    
+    <!-- Ventana del chat -->
+    <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+        <div class="chat-header-left">
+        <div class="chat-avatar">🏥</div>
+        <div>
+            <h4>Asistente HEGB</h4>
+            <p>Consulta en línea 24/7</p>
+        </div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
+    </div>
+    
+    <div class="chat-messages" id="chat-messages">
+        <div class="msg-chat bot-msg">¡Hola! 👋 Soy el asistente virtual del Hospital Regional EGB. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    
+    <div class="chat-sugerencias">
+        <button class="sugerencia" onclick="preguntaRapida('¿Cuáles son los horarios de atención?')">Horarios</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Qué especialidades tienen?')">Especialidades</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Cómo saco una cita?')">Citas</button>
+        <button class="sugerencia" onclick="preguntaRapida('¿Cuál es la dirección?')">Dirección</button>
+    </div>
+    
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." onkeydown="if(event.key==='Enter') enviarMensajeChat()">
+        <button class="chat-send" onclick="enviarMensajeChat()" aria-label="Enviar">&#10148;</button>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="scripts.js"></script>
 </body>
