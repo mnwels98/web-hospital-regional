@@ -118,7 +118,90 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // --- D) Buscador Interactivo de Especialidades y Modal de Citas (Eddy) ---
+    // --- D) Modales institucionales del desplegable Nosotros ---
+    const modalResena = document.getElementById("modal-resena");
+    const btnResena = document.getElementById("btn-modal-resena");
+    const closeResenaBtn = document.getElementById("close-resena-btn");
+
+    if (btnResena && modalResena && closeResenaBtn) {
+        btnResena.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalResena.classList.add("active");
+        });
+        closeResenaBtn.addEventListener("click", () => modalResena.classList.remove("active"));
+        modalResena.addEventListener("click", (e) => {
+            if (e.target === modalResena) modalResena.classList.remove("active");
+        });
+    }
+
+    const modalMision = document.getElementById("modal-mision");
+    const btnMision = document.getElementById("btn-modal-mision");
+    const closeMisionBtn = document.getElementById("close-mision-btn");
+
+    if (btnMision && modalMision && closeMisionBtn) {
+        btnMision.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalMision.classList.add("active");
+        });
+        closeMisionBtn.addEventListener("click", () => modalMision.classList.remove("active"));
+        modalMision.addEventListener("click", (e) => {
+            if (e.target === modalMision) modalMision.classList.remove("active");
+        });
+    }
+
+    const modalDirectivos = document.getElementById("modal-directivos");
+    const btnDirectivos = document.getElementById("btn-modal-directivos");
+    const closeDirectivosBtn = document.getElementById("close-directivos-btn");
+
+    if (btnDirectivos && modalDirectivos && closeDirectivosBtn) {
+        btnDirectivos.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalDirectivos.classList.add("active");
+
+            modalDirectivos.querySelectorAll('.directivos-card').forEach((card, index) => {
+                card.classList.add('fade-section');
+                card.style.transitionDelay = `${index * 70}ms`;
+                observer.observe(card);
+                requestAnimationFrame(() => card.classList.add('visible'));
+            });
+        });
+        closeDirectivosBtn.addEventListener("click", () => modalDirectivos.classList.remove("active"));
+        modalDirectivos.addEventListener("click", (e) => {
+            if (e.target === modalDirectivos) modalDirectivos.classList.remove("active");
+        });
+    }
+
+    const modalOrganigrama = document.getElementById("modal-organigrama");
+    const btnOrganigrama = document.getElementById("btn-modal-organigrama");
+    const closeOrganigramaBtn = document.getElementById("close-organigrama-btn");
+
+    if (btnOrganigrama && modalOrganigrama && closeOrganigramaBtn) {
+        btnOrganigrama.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalOrganigrama.classList.add("active");
+        });
+        closeOrganigramaBtn.addEventListener("click", () => modalOrganigrama.classList.remove("active"));
+        modalOrganigrama.addEventListener("click", (e) => {
+            if (e.target === modalOrganigrama) modalOrganigrama.classList.remove("active");
+        });
+    }
+
+    const modalDirectorio = document.getElementById("modal-directorio");
+    const btnDirectorio = document.getElementById("btn-modal-directorio");
+    const closeDirectorioBtn = document.getElementById("close-directorio-btn");
+
+    if (btnDirectorio && modalDirectorio && closeDirectorioBtn) {
+        btnDirectorio.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalDirectorio.classList.add("active");
+        });
+        closeDirectorioBtn.addEventListener("click", () => modalDirectorio.classList.remove("active"));
+        modalDirectorio.addEventListener("click", (e) => {
+            if (e.target === modalDirectorio) modalDirectorio.classList.remove("active");
+        });
+    }
+
+    // --- E) Buscador Interactivo de Especialidades y Modal de Citas (Eddy) ---
     const searchInput        = document.getElementById("search-input");
     const specialtiesGrid    = document.getElementById("specialties-grid");
     const searchModal        = document.getElementById("search-modal");
