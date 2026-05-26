@@ -1659,25 +1659,38 @@ nav ul li.dropdown:hover .dropdown-menu {
         width: 60px !important;
     }
 
-    /* 3. Convertimos la lista vertical en botones horizontales */
+    /* 3. Menú deslizable (Swipe) horizontal tipo App */
     nav ul {
         display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        padding: 0 !important;
+        flex-wrap: nowrap !important; /* Evita que salten a la segunda línea */
+        overflow-x: auto !important;  /* Activa el deslizamiento con el dedo */
+        justify-content: flex-start !important;
+        gap: 10px !important;
+        padding-bottom: 8px !important;
+        -webkit-overflow-scrolling: touch; /* Hace que el deslizamiento sea suave */
     }
     
     nav ul li {
         margin: 0 !important;
-        width: auto !important;
+        flex: 0 0 auto !important; /* Congela el tamaño del botón */
     }
 
     nav ul li a {
-        font-size: 13px !important;
-        padding: 6px 10px !important;
+        font-size: 14px !important;
+        padding: 8px 12px !important;
         border-radius: 6px !important;
-        background-color: rgba(255,255,255,0.1); 
+        background-color: rgba(255,255,255,0.15) !important;
+        white-space: nowrap !important; /* Evita que el texto dentro del botón se parta */
+    }
+
+    /* Arreglo para que el submenú de Nosotros flote sobre el texto y no lo aplaste */
+    nav ul li ul {
+        position: absolute !important;
+        z-index: 9999 !important;
+        background: #ffffff !important;
+        border-radius: 8px !important;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+        margin-top: 5px !important;
     }
 
     /* 4. Arreglamos los textos amontonados de abajo */
