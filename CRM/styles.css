@@ -1,0 +1,326 @@
+/* ============================================================
+   styles.css — Módulo Historial Clínico
+   Hospital Eleazar Guzmán Barrón (H.E.G.B.)
+   ============================================================ */
+
+:root {
+  --blue:        #1565C0;
+  --blue-hover:  #1E88E5;
+  --blue-pale:   #E3F0FC;
+  --blue-mid:    #42A5F5;
+  --white:       #FFFFFF;
+  --gray-bg:     #F4F7FC;
+  --border:      #B3CDE8;
+  --text:        #0D2B4E;
+  --muted:       #5A7A9A;
+  --success:     #1B8A4B;
+  --success-bg:  #E6F4ED;
+  --warning:     #B45309;
+  --warning-bg:  #FEF3CD;
+  --danger:      #C0392B;
+  --danger-bg:   #FDECEA;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #EAF1FA;
+  color: var(--text);
+  font-size: 14px;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.window {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  width: 100%;
+  max-width: 1100px;
+  box-shadow: 0 4px 24px rgba(21, 101, 192, 0.10);
+}
+
+/* ── Barra de título ── */
+.titlebar {
+  background: var(--blue);
+  color: white;
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.titlebar-left { display: flex; align-items: center; gap: 12px; }
+.icon-circle {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.icon-circle i { font-size: 18px; color: white; }
+.titlebar-title { font-size: 15px; font-weight: 600; color: white; }
+.titlebar-sub   { font-size: 11px; opacity: 0.75; color: white; }
+.badge-hospital {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 11px; padding: 4px 12px; color: white;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  background: var(--blue-pale);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.search-wrap { position: relative; flex: 1; max-width: 440px; }
+.search-wrap input {
+  width: 100%; height: 36px;
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 0 12px 0 36px; font-size: 14px;
+  color: var(--text); background: white; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-wrap input:focus {
+  border-color: var(--blue-hover);
+  box-shadow: 0 0 0 3px rgba(30,136,229,0.12);
+}
+.search-icon {
+  position: absolute; left: 10px; top: 50%;
+  transform: translateY(-50%); font-size: 16px;
+  color: var(--muted); pointer-events: none;
+}
+.btn-search {
+  height: 36px; padding: 0 16px;
+  background: var(--blue); color: white;
+  border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s;
+}
+.btn-search:hover { background: var(--blue-hover); }
+.btn-new {
+  height: 36px; padding: 0 14px;
+  background: white; color: var(--blue);
+  border: 1px solid var(--blue); border-radius: 8px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s;
+}
+.btn-new:hover { background: var(--blue-pale); }
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 560px;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--gray-bg);
+  overflow-y: auto;
+}
+.sidebar-title {
+  padding: 12px 16px 8px;
+  font-size: 11px; font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  border-bottom: 1px solid var(--border);
+}
+.patient-item {
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer; transition: background 0.1s;
+  display: flex; align-items: center; gap: 10px;
+}
+.patient-item:hover { background: rgba(219,234,254,0.5); }
+.patient-item.active {
+  background: var(--blue-pale);
+  border-left: 3px solid var(--blue);
+}
+.avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; flex-shrink: 0;
+}
+.patient-name { font-size: 13px; font-weight: 500; }
+.patient-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.tag-urgente {
+  margin-left: auto; font-size: 10px;
+  background: var(--danger-bg); color: var(--danger);
+  border-radius: 20px; padding: 2px 8px;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── Panel principal ── */
+.main { display: flex; flex-direction: column; background: var(--gray-bg); }
+.empty-state-initial {
+  margin: auto; padding: 60px 20px;
+  text-align: center; color: var(--muted);
+}
+.empty-state-initial i { font-size: 40px; display: block; margin-bottom: 12px; opacity: 0.4; }
+.empty-state-initial p { font-size: 13px; line-height: 1.6; }
+
+/* ── Cabecera del paciente ── */
+.patient-header {
+  padding: 16px 20px; background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+}
+.avatar-lg {
+  width: 52px; height: 52px; border-radius: 50%;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 600; flex-shrink: 0;
+}
+.ph-name { font-size: 17px; font-weight: 600; }
+.ph-meta {
+  font-size: 12px; color: var(--muted);
+  margin-top: 4px; display: flex; flex-wrap: wrap; gap: 12px;
+}
+.ph-meta span { display: flex; align-items: center; gap: 4px; }
+.ph-actions { margin-left: auto; display: flex; gap: 8px; }
+
+.btn-sm {
+  height: 30px; padding: 0 12px; border-radius: 6px;
+  font-size: 12px; cursor: pointer;
+  border: 1px solid var(--border); background: white; color: var(--text);
+  display: flex; align-items: center; gap: 5px; transition: background 0.1s;
+}
+.btn-sm:hover { background: var(--gray-bg); }
+.btn-sm.primary { background: var(--blue); color: white; border-color: var(--blue); }
+.btn-sm.primary:hover { background: var(--blue-hover); }
+
+/* ── Pestañas ── */
+.tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+  background: white; padding: 0 20px;
+}
+.tab {
+  padding: 10px 16px; font-size: 13px; color: var(--muted);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  display: flex; align-items: center; gap: 6px; transition: color 0.1s;
+}
+.tab:hover { color: var(--blue); }
+.tab.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 500; }
+
+/* ── Contenido ── */
+.content { flex: 1; padding: 16px 20px; overflow-y: auto; background: var(--gray-bg); }
+.section-label {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px;
+}
+
+/* ── Tarjeta ── */
+.card {
+  background: white; border: 0.5px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
+}
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.card-title { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 7px; }
+.card-title i { color: var(--blue); font-size: 16px; }
+
+/* ── Info grid ── */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.info-item label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 2px; }
+.info-item span  { font-size: 13px; font-weight: 500; }
+
+/* ── Historial items ── */
+.historia-item {
+  border-left: 3px solid var(--blue-mid);
+  padding: 10px 12px; margin-bottom: 10px;
+  background: white; border-radius: 0 8px 8px 0;
+  border-top: 0.5px solid var(--border);
+  border-right: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+}
+.hi-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.hi-date { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.hi-diag { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.hi-notas { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.hi-medico { font-size: 11px; color: var(--blue); margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+
+/* ── Badges ── */
+.badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.badge-green  { background: var(--success-bg); color: var(--success); }
+.badge-yellow { background: var(--warning-bg); color: var(--warning); }
+.badge-blue   { background: var(--blue-pale);  color: var(--blue);   }
+.badge-red    { background: var(--danger-bg);  color: var(--danger); }
+
+/* ── Formulario ── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 12px; color: var(--muted); font-weight: 500; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1px solid var(--border); border-radius: 7px;
+  padding: 8px 10px; font-size: 13px;
+  color: var(--text); background: white; outline: none;
+  font-family: inherit; resize: vertical;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--blue-hover);
+  box-shadow: 0 0 0 3px rgba(30,136,229,0.12);
+}
+.form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.btn-cancel {
+  height: 34px; padding: 0 16px; border-radius: 7px; font-size: 13px;
+  border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer;
+}
+.btn-cancel:hover { background: var(--gray-bg); }
+.btn-guardar {
+  height: 34px; padding: 0 18px; border-radius: 7px; font-size: 13px; font-weight: 500;
+  background: var(--blue); color: white; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 6px; transition: background 0.15s;
+}
+.btn-guardar:hover { background: var(--blue-hover); }
+
+/* ── Alergias ── */
+.alergias-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+.alergia-tag {
+  font-size: 11px; padding: 3px 10px;
+  background: var(--danger-bg); color: var(--danger);
+  border-radius: 20px; border: 1px solid #F5C6C2;
+}
+.empty-historial { text-align: center; padding: 30px 20px; color: var(--muted); }
+.empty-historial i { font-size: 32px; display: block; margin-bottom: 8px; opacity: 0.4; }
+
+/* ── Barra de estado ── */
+.status-bar {
+  padding: 8px 20px; background: var(--blue-pale);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: var(--muted);
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22C55E; display: inline-block; margin-right: 5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .ph-meta { flex-direction: column; gap: 4px; }
+  .form-row { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+}

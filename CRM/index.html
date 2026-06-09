@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historial Clínico — H.E.G.B.</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="window">
+
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <div class="icon-circle">
+          <i class="ti ti-medical-cross" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="titlebar-title">Historial Clínico del Paciente</div>
+          <div class="titlebar-sub">Gestión de diagnósticos y registros médicos</div>
+        </div>
+      </div>
+      <span class="badge-hospital">H.E.G.B. — Sistema CRM</span>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <i class="ti ti-search search-icon" aria-hidden="true"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por nombre, DNI o N° historia..."
+          oninput="filtrarPacientes(this.value)"
+          aria-label="Buscar paciente"
+        />
+      </div>
+      <button class="btn-search" onclick="buscar()">
+        <i class="ti ti-search" aria-hidden="true"></i> Buscar
+      </button>
+      <button class="btn-new" onclick="nuevoPaciente()">
+        <i class="ti ti-plus" aria-hidden="true"></i> Nuevo registro
+      </button>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-title">Pacientes recientes</div>
+        <div id="listaPacientes"></div>
+      </aside>
+
+      <main class="main" id="mainPanel">
+        <div class="empty-state-initial">
+          <i class="ti ti-user-search" aria-hidden="true"></i>
+          <p>Selecciona un paciente de la lista<br>o realiza una búsqueda para comenzar.</p>
+        </div>
+      </main>
+    </div>
+
+    <div class="status-bar">
+      <span><span class="status-dot"></span>Conectado — Sistema de Historial Clínico</span>
+      <span>Hospital Eleazar Guzmán Barrón · Chimbote</span>
+    </div>
+
+  </div>
+
+  <script src="js/datos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
