@@ -1,0 +1,90 @@
+
+raw
+Index · HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historial Clínico — H.E.G.B.</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+ 
+  <div class="app">
+ 
+    <!-- Barra de título -->
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <div class="icon-circle">
+          <i class="ti ti-medical-cross" aria-hidden="true"></i>
+        </div>
+        <div>
+          <div class="t-title">Historial Clínico</div>
+          <div class="t-sub">Gestión de diagnósticos y registros médicos</div>
+        </div>
+      </div>
+      <span class="badge-hosp">H.E.G.B. — Sistema CRM</span>
+    </div>
+ 
+    <!-- Barra de herramientas -->
+    <div class="toolbar">
+      <div class="sw">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Nombre, DNI o N° historia clínica..."
+          oninput="filtrar(this.value)"
+          aria-label="Buscar paciente"
+        />
+      </div>
+      <button class="btn btn-primary" onclick="buscar()">
+        <i class="ti ti-search" aria-hidden="true"></i> Buscar
+      </button>
+      <button class="btn btn-outline" onclick="nuevoPaciente()">
+        <i class="ti ti-user-plus" aria-hidden="true"></i> Nuevo paciente
+      </button>
+    </div>
+ 
+    <!-- Layout principal -->
+    <div class="layout">
+ 
+      <aside class="sidebar">
+        <div class="sidebar-hdr">
+          Pacientes <span class="sidebar-count" id="pCount">0</span>
+        </div>
+        <div id="listaPacientes"></div>
+      </aside>
+ 
+      <main class="main" id="mainPanel">
+        <div class="empty-init">
+          <i class="ti ti-user-search" aria-hidden="true"></i>
+          <p>Selecciona un paciente de la lista<br>o usa el buscador para encontrarlo.</p>
+        </div>
+      </main>
+ 
+    </div>
+ 
+    <!-- Barra de estado -->
+    <div class="statusbar">
+      <span><span class="sdot"></span>Conectado — Sistema de Historial Clínico</span>
+      <span>Hospital Eleazar Guzmán Barrón · Chimbote</span>
+    </div>
+ 
+  </div>
+ 
+  <!-- Toast de confirmación -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <i class="ti ti-circle-check" aria-hidden="true"></i>
+    <span id="toastMsg"></span>
+  </div>
+ 
+  <script src="js/datos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
