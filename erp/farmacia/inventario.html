@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Inventario y Kárdex - Hospital Regional Eleazar Guzmán Barrón</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Sincronización con la identidad visual de la Landing Page */
+        body {
+            background-color: #f4f7f6; 
+            color: #333333;            
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Encabezado con el Azul Institucional exacto del Hospital */
+        .hospital-header {
+            background-color: #0056b3;
+            color: #ffffff;
+            padding: 15px 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hospital-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Enlace de regreso estilo flecha de navegación */
+        .back-link {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        /* Paneles y Tarjetas Administrativas */
+        .panel-inventario {
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .panel-titulo {
+            color: #0056b3;
+            font-size: 18px;
+            font-weight: 600;
+            border-bottom: 2px solid #f4f7f6;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Botones integrados a la paleta corporativa */
+        .btn-hospital-primary {
+            background-color: #0056b3;
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .btn-hospital-primary:hover {
+            background-color: #004085;
+            color: #ffffff;
+        }
+
+        .btn-hospital-success {
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+        }
+        .btn-hospital-success:hover { background-color: #1b5e20; color: #ffffff; }
+
+        .btn-hospital-danger {
+            background-color: #c62828;
+            color: #ffffff;
+            border: none;
+        }
+        .btn-hospital-danger:hover { background-color: #b71c1c; color: #ffffff; }
+
+        /* Estructura de Tablas de Uso Interno */
+        .table-hospital {
+            margin: 0;
+        }
+        .table-hospital thead {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+        .table-hospital thead th {
+            font-weight: 500;
+            padding: 12px 15px;
+            border: none;
+        }
+        .table-hospital tbody td {
+            padding: 14px 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        /* Etiquetas de control técnico de stock */
+        .badge-stock {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .stock-optimo { background-color: #e8f5e9; color: #2e7d32; }
+        .stock-nominal { background-color: #fff8e1; color: #f57f17; }
+        .stock-critico { background-color: #ffebee; color: #c62828; }
+
+        /* Alertas de Almacén */
+        .alerta-hospital {
+            background-color: #ffebee;
+            border-left: 4px solid #c62828;
+            color: #c62828;
+            padding: 15px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hospital-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <a href="../index.html" class="back-link me-4">
+                <span>&#11013;</span> Volver al Panel ERP
+            </a>
+            <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
+            <span class="ms-3 border-start ps-3 text-white-50 small">Módulo de Farmacia e Inventarios</span>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 style="color: #333; font-size: 22px; font-weight: 600; margin: 0;">Registro de Movimientos de Farmacia</h2>
+                <p class="text-muted small m-0">Monitoreo transaccional de ingresos de insumos y egresos a pabellones clínicos.</p>
+            </div>
+            <div>
+                <button class="btn btn-hospital-success me-2 fw-medium" onclick="registrarEntrada()">+ Registrar Ingreso (Lote)</button>
+                <button class="btn btn-hospital-danger fw-medium" onclick="registrarSalida()">- Registrar Salida (Kárdex)</button>
+            </div>
+        </div>
+
+        <div class="alerta-hospital mb-4 shadow-sm">
+            <strong>Notificación de Almacén Central:</strong> Quiebre de stock crítico detectado en el insumo <em>Paracetamol 500mg (Lote: P2026)</em>. El inventario actual está por debajo del stock mínimo de seguridad de la institución.
+        </div>
+
+        <div class="panel-inventario p-4">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label text-muted small fw-bold">Buscar Medicamento o Material</label>
+                    <input type="text" class="form-control" placeholder="Clave técnica, principio activo o número de lote...">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold">Ubicación / Sub-Almacén</label>
+                    <select class="form-select">
+                        <option selected>Todos los almacenes internos...</option>
+                        <option>Almacén Farmacéutico Central</option>
+                        <option>Sub-almacén de Emergencia y Trauma Shock</option>
+                        <option>Insumos Quirúrgicos - Pabellón Central</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" class="btn btn-hospital-primary w-100" onclick="buscarStock()">Consultar Stock</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-inventario shadow-sm">
+            <h3 class="panel-titulo">Estado Actualizado de Existencias</h3>
+            <div class="table-responsive">
+                <table class="table table-hover table-hospital align-middle">
+                    <thead>
+                        <tr>
+                            <th>Código SIGA</th>
+                            <th>Descripción del Medicamento / Insumo</th>
+                            <th>N° Lote</th>
+                            <th>Ubicación Interna</th>
+                            <th class="text-center">Stock Físico</th>
+                            <th>F. Vencimiento</th>
+                            <th class="text-center">Condición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-muted font-monospace fw-bold">#50102004</td>
+                            <td>
+                                <div class="fw-bold text-dark">Amoxicilina 500mg</div>
+                                <small class="text-muted">Presentación: Caja x 100 tabletas (Distribución Integral SIS)</small>
+                            </td>
+                            <td class="font-monospace text-secondary">AMX-2025B</td>
+                            <td>Almacén Central A-12</td>
+                            <td class="text-center fw-bold" style="color: #2e7d32;">1,450 uds</td>
+                            <td>12 / 10 / 2028</td>
+                            <td class="text-center"><span class="badge-stock stock-optimo">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-monospace fw-bold">#50102441</td>
+                            <td>
+                                <div class="fw-bold text-dark">Propofol 10mg/mL</div>
+                                <small class="text-muted">Presentación: Ampolla de 20mL (Anestesiología Quirúrgica)</small>
+                            </td>
+                            <td class="font-monospace text-secondary">PPF-991A</td>
+                            <td>Sub-almacén Quirófano</td>
+                            <td class="text-center fw-bold" style="color: #333;">120 uds</td>
+                            <td>05 / 09 / 2027</td>
+                            <td class="text-center"><span class="badge-stock stock-nominal">Stock Nominal</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted font-monospace fw-bold">#50102029</td>
+                            <td>
+                                <div class="fw-bold text-dark">Paracetamol 500mg</div>
+                                <small class="text-muted">Presentación: Caja x 100 tabletas (Uso General Ambulatorio)</small>
+                            </td>
+                            <td class="font-monospace text-secondary">P2026</td>
+                            <td>Almacén Central B-04</td>
+                            <td class="text-center fw-bold" style="color: #c62828;">45 uds</td>
+                            <td class="text-danger fw-bold">15 / 07 / 2026</td>
+                            <td class="text-center"><span class="badge-stock stock-critico">Stock Crítico</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function registrarEntrada() {
+            Swal.fire({
+                title: 'Nuevo Ingreso de Medicamento',
+                text: 'Cargando interfaz transaccional de lotes institucionales (SIGA)...',
+                icon: 'success',
+                confirmButtonColor: '#0056b3'
+            });
+        }
+
+        function registrarSalida() {
+            Swal.fire({
+                title: 'Despacho de Kárdex',
+                text: 'Abriendo selector de Pabellones de Destino (Emergencia / UCI / Pediatría)...',
+                icon: 'info',
+                confirmButtonColor: '#0056b3'
+            });
+        }
+
+        function buscarStock() {
+            Swal.fire({
+                title: 'Consultando Servidor...',
+                text: 'Filtrando existencias en tiempo real.',
+                icon: 'info',
+                timer: 1200,
+                showConfirmButton: false
+            });
+        }
+    </script>
+</body>
+</html>
