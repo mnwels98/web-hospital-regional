@@ -44,26 +44,21 @@
             // Lógica de enrutamiento (RBAC) con archivos reales
             switch(rol) {
                 case 'medico':
-                    rutaDestino = "modulos/citasCRM2.html"; // El de Royser
+                    rutaDestino = "modulos/citasCRM2.html"; 
                     break;
                 case 'admin':
-                    rutaDestino = "index.html"; // Temporal al principal
+                    rutaDestino = "index.html"; // Manda al Home principal
                     break;
                 case 'rrhh':
-                    rutaDestino = "erp/erp-turnos.html"; // ¡El nuevo archivo de la carpeta erp!
+                    rutaDestino = "erp/erp-turnos.html"; // Módulo de Ángel/Alyson
                     break;
                 case 'paciente':
-                    rutaDestino = "CRM/index.html"; // ¡El nuevo archivo de la carpeta CRM!
+                    rutaDestino = "CRM/index.html"; // Módulo de Eddy/Royser
                     break;
             }
 
-            // Alerta simulada para la presentación de hoy
-            alert("Validando credenciales...\n" + 
-                  "Rol detectado: " + rol.toUpperCase() + "\n" +
-                  "Redirigiendo a la ruta: " + rutaDestino);
-
-            // Código real que usarás el fin de semana para conectar:
-            // window.location.href = rutaDestino;
+            // REDIRECCIÓN REAL: Adiós a la alerta emergente
+            window.location.href = rutaDestino;
         }
     </script>
 </body>
