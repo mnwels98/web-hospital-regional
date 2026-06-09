@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ERP/CRM Hospital Regional</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <img src="images/logo.jpg" alt="Logo Hospital" class="login-logo">
+            <h2>Acceso al Sistema Integrado</h2>
+
+            <div class="input-group">
+                <label for="username">Usuario / DNI</label>
+                <input type="text" id="username" placeholder="Ingrese su usuario">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingrese su contraseña">
+            </div>
+
+            <div class="input-group">
+                <label for="rol">Rol de Acceso (RBAC)</label>
+                <select id="rol">
+                    <option value="medico">Médico (CRM / ERP)</option>
+                    <option value="admin">Administrador General</option>
+                    <option value="rrhh">Recursos Humanos (ERP)</option>
+                    <option value="paciente">Paciente (CRM)</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="simularLogin()">Ingresar</button>
+        </div>
+    </div>
+
+    <script>
+        function simularLogin() {
+            const rol = document.getElementById('rol').value;
+            alert("Simulando validación de credenciales...\nRol detectado: " + rol.toUpperCase() + "\nRedirigiendo a los módulos correspondientes...");
+        }
+    </script>
+</body>
+</html>
