@@ -41,19 +41,19 @@
             const rol = document.getElementById('rol').value;
             let rutaDestino = "";
 
-            // Lógica de enrutamiento (RBAC)
+            // Lógica de enrutamiento (RBAC) con archivos reales
             switch(rol) {
                 case 'medico':
-                    rutaDestino = "modulos/dashboard-medico.html";
+                    rutaDestino = "modulos/citasCRM2.html"; // El de Royser
                     break;
                 case 'admin':
-                    rutaDestino = "modulos/dashboard-admin.html";
+                    rutaDestino = "index.html"; // Temporal al principal
                     break;
                 case 'rrhh':
-                    rutaDestino = "modulos/erp-rrhh.html";
+                    rutaDestino = "erp/erp-turnos.html"; // ¡El nuevo archivo de la carpeta erp!
                     break;
                 case 'paciente':
-                    rutaDestino = "modulos/crm-paciente.html";
+                    rutaDestino = "CRM/index.html"; // ¡El nuevo archivo de la carpeta CRM!
                     break;
             }
 
