@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Citas - Hospital Regional Eleazar Guzmán Barrón</title>
+  <link rel="stylesheet" href="citas.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-container">
+        <div class="logo-icon">🏥</div>
+        <div>
+          <h1 class="logo-title">Hospital Regional</h1>
+          <span class="logo-sub">Eleazar Guzmán Barrón</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">← Inicio</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <span class="nav-badge">CRM · Citas</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- PAGE TITLE -->
+    <div class="page-header">
+      <h2 class="page-title">Gestión de Citas Médicas</h2>
+      <p class="page-subtitle">Registra, consulta y administra las citas de los pacientes</p>
+    </div>
+
+    <!-- GRID: Formulario + Tabla -->
+    <div class="content-grid">
+
+      <!-- FORMULARIO DE CITAS -->
+      <section class="card form-card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <h3 class="card-title">Nueva Cita</h3>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre del Paciente</label>
+          <input class="form-input" type="text" id="nombre" placeholder="Ej. Juan Pérez López">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="dni">DNI</label>
+          <input class="form-input" type="text" id="dni" placeholder="Ej. 12345678" maxlength="8">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="especialidad">Especialidad</label>
+          <select class="form-input" id="especialidad">
+            <option value="">-- Seleccionar --</option>
+            <option>Medicina General</option>
+            <option>Pediatría</option>
+            <option>Ginecología</option>
+            <option>Cardiología</option>
+            <option>Traumatología</option>
+            <option>Neurología</option>
+            <option>Dermatología</option>
+            <option>Oftalmología</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="medico">Médico</label>
+          <select class="form-input" id="medico">
+            <option value="">-- Seleccionar especialidad primero --</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fecha">Fecha</label>
+            <input class="form-input" type="date" id="fecha">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="hora">Hora</label>
+            <select class="form-input" id="hora">
+              <option value="">-- Hora --</option>
+              <option>08:00</option>
+              <option>08:30</option>
+              <option>09:00</option>
+              <option>09:30</option>
+              <option>10:00</option>
+              <option>10:30</option>
+              <option>11:00</option>
+              <option>11:30</option>
+              <option>14:00</option>
+              <option>14:30</option>
+              <option>15:00</option>
+              <option>15:30</option>
+              <option>16:00</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="registrarCita()">Registrar Cita</button>
+        <div id="mensaje" class="mensaje oculto"></div>
+      </section>
+
+      <!-- TABLA DE CITAS -->
+      <section class="card table-card">
+        <div class="card-header">
+          <span class="card-icon">📅</span>
+          <h3 class="card-title">Citas Agendadas</h3>
+          <span class="badge-count" id="contador">0 citas</span>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="tabla-citas" id="tablaCitas">
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>DNI</th>
+                <th>Especialidad</th>
+                <th>Médico</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+              <tr class="empty-row" id="emptyRow">
+                <td colspan="8">No hay citas registradas aún</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- TICKETS -->
+    <div class="content-grid" style="margin-top: 28px;">
+
+      <!-- FORMULARIO TICKET -->
+      <section class="card form-card">
+        <div class="card-header">
+          <span class="card-icon">🎫</span>
+          <h3 class="card-title">Nuevo Ticket de Atención</h3>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ticket-paciente">Nombre del Paciente</label>
+          <input class="form-input" type="text" id="ticket-paciente" placeholder="Ej. María Torres">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ticket-motivo">Motivo de Consulta</label>
+          <textarea class="form-input form-textarea" id="ticket-motivo" placeholder="Describe brevemente el motivo..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ticket-prioridad">Prioridad</label>
+          <select class="form-input" id="ticket-prioridad">
+            <option value="normal">Normal</option>
+            <option value="urgente">Urgente</option>
+            <option value="emergencia">Emergencia</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" onclick="registrarTicket()">Generar Ticket</button>
+        <div id="mensajeTicket" class="mensaje oculto"></div>
+      </section>
+
+      <!-- LISTA DE TICKETS -->
+      <section class="card table-card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <h3 class="card-title">Tickets de Atención</h3>
+          <span class="badge-count" id="contadorTickets">0 tickets</span>
+        </div>
+
+        <div id="listaTickets" class="lista-tickets">
+          <div class="empty-tickets">No hay tickets registrados aún</div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 Hospital Regional Eleazar Guzmán Barrón · Módulo CRM desarrollado por Royser</p>
+  </footer>
+
+  <script src="citas.js"></script>
+</body>
+</html>
