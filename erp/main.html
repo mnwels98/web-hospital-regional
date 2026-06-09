@@ -1,1 +1,128 @@
-#hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Hospital Guzmán Barrón - Módulo RR.HH.</title>
+    </head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <h1>Hospital Eleazar Guzmán Barrón</h1>
+            <span>Portal ERP - Backoffice</span>
+        </div>
+        <div class="user-profile">
+            <span>Bienvenido, Administrador de RR.HH.</span>
+            <button>Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard General</a></li>
+                    <li><a href="#personal">Gestión de Personal</a></li>
+                    <li><a href="#turnos"><strong>Control de Turnos y Guardias</strong></a></li>
+                    <li><a href="#asistencia">Registro de Asistencia</a></li>
+                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="module-header">
+                <h2>Control de Turnos y Guardias Médicas</h2>
+                <p>Gestión de horarios para médicos, enfermeros y personal administrativo.</p>
+            </section>
+
+            <section class="actions-panel">
+                <form action="#" method="GET">
+                    <label for="departamento">Filtrar por Área:</label>
+                    <select id="departamento" name="departamento">
+                        <option value="todos">Todos</option>
+                        <option value="emergencia">Emergencia</option>
+                        <option value="uci">UCI</option>
+                        <option value="pediatria">Pediatría</option>
+                        <option value="cirugia">Cirugía</option>
+                    </select>
+
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha">
+
+                    <button type="submit">Buscar</button>
+                </form>
+                <button id="btn-nuevo-turno">+ Asignar Nuevo Turno</button>
+            </section>
+
+            <section class="data-table">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID Empleado</th>
+                            <th>Nombre del Personal</th>
+                            <th>Especialidad / Cargo</th>
+                            <th>Área Asignada</th>
+                            <th>Turno</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MED-0045</td>
+                            <td>Dr. Carlos Mendoza</td>
+                            <td>Médico Intensivista</td>
+                            <td>UCI</td>
+                            <td>Noche (20:00 - 08:00)</td>
+                            <td>En Turno</td>
+                            <td>
+                                <button>Editar</button>
+                                <button>Relevar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ENF-0112</td>
+                            <td>Lic. Ana Torres</td>
+                            <td>Enfermera Jefe</td>
+                            <td>Emergencia</td>
+                            <td>Mañana (08:00 - 14:00)</td>
+                            <td>Finalizado</td>
+                            <td>
+                                <button>Editar</button>
+                                <button>Relevar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="modal-asignacion" id="modal-turno">
+                <h3>Asignar Guardia</h3>
+                <form action="#" method="POST">
+                    <div>
+                        <label for="id_empleado">Buscar Empleado:</label>
+                        <input type="text" id="id_empleado" placeholder="Ej. DNI o Código">
+                    </div>
+                    <div>
+                        <label for="tipo_turno">Tipo de Turno:</label>
+                        <select id="tipo_turno">
+                            <option value="manana">Mañana</option>
+                            <option value="tarde">Tarde</option>
+                            <option value="noche">Noche (Guardia)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit">Guardar Asignación</button>
+                        <button type="button">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>
