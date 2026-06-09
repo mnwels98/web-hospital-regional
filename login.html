@@ -39,7 +39,31 @@
     <script>
         function simularLogin() {
             const rol = document.getElementById('rol').value;
-            alert("Simulando validación de credenciales...\nRol detectado: " + rol.toUpperCase() + "\nRedirigiendo a los módulos correspondientes...");
+            let rutaDestino = "";
+
+            // Lógica de enrutamiento (RBAC)
+            switch(rol) {
+                case 'medico':
+                    rutaDestino = "modulos/dashboard-medico.html";
+                    break;
+                case 'admin':
+                    rutaDestino = "modulos/dashboard-admin.html";
+                    break;
+                case 'rrhh':
+                    rutaDestino = "modulos/erp-rrhh.html";
+                    break;
+                case 'paciente':
+                    rutaDestino = "modulos/crm-paciente.html";
+                    break;
+            }
+
+            // Alerta simulada para la presentación de hoy
+            alert("Validando credenciales...\n" + 
+                  "Rol detectado: " + rol.toUpperCase() + "\n" +
+                  "Redirigiendo a la ruta: " + rutaDestino);
+
+            // Código real que usarás el fin de semana para conectar:
+            // window.location.href = rutaDestino;
         }
     </script>
 </body>
