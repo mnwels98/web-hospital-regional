@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Hospital Guzmán Barrón - Registro de Asistencia</title>
+    <link rel="stylesheet" href="global-rrhh.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="../../images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
+            <div class="title-container">
+                <h1>Hospital Eleazar Guzmán Barrón</h1>
+                <span>Portal ERP - Backoffice</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <span>Bienvenido, Administrador de RR.HH.</span>
+            <button class="btn btn-peligro">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="dashboard-rrhh.html">Dashboard General</a></li>
+                    <li><a href="personal-rrhh.html">Gestión de Personal</a></li>
+                    <li><a href="turnos-rrhh.html">Control de Turnos y Guardias</a></li>
+                    <li><a href="asistencia-rrhh.html" class="activo">Registro de Asistencia</a></li>
+                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="module-header">
+                <h2>Registro de Asistencia</h2>
+                <p>Control diario de entradas, salidas, tardanzas y ausencias del personal.</p>
+            </section>
+
+            <section class="panel-filtros">
+                <form action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="area">Área:</label>
+                        <select id="area" class="form-control">
+                            <option value="todos">Todas</option>
+                            <option value="emergencia">Emergencia</option>
+                            <option value="uci">UCI</option>
+                            <option value="pediatria">Pediatría</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" class="form-control">
+                    </div>
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <button type="submit" class="btn btn-primario">Filtrar</button>
+                    </div>
+                </form>
+
+                <button class="btn btn-exito">+ Marcar Asistencia</button>
+            </section>
+
+            <section class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Área</th>
+                            <th>Ingreso</th>
+                            <th>Salida</th>
+                            <th>Estado</th>
+                            <th>Observación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dr. Carlos Mendoza</td>
+                            <td>UCI</td>
+                            <td>07:58</td>
+                            <td>16:10</td>
+                            <td><span class="badge badge-activo">Presente</span></td>
+                            <td>Turno mañana completo</td>
+                        </tr>
+                        <tr>
+                            <td>Lic. Ana Torres</td>
+                            <td>Emergencia</td>
+                            <td>08:20</td>
+                            <td>14:00</td>
+                            <td><span class="badge badge-pendiente">Tardanza</span></td>
+                            <td>20 min de retraso</td>
+                        </tr>
+                        <tr>
+                            <td>Jorge Salinas</td>
+                            <td>Administración</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td><span class="badge badge-inactivo">Ausente</span></td>
+                            <td>Sin registro biométrico</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
