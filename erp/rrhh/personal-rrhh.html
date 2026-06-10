@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function(){try{if(localStorage.getItem('rrhh-theme')==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();
+    </script>
     <title>ERP Hospital Guzmán Barrón - Gestión de Personal</title>
     <link rel="stylesheet" href="global-rrhh.css">
 </head>
@@ -13,7 +16,7 @@
             <img src="../../images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
             <div class="title-container">
                 <h1>Hospital Eleazar Guzmán Barrón</h1>
-                <span>Portal ERP - Backoffice</span>
+                <span>Portal ERP - Backoffice RR.HH.</span>
             </div>
         </div>
         <div class="user-profile">
@@ -31,7 +34,7 @@
                     <li><a href="personal-rrhh.html" class="activo">Gestión de Personal</a></li>
                     <li><a href="turnos-rrhh.html">Control de Turnos y Guardias</a></li>
                     <li><a href="asistencia-rrhh.html">Registro de Asistencia</a></li>
-                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                    <li><a href="reportes-rrhh.html">Reportes de Planilla</a></li>
                 </ul>
             </nav>
         </aside>
@@ -130,5 +133,14 @@
         </main>
     </div>
 
+    <div class="theme-floating">
+        <span>Modo Oscuro</span>
+        <label class="theme-switch" aria-label="Cambiar tema">
+            <input type="checkbox" id="themeToggle">
+            <span class="theme-slider"></span>
+        </label>
+    </div>
+
+    <script src="rrhh-theme.js"></script>
 </body>
 </html>

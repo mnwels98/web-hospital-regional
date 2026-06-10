@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function(){try{if(localStorage.getItem('rrhh-theme')==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();
+    </script>
     <title>ERP Hospital Guzmán Barrón - Dashboard RR.HH.</title>
     <link rel="stylesheet" href="global-rrhh.css">
 </head>
@@ -13,7 +16,7 @@
             <img src="../../images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
             <div class="title-container">
                 <h1>Hospital Eleazar Guzmán Barrón</h1>
-                <span>Portal ERP - Backoffice</span>
+                <span>Portal ERP - Backoffice RR.HH.</span>
             </div>
         </div>
         <div class="user-profile">
@@ -31,7 +34,7 @@
                     <li><a href="personal-rrhh.html">Gestión de Personal</a></li>
                     <li><a href="turnos-rrhh.html">Control de Turnos y Guardias</a></li>
                     <li><a href="asistencia-rrhh.html">Registro de Asistencia</a></li>
-                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                    <li><a href="reportes-rrhh.html">Reportes de Planilla</a></li>
                 </ul>
             </nav>
         </aside>
@@ -66,8 +69,27 @@
             </section>
 
             <section style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 25px;">
+                <div class="card" style="flex: 1; min-width: 280px;">
+                    <h4>Distribución por Área</h4>
+                    <div style="display:flex; align-items:flex-end; gap:10px; min-height:120px; margin-top:10px;">
+                        <div style="flex:1; background:linear-gradient(180deg,#004a8f,#17a2b8); border-radius:8px 8px 0 0; height:70px;"></div>
+                        <div style="flex:1; background:linear-gradient(180deg,#28a745,#7ee081); border-radius:8px 8px 0 0; height:110px;"></div>
+                        <div style="flex:1; background:linear-gradient(180deg,#ffc107,#ffe082); border-radius:8px 8px 0 0; height:90px;"></div>
+                    </div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 8px;">Carga operativa por especialidad</p>
+                </div>
+
+                <div class="card" style="flex: 1; min-width: 280px;">
+                    <h4>Indicador de Cumplimiento</h4>
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; gap:10px;">
+                        <div style="width:80px; height:80px; border-radius:50%; background:conic-gradient(#004a8f 0 82%, #e9ecef 82% 100%); display:grid; place-items:center;">
+                            <span style="background:var(--color-fondo-blanco); width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font-weight:700; color:var(--color-primario);">82%</span>
+                        </div>
+                        <div style="flex:1; color: var(--color-texto-mutado); font-size: 0.9rem;">Cumplimiento de asistencia y turnos programados en el mes.</div>
+                    </div>
+                </div>
                 
-                <div style="flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: var(--radio-borde); border: 1px solid var(--color-borde);">
+                <div style="flex: 1; min-width: 300px; background: var(--color-fondo-blanco); padding: 20px; border-radius: var(--radio-borde); border: 1px solid var(--color-borde); box-shadow: var(--sombra-basica);">
                     <h3>Accesos Rápidos Operativos</h3>
                     <p style="margin-bottom: 15px; color: var(--color-texto-mutado);">Accesos directos a las tareas más frecuentes del área:</p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -112,5 +134,14 @@
         </main>
     </div>
 
+    <div class="theme-floating">
+        <span>Modo Oscuro</span>
+        <label class="theme-switch" aria-label="Cambiar tema">
+            <input type="checkbox" id="themeToggle">
+            <span class="theme-slider"></span>
+        </label>
+    </div>
+
+    <script src="rrhh-theme.js"></script>
 </body>
 </html>

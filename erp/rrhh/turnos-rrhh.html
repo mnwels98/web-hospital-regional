@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function(){try{if(localStorage.getItem('rrhh-theme')==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();
+    </script>
     <title>ERP Hospital Guzmán Barrón - Módulo RR.HH.</title>
     <link rel="stylesheet" href="global-rrhh.css">
     </head>
@@ -13,12 +16,12 @@
             <img src="../../images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
             <div class="title-container">
                 <h1>Hospital Eleazar Guzmán Barrón</h1>
-                <span>Portal ERP - Backoffice</span>
+                <span>Portal ERP - Backoffice RR.HH.</span>
             </div>
         </div>
         <div class="user-profile">
             <span>Bienvenido, Administrador de RR.HH.</span>
-            <button>Cerrar Sesión</button>
+            <button class="btn btn-peligro">Cerrar Sesión</button>
         </div>
     </header>
 
@@ -31,7 +34,7 @@
                     <li><a href="personal-rrhh.html">Gestión de Personal</a></li>
                     <li><a href="turnos-rrhh.html" class="activo">Control de Turnos y Guardias</a></li>
                     <li><a href="asistencia-rrhh.html">Registro de Asistencia</a></li>
-                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                    <li><a href="reportes-rrhh.html">Reportes de Planilla</a></li>
                 </ul>
             </nav>
         </aside>
@@ -39,30 +42,54 @@
         <main>
             <section class="module-header">
                 <h2>Control de Turnos y Guardias Médicas</h2>
-                <p>Gestión de horarios para médicos, enfermeros y personal administrativo.</p>
+                <p>Gestión de horarios para médicos, enfermeros y personal administrativo, con seguimiento en tiempo real de cobertura clínica.</p>
             </section>
 
-            <section class="actions-panel">
-                <form action="#" method="GET">
-                    <label for="departamento">Filtrar por Área:</label>
-                    <select id="departamento" name="departamento">
-                        <option value="todos">Todos</option>
-                        <option value="emergencia">Emergencia</option>
-                        <option value="uci">UCI</option>
-                        <option value="pediatria">Pediatría</option>
-                        <option value="cirugia">Cirugía</option>
-                    </select>
+            <section class="dashboard-grid">
+                <article class="card">
+                    <h4>Turnos Activos</h4>
+                    <div class="numero-kpi">18</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Asignaciones vigentes hoy</p>
+                </article>
+                <article class="card">
+                    <h4>Guardias Cubiertas</h4>
+                    <div class="numero-kpi" style="color: var(--color-exito);">14</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Personal confirmado en servicio</p>
+                </article>
+                <article class="card">
+                    <h4>Reemplazos Pendientes</h4>
+                    <div class="numero-kpi" style="color: var(--color-alerta);">3</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Solicitudes por asignar</p>
+                </article>
+            </section>
 
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" id="fecha" name="fecha">
+            <section class="panel-filtros">
+                <form action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="departamento">Filtrar por Área:</label>
+                        <select id="departamento" name="departamento" class="form-control">
+                            <option value="todos">Todos</option>
+                            <option value="emergencia">Emergencia</option>
+                            <option value="uci">UCI</option>
+                            <option value="pediatria">Pediatría</option>
+                            <option value="cirugia">Cirugía</option>
+                        </select>
+                    </div>
 
-                    <button type="submit">Buscar</button>
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" class="form-control">
+                    </div>
+
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <button type="submit" class="btn btn-primario">Buscar</button>
+                    </div>
                 </form>
-                <button id="btn-nuevo-turno">+ Asignar Nuevo Turno</button>
+                <button id="btn-nuevo-turno" class="btn btn-exito">+ Asignar Nuevo Turno</button>
             </section>
 
-            <section class="data-table">
-                <table border="1">
+            <section class="tabla-contenedor">
+                <table>
                     <thead>
                         <tr>
                             <th>ID Empleado</th>
@@ -81,10 +108,10 @@
                             <td>Médico Intensivista</td>
                             <td>UCI</td>
                             <td>Noche (20:00 - 08:00)</td>
-                            <td>En Turno</td>
+                            <td><span class="badge badge-activo">En Turno</span></td>
                             <td>
-                                <button>Editar</button>
-                                <button>Relevar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;">Relevar</button>
                             </td>
                         </tr>
                         <tr>
@@ -93,34 +120,39 @@
                             <td>Enfermera Jefe</td>
                             <td>Emergencia</td>
                             <td>Mañana (08:00 - 14:00)</td>
-                            <td>Finalizado</td>
+                            <td><span class="badge badge-pendiente">Finalizado</span></td>
                             <td>
-                                <button>Editar</button>
-                                <button>Relevar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;">Relevar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section class="modal-asignacion" id="modal-turno">
+            <section class="modal modal-asignacion" id="modal-turno">
                 <h3>Asignar Guardia</h3>
-                <form action="#" method="POST">
-                    <div>
+                <p style="color: var(--color-texto-mutado); margin-bottom: 15px;">Complete los datos para programar una nueva cobertura médica.</p>
+                <form action="#" method="POST" class="form-grid">
+                    <div class="grupo-form">
                         <label for="id_empleado">Buscar Empleado:</label>
-                        <input type="text" id="id_empleado" placeholder="Ej. DNI o Código">
+                        <input type="text" id="id_empleado" class="form-control" placeholder="Ej. DNI o Código">
                     </div>
-                    <div>
+                    <div class="grupo-form">
                         <label for="tipo_turno">Tipo de Turno:</label>
-                        <select id="tipo_turno">
+                        <select id="tipo_turno" class="form-control">
                             <option value="manana">Mañana</option>
                             <option value="tarde">Tarde</option>
                             <option value="noche">Noche (Guardia)</option>
                         </select>
                     </div>
-                    <div>
-                        <button type="submit">Guardar Asignación</button>
-                        <button type="button">Cancelar</button>
+                    <div class="grupo-form">
+                        <label for="observacion">Observación:</label>
+                        <input type="text" id="observacion" class="form-control" placeholder="Ej. Reemplazo por licencia">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn" style="background-color: #e9ecef; color: #333;">Cancelar</button>
+                        <button type="submit" class="btn btn-primario">Guardar Asignación</button>
                     </div>
                 </form>
             </section>
@@ -128,5 +160,14 @@
         </main>
     </div>
 
+    <div class="theme-floating">
+        <span>Modo Oscuro</span>
+        <label class="theme-switch" aria-label="Cambiar tema">
+            <input type="checkbox" id="themeToggle">
+            <span class="theme-slider"></span>
+        </label>
+    </div>
+
+    <script src="rrhh-theme.js"></script>
 </body>
 </html>

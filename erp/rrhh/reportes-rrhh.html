@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function(){try{if(localStorage.getItem('rrhh-theme')==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();
+    </script>
+    <title>ERP Hospital Guzmán Barrón - Reportes de Planilla</title>
+    <link rel="stylesheet" href="global-rrhh.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="../../images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
+            <div class="title-container">
+                <h1>Hospital Eleazar Guzmán Barrón</h1>
+                <span>Portal ERP - Backoffice RR.HH.</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <span>Bienvenido, Administrador de RR.HH.</span>
+            <button class="btn btn-peligro">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="dashboard-rrhh.html">Dashboard General</a></li>
+                    <li><a href="personal-rrhh.html">Gestión de Personal</a></li>
+                    <li><a href="turnos-rrhh.html">Control de Turnos y Guardias</a></li>
+                    <li><a href="asistencia-rrhh.html">Registro de Asistencia</a></li>
+                    <li><a href="reportes-rrhh.html" class="activo">Reportes de Planilla</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="module-header">
+                <h2>Reportes de Planilla</h2>
+                <p>Resumen financiero, cumplimiento de asistencia y análisis de costos del personal del hospital.</p>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="card">
+                    <h4>Planilla Mensual</h4>
+                    <div class="numero-kpi">S/ 2.480,000</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Total proyectado para junio</p>
+                </article>
+                <article class="card">
+                    <h4>Horas Extras</h4>
+                    <div class="numero-kpi" style="color: var(--color-alerta);">128 h</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Registradas en la semana</p>
+                </article>
+                <article class="card">
+                    <h4>Asistencia Cumplida</h4>
+                    <div class="numero-kpi" style="color: var(--color-exito);">96.4%</div>
+                    <p style="color: var(--color-texto-mutado); font-size: 0.85rem; margin-top: 5px;">Personal con marca correcta</p>
+                </article>
+            </section>
+
+            <section class="panel-filtros">
+                <form action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="mes">Mes:</label>
+                        <select id="mes" class="form-control">
+                            <option>Enero</option>
+                            <option>Febrero</option>
+                            <option>Marzo</option>
+                            <option>Abril</option>
+                            <option>Mayo</option>
+                            <option selected>Junio</option>
+                            <option>Julio</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="tipo">Tipo de reporte:</label>
+                        <select id="tipo" class="form-control">
+                            <option value="planilla">Planilla</option>
+                            <option value="asistencia">Asistencia</option>
+                            <option value="horas">Horas extras</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <button type="submit" class="btn btn-primario">Generar</button>
+                    </div>
+                </form>
+
+                <button class="btn btn-exito">Exportar PDF</button>
+            </section>
+
+            <section class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Área</th>
+                            <th>Personal</th>
+                            <th>Horas Laboradas</th>
+                            <th>Bonos / Extras</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Emergencia</td>
+                            <td>18 colaboradores</td>
+                            <td>1,440 h</td>
+                            <td>S/ 18,400</td>
+                            <td><span class="badge badge-activo">Al día</span></td>
+                        </tr>
+                        <tr>
+                            <td>UCI</td>
+                            <td>12 colaboradores</td>
+                            <td>1,152 h</td>
+                            <td>S/ 24,700</td>
+                            <td><span class="badge badge-pendiente">Revisión</span></td>
+                        </tr>
+                        <tr>
+                            <td>Administración</td>
+                            <td>9 colaboradores</td>
+                            <td>720 h</td>
+                            <td>S/ 9,300</td>
+                            <td><span class="badge badge-activo">Al día</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <div class="theme-floating">
+        <span>Modo Oscuro</span>
+        <label class="theme-switch" aria-label="Cambiar tema">
+            <input type="checkbox" id="themeToggle">
+            <span class="theme-slider"></span>
+        </label>
+    </div>
+
+    <script src="rrhh-theme.js"></script>
+</body>
+</html>
