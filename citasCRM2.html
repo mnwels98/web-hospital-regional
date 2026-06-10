@@ -12,15 +12,19 @@
   <header class="header">
     <div class="header-inner">
       <div class="logo-container">
-        <div class="logo-icon">🏥</div>
-        <div>
+        <img src="images/logo.jpg" alt="Logo Hospital Regional" class="logo-img">
+        <div class="logo-text">
           <h1 class="logo-title">Hospital Regional</h1>
           <span class="logo-sub">Eleazar Guzmán Barrón</span>
         </div>
       </div>
       <nav class="nav">
-        <a href="index.html" class="nav-link">← Inicio</a>
-        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="index.html" class="nav-btn btn-inicio">
+          <span>🏠</span> Inicio
+        </a>
+        <a href="dashboard.html" class="nav-btn btn-dashboard">
+          <span>📊</span> Dashboard
+        </a>
         <span class="nav-badge">CRM · Citas</span>
       </nav>
     </div>
@@ -33,6 +37,59 @@
     <div class="page-header">
       <h2 class="page-title">Gestión de Citas Médicas</h2>
       <p class="page-subtitle">Registra, consulta y administra las citas de los pacientes</p>
+    </div>
+
+    <!-- PANEL DE ESTADÍSTICAS -->
+    <div class="stats-grid">
+      <div class="stat-card stat-blue">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <span class="stat-numero" id="stat-total">0</span>
+          <span class="stat-label">Total Citas</span>
+        </div>
+      </div>
+      <div class="stat-card stat-green">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <span class="stat-numero" id="stat-confirmadas">0</span>
+          <span class="stat-label">Confirmadas</span>
+        </div>
+      </div>
+      <div class="stat-card stat-yellow">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-info">
+          <span class="stat-numero" id="stat-pendientes">0</span>
+          <span class="stat-label">Pendientes</span>
+        </div>
+      </div>
+      <div class="stat-card stat-red">
+        <div class="stat-icon">🎫</div>
+        <div class="stat-info">
+          <span class="stat-numero" id="stat-tickets">0</span>
+          <span class="stat-label">Tickets Activos</span>
+        </div>
+      </div>
+      <div class="stat-card stat-orange">
+        <div class="stat-icon">🚨</div>
+        <div class="stat-info">
+          <span class="stat-numero" id="stat-urgentes">0</span>
+          <span class="stat-label">Urgentes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTAS -->
+    <div id="zona-alertas"></div>
+
+    <!-- BUSCADOR -->
+    <div class="buscador-container">
+      <div class="buscador-inner">
+        <span class="buscador-icon">🔍</span>
+        <input type="text" id="buscador" class="buscador-input" placeholder="Buscar paciente por nombre o DNI...">
+        <button class="buscador-btn" onclick="buscarPaciente()">Buscar</button>
+        <button class="buscador-btn btn-limpiar" onclick="limpiarBusqueda()">Limpiar</button>
+      </div>
+      <div id="resultado-busqueda"></div>
     </div>
 
     <!-- GRID: Formulario + Tabla -->
@@ -48,11 +105,13 @@
         <div class="form-group">
           <label class="form-label" for="nombre">Nombre del Paciente</label>
           <input class="form-input" type="text" id="nombre" placeholder="Ej. Juan Pérez López">
+          <span class="form-error" id="err-nombre"></span>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="dni">DNI</label>
-          <input class="form-input" type="text" id="dni" placeholder="Ej. 12345678" maxlength="8">
+          <input class="form-input" type="text" id="dni" placeholder="Ej. 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <span class="form-error" id="err-dni"></span>
         </div>
 
         <div class="form-group">
@@ -68,6 +127,7 @@
             <option>Dermatología</option>
             <option>Oftalmología</option>
           </select>
+          <span class="form-error" id="err-especialidad"></span>
         </div>
 
         <div class="form-group">
@@ -75,12 +135,14 @@
           <select class="form-input" id="medico">
             <option value="">-- Seleccionar especialidad primero --</option>
           </select>
+          <span class="form-error" id="err-medico"></span>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="fecha">Fecha</label>
             <input class="form-input" type="date" id="fecha">
+            <span class="form-error" id="err-fecha"></span>
           </div>
           <div class="form-group">
             <label class="form-label" for="hora">Hora</label>
@@ -100,10 +162,11 @@
               <option>15:30</option>
               <option>16:00</option>
             </select>
+            <span class="form-error" id="err-hora"></span>
           </div>
         </div>
 
-        <button class="btn-primary" onclick="registrarCita()">Registrar Cita</button>
+        <button class="btn-primary" onclick="registrarCita()">📅 Registrar Cita</button>
         <div id="mensaje" class="mensaje oculto"></div>
       </section>
 
@@ -130,7 +193,7 @@
               </tr>
             </thead>
             <tbody id="cuerpoTabla">
-              <tr class="empty-row" id="emptyRow">
+              <tr class="empty-row">
                 <td colspan="8">No hay citas registradas aún</td>
               </tr>
             </tbody>
@@ -153,11 +216,13 @@
         <div class="form-group">
           <label class="form-label" for="ticket-paciente">Nombre del Paciente</label>
           <input class="form-input" type="text" id="ticket-paciente" placeholder="Ej. María Torres">
+          <span class="form-error" id="err-ticket-paciente"></span>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="ticket-motivo">Motivo de Consulta</label>
           <textarea class="form-input form-textarea" id="ticket-motivo" placeholder="Describe brevemente el motivo..."></textarea>
+          <span class="form-error" id="err-ticket-motivo"></span>
         </div>
 
         <div class="form-group">
@@ -169,7 +234,7 @@
           </select>
         </div>
 
-        <button class="btn-primary" onclick="registrarTicket()">Generar Ticket</button>
+        <button class="btn-primary" onclick="registrarTicket()">🎫 Generar Ticket</button>
         <div id="mensajeTicket" class="mensaje oculto"></div>
       </section>
 
