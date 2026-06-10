@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Hospital Guzmán Barrón - Gestión de Personal</title>
+    <link rel="stylesheet" href="global-rrhh.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="web-hospital-regional/images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" width="80">
+            <div class="title-container">
+                <h1>Hospital Eleazar Guzmán Barrón</h1>
+                <span>Portal ERP - Backoffice</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <span>Bienvenido, Administrador de RR.HH.</span>
+            <button class="btn btn-peligro">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="dashboard-rrhh.html">Dashboard General</a></li>
+                    <li><a href="personal-rrhh.html" class="activo">Gestión de Personal</a></li>
+                    <li><a href="turnos-rrhh.html">Control de Turnos y Guardias</a></li>
+                    <li><a href="#asistencia">Registro de Asistencia</a></li>
+                    <li><a href="#reportes">Reportes de Planilla</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="module-header">
+                <h2>Directorio y Gestión de Personal</h2>
+                <p>Administración de legajos, contratos y datos maestros de los colaboradores del hospital.</p>
+            </section>
+
+            <section class="panel-filtros">
+                <form action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                    
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="buscar">Buscar Colaborador:</label>
+                        <input type="text" id="buscar" class="form-control" placeholder="DNI o Apellidos..." style="width: 250px;">
+                    </div>
+
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <label for="rol">Tipo de Personal:</label>
+                        <select id="rol" class="form-control">
+                            <option value="todos">Todos los roles</option>
+                            <option value="medico">Personal Médico</option>
+                            <option value="enfermeria">Personal de Enfermería</option>
+                            <option value="administrativo">Administrativo</option>
+                            <option value="tecnico">Técnico de Salud</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form" style="margin-bottom: 0;">
+                        <button type="submit" class="btn btn-primario">Buscar</button>
+                    </div>
+                </form>
+
+                <div>
+                    <button class="btn btn-exito">+ Nuevo Empleado</button>
+                </div>
+            </section>
+
+            <section class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DNI / Código</th>
+                            <th>Apellidos y Nombres</th>
+                            <th>Cargo / Especialidad</th>
+                            <th>Departamento</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>09123456</strong><br><small style="color: var(--color-texto-mutado);">MED-0045</small></td>
+                            <td>Mendoza Ruiz, Carlos Augusto</td>
+                            <td>Médico Intensivista</td>
+                            <td>UCI</td>
+                            <td>987-654-321</td>
+                            <td><span class="badge badge-activo">Activo</span></td>
+                            <td>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>45678912</strong><br><small style="color: var(--color-texto-mutado);">ENF-0112</small></td>
+                            <td>Torres Castro, Ana María</td>
+                            <td>Licenciada en Enfermería</td>
+                            <td>Emergencia</td>
+                            <td>912-345-678</td>
+                            <td><span class="badge badge-pendiente">Vacaciones</span></td>
+                            <td>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>10293847</strong><br><small style="color: var(--color-texto-mutado);">ADM-0089</small></td>
+                            <td>Salinas Vega, Jorge</td>
+                            <td>Asistente Contable</td>
+                            <td>Administración</td>
+                            <td>999-888-777</td>
+                            <td><span class="badge badge-inactivo">Licencia</span></td>
+                            <td>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>
