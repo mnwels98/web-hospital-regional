@@ -19,13 +19,8 @@
         </div>
       </div>
       <nav class="nav">
-        <a href="index.html" class="nav-btn btn-inicio">
-          <span>🏠</span> Inicio
-        </a>
-        <a href="dashboard.html" class="nav-btn btn-dashboard">
-          <span>📊</span> Dashboard
-        </a>
-        <span class="nav-badge">CRM · Citas</span>
+        <a href="index.html" class="nav-btn btn-inicio">🏠 Inicio</a>
+        <a href="dashboard.html" class="nav-btn btn-dashboard">📊 Dashboard</a>
       </nav>
     </div>
   </header>
@@ -35,8 +30,11 @@
 
     <!-- PAGE TITLE -->
     <div class="page-header">
-      <h2 class="page-title">Gestión de Citas Médicas</h2>
-      <p class="page-subtitle">Registra, consulta y administra las citas de los pacientes</p>
+      <div class="page-header-left">
+        <span class="crm-tag">CRM · Módulo de Citas</span>
+        <h2 class="page-title">Gestión de Citas Médicas</h2>
+        <p class="page-subtitle">Registra, consulta y administra las citas de los pacientes</p>
+      </div>
     </div>
 
     <!-- PANEL DE ESTADÍSTICAS -->
@@ -92,16 +90,21 @@
       <div id="resultado-busqueda"></div>
     </div>
 
-    <!-- GRID: Formulario + Tabla -->
-    <div class="content-grid">
+    <!-- SEPARADOR SECCIÓN CITAS -->
+    <div class="seccion-titulo">
+      <span class="seccion-icono">📅</span>
+      <h3>Citas Médicas</h3>
+      <div class="seccion-linea"></div>
+    </div>
 
-      <!-- FORMULARIO DE CITAS -->
-      <section class="card form-card">
-        <div class="card-header">
-          <span class="card-icon">📋</span>
-          <h3 class="card-title">Nueva Cita</h3>
-        </div>
+    <!-- FORMULARIO NUEVA CITA -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <h3 class="card-title">Nueva Cita</h3>
+      </div>
 
+      <div class="form-grid">
         <div class="form-group">
           <label class="form-label" for="nombre">Nombre del Paciente</label>
           <input class="form-input" type="text" id="nombre" placeholder="Ej. Juan Pérez López">
@@ -138,88 +141,86 @@
           <span class="form-error" id="err-medico"></span>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="fecha">Fecha</label>
-            <input class="form-input" type="date" id="fecha">
-            <span class="form-error" id="err-fecha"></span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="hora">Hora</label>
-            <select class="form-input" id="hora">
-              <option value="">-- Hora --</option>
-              <option>08:00</option>
-              <option>08:30</option>
-              <option>09:00</option>
-              <option>09:30</option>
-              <option>10:00</option>
-              <option>10:30</option>
-              <option>11:00</option>
-              <option>11:30</option>
-              <option>14:00</option>
-              <option>14:30</option>
-              <option>15:00</option>
-              <option>15:30</option>
-              <option>16:00</option>
-            </select>
-            <span class="form-error" id="err-hora"></span>
-          </div>
+        <div class="form-group">
+          <label class="form-label" for="fecha">Fecha</label>
+          <input class="form-input" type="date" id="fecha">
+          <span class="form-error" id="err-fecha"></span>
         </div>
 
+        <div class="form-group">
+          <label class="form-label" for="hora">Hora</label>
+          <select class="form-input" id="hora">
+            <option value="">-- Hora --</option>
+            <option>08:00</option><option>08:30</option>
+            <option>09:00</option><option>09:30</option>
+            <option>10:00</option><option>10:30</option>
+            <option>11:00</option><option>11:30</option>
+            <option>14:00</option><option>14:30</option>
+            <option>15:00</option><option>15:30</option>
+            <option>16:00</option>
+          </select>
+          <span class="form-error" id="err-hora"></span>
+        </div>
+      </div>
+
+      <div class="form-footer">
         <button class="btn-primary" onclick="registrarCita()">📅 Registrar Cita</button>
         <div id="mensaje" class="mensaje oculto"></div>
-      </section>
+      </div>
+    </section>
 
-      <!-- TABLA DE CITAS -->
-      <section class="card table-card">
-        <div class="card-header">
-          <span class="card-icon">📅</span>
-          <h3 class="card-title">Citas Agendadas</h3>
-          <span class="badge-count" id="contador">0 citas</span>
-        </div>
+    <!-- TABLA CITAS AGENDADAS -->
+    <section class="card" style="margin-top: 24px;">
+      <div class="card-header">
+        <span class="card-icon">📅</span>
+        <h3 class="card-title">Citas Agendadas</h3>
+        <span class="badge-count" id="contador">0 citas</span>
+      </div>
+      <div class="table-wrapper">
+        <table class="tabla-citas">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>DNI</th>
+              <th>Especialidad</th>
+              <th>Médico</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTabla">
+            <tr class="empty-row">
+              <td colspan="8">No hay citas registradas aún</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <div class="table-wrapper">
-          <table class="tabla-citas" id="tablaCitas">
-            <thead>
-              <tr>
-                <th>Paciente</th>
-                <th>DNI</th>
-                <th>Especialidad</th>
-                <th>Médico</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Estado</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="cuerpoTabla">
-              <tr class="empty-row">
-                <td colspan="8">No hay citas registradas aún</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
+    <!-- SEPARADOR SECCIÓN TICKETS -->
+    <div class="seccion-titulo" style="margin-top: 40px;">
+      <span class="seccion-icono">🎫</span>
+      <h3>Tickets de Atención</h3>
+      <div class="seccion-linea"></div>
     </div>
 
-    <!-- TICKETS -->
-    <div class="content-grid" style="margin-top: 28px;">
+    <!-- FORMULARIO TICKET -->
+    <section class="card">
+      <div class="card-header">
+        <span class="card-icon">🎫</span>
+        <h3 class="card-title">Nuevo Ticket de Atención</h3>
+      </div>
 
-      <!-- FORMULARIO TICKET -->
-      <section class="card form-card">
-        <div class="card-header">
-          <span class="card-icon">🎫</span>
-          <h3 class="card-title">Nuevo Ticket de Atención</h3>
-        </div>
-
+      <div class="form-grid form-grid-3">
         <div class="form-group">
           <label class="form-label" for="ticket-paciente">Nombre del Paciente</label>
           <input class="form-input" type="text" id="ticket-paciente" placeholder="Ej. María Torres">
           <span class="form-error" id="err-ticket-paciente"></span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-group-wide">
           <label class="form-label" for="ticket-motivo">Motivo de Consulta</label>
           <textarea class="form-input form-textarea" id="ticket-motivo" placeholder="Describe brevemente el motivo..."></textarea>
           <span class="form-error" id="err-ticket-motivo"></span>
@@ -233,25 +234,25 @@
             <option value="emergencia">Emergencia</option>
           </select>
         </div>
+      </div>
 
+      <div class="form-footer">
         <button class="btn-primary" onclick="registrarTicket()">🎫 Generar Ticket</button>
         <div id="mensajeTicket" class="mensaje oculto"></div>
-      </section>
+      </div>
+    </section>
 
-      <!-- LISTA DE TICKETS -->
-      <section class="card table-card">
-        <div class="card-header">
-          <span class="card-icon">📋</span>
-          <h3 class="card-title">Tickets de Atención</h3>
-          <span class="badge-count" id="contadorTickets">0 tickets</span>
-        </div>
-
-        <div id="listaTickets" class="lista-tickets">
-          <div class="empty-tickets">No hay tickets registrados aún</div>
-        </div>
-      </section>
-
-    </div>
+    <!-- LISTA TICKETS -->
+    <section class="card" style="margin-top: 24px;">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <h3 class="card-title">Tickets Registrados</h3>
+        <span class="badge-count" id="contadorTickets">0 tickets</span>
+      </div>
+      <div id="listaTickets" class="lista-tickets">
+        <div class="empty-tickets">No hay tickets registrados aún</div>
+      </div>
+    </section>
 
   </main>
 
