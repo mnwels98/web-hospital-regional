@@ -41,19 +41,19 @@
             const rol = document.getElementById('rol').value;
             let rutaDestino = "";
 
-            // Lógica de enrutamiento (RBAC) con rutas locales seguras
+            // Lógica de enrutamiento (RBAC) con la Arquitectura Definitiva
             switch(rol) {
                 case 'medico':
-                    rutaDestino = "./paginas/citasCRM2.html"; 
+                    rutaDestino = "./modulos/crm/citas.html"; 
                     break;
                 case 'admin':
                     rutaDestino = "./index.html"; 
                     break;
                 case 'rrhh':
-                    rutaDestino = "./erp/erp-turnos.html"; 
+                    rutaDestino = "./modulos/erp/turnos.html"; 
                     break;
                 case 'paciente':
-                    rutaDestino = "./CRM/index.html"; 
+                    rutaDestino = "./modulos/crm/dashboard.html"; 
                     break;
             }
 
