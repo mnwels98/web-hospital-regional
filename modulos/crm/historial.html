@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Historial Clínico — Hospital Regional EGB</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Iconos Tabler -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <header class="topbar">
+    <div class="topbar-logo">
+      <div class="logo-badge">
+        <i class="ti ti-building-hospital" aria-hidden="true"></i>
+      </div>
+      <div>
+        <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
+        <div class="topbar-subtitle">Sistema CRM — Historial Clínico</div>
+      </div>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-user">
+      <div class="avatar-sm">DR</div>
+      <div>
+        <div class="user-name">Dr. Rafael Torres</div>
+        <div class="user-role">Medicina Interna</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== NAVEGACIÓN POR PESTAÑAS ===== -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" data-tab="buscar">
+      <i class="ti ti-search" aria-hidden="true"></i> Buscar Paciente
+    </button>
+    <button class="nav-tab" data-tab="nuevo">
+      <i class="ti ti-user-plus" aria-hidden="true"></i> Nuevo Paciente
+    </button>
+    <button class="nav-tab" data-tab="dashboard">
+      <i class="ti ti-chart-bar" aria-hidden="true"></i> Estadísticas
+    </button>
+  </nav>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="content">
+
+    <!-- PANEL: BUSCAR PACIENTE -->
+    <section id="panel-buscar" class="panel active">
+
+      <!-- Barra de búsqueda -->
+      <div class="search-bar">
+        <i class="ti ti-search search-icon" aria-hidden="true"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por nombre, DNI o historia clínica..."
+        />
+        <select id="filterEsp">
+          <option value="">Todas las especialidades</option>
+          <option value="Medicina Interna">Medicina Interna</option>
+          <option value="Cardiología">Cardiología</option>
+          <option value="Pediatría">Pediatría</option>
+          <option value="Cirugía">Cirugía</option>
+          <option value="Traumatología">Traumatología</option>
+          <option value="Neurología">Neurología</option>
+          <option value="Ginecología">Ginecología</option>
+        </select>
+        <button class="btn" id="btnClearSearch">
+          <i class="ti ti-x" aria-hidden="true"></i> Limpiar
+        </button>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <!-- Dos columnas: lista + detalle -->
+      <div class="two-col">
+        <div id="patientsList"></div>
+        <div id="detailArea">
+          <div class="empty-state">
+            <i class="ti ti-user-search" aria-hidden="true"></i>
+            <p>Selecciona un paciente para ver su historial clínico</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL: NUEVO PACIENTE -->
+    <section id="panel-nuevo" class="panel">
+      <div class="form-card">
+
+        <div class="form-card-header">
+          <i class="ti ti-user-plus form-header-icon" aria-hidden="true"></i>
+          <div>
+            <h2>Registrar nuevo paciente</h2>
+            <p>Completa los datos del paciente</p>
+          </div>
+        </div>
+
+        <div id="newPatientAlert"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="np_nombres">Nombres *</label>
+            <input type="text" id="np_nombres" placeholder="Nombres completos" />
+          </div>
+          <div class="form-group">
+            <label for="np_apellidos">Apellidos *</label>
+            <input type="text" id="np_apellidos" placeholder="Apellidos completos" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="np_dni">DNI *</label>
+            <input type="text" id="np_dni" placeholder="8 dígitos" maxlength="8" />
+          </div>
+          <div class="form-group">
+            <label for="np_fecha_nac">Fecha de nacimiento *</label>
+            <input type="date" id="np_fecha_nac" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="np_sexo">Sexo</label>
+            <select id="np_sexo">
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="np_sangre">Tipo de sangre</label>
+            <select id="np_sangre">
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>O+</option><option>O-</option>
+              <option>AB+</option><option>AB-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="np_tel">Teléfono</label>
+            <input type="text" id="np_tel" placeholder="Número de contacto" />
+          </div>
+          <div class="form-group">
+            <label for="np_esp">Especialidad asignada</label>
+            <select id="np_esp">
+              <option>Medicina Interna</option>
+              <option>Cardiología</option>
+              <option>Pediatría</option>
+              <option>Cirugía</option>
+              <option>Traumatología</option>
+              <option>Neurología</option>
+              <option>Ginecología</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="np_alergias">Alergias conocidas</label>
+          <input type="text" id="np_alergias" placeholder="Penicilina, Aspirina… (separadas por coma)" />
+        </div>
+
+        <div class="form-group">
+          <label for="np_antecedentes">Antecedentes médicos</label>
+          <textarea id="np_antecedentes" placeholder="Enfermedades previas, cirugías anteriores, etc."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-success" id="btnSaveNewPatient">
+            <i class="ti ti-device-floppy" aria-hidden="true"></i> Registrar paciente
+          </button>
+          <button class="btn" id="btnClearNewPatient">
+            <i class="ti ti-refresh" aria-hidden="true"></i> Limpiar
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PANEL: ESTADÍSTICAS / DASHBOARD -->
+    <section id="panel-dashboard" class="panel">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="dashboard-cols">
+        <div class="detail-panel">
+          <h3 class="section-title">
+            <i class="ti ti-stethoscope" aria-hidden="true"></i> Últimas consultas
+          </h3>
+          <div id="recentConsults"></div>
+        </div>
+        <div class="detail-panel">
+          <h3 class="section-title">
+            <i class="ti ti-chart-pie" aria-hidden="true"></i> Pacientes por especialidad
+          </h3>
+          <div id="specialtyChart"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== TOAST DE NOTIFICACIÓN ===== -->
+  <div id="toast" role="status" aria-live="polite">
+    <i class="ti ti-check" aria-hidden="true"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
