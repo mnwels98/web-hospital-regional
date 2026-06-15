@@ -53,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
   actualizarEstadisticas();
   verificarAlertas();
   actualizarCampana();
+  init3DCards();
+  initAnimaciones();
 });
 
 // ─── VALIDACIONES ─────────────────────────────────────────────────
@@ -310,7 +312,7 @@ function renderTickets() {
   }
 
   lista.innerHTML = tickets.map(t => `
-    <div class="ticket-item ${t.prioridad} ${t.atendido ? "atendido" : ""}">
+    <div class="ticket-item ${t.prioridad}" data-atendido="${t.atendido}">
       <div class="ticket-info">
         <h4>Ticket #${t.id} — ${t.paciente}</h4>
         <p>${t.motivo}</p>
@@ -323,6 +325,7 @@ function renderTickets() {
         <button class="ticket-estado-btn" onclick="marcarAtendido(${t.id})">
           ${t.atendido ? "✓ Atendido" : "Marcar atendido"}
         </button>
+        <button class="btn-imprimir" onclick="imprimirTicket(${t.id})" title="Imprimir ticket">🖨️</button>
       </div>
     </div>
   `).join("");
@@ -419,8 +422,269 @@ function horaActual() {
   return new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" });
 }
 
+// ─── Imprimir Ticket Individual ───────────────────────────────────
+function imprimirTicket(id) {
+  const t = tickets.find(t => t.id === id);
+  if (!t) return;
+
+  const colorPrioridad = {
+    normal:     { bg: "#e8f0fb", color: "#0056b3", label: "Normal" },
+    urgente:    { bg: "#fff3cd", color: "#856404", label: "Urgente" },
+    emergencia: { bg: "#f8d7da", color: "#721c24", label: "EMERGENCIA" },
+  };
+
+  const cp = colorPrioridad[t.prioridad];
+  const fecha = new Date().toLocaleDateString("es-PE", { day: "2-digit", month: "long", year: "numeric" });
+  const hora  = new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" });
+
+  const ventana = window.open("", "_blank", "width=480,height=640");
+  ventana.document.write(`
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <title>Ticket #${t.id} - Hospital Regional</title>
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          font-family: 'Segoe UI', Arial, sans-serif;
+          background: #f0f4f8;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 24px;
+          min-height: 100vh;
+        }
+        .ticket {
+          background: white;
+          border-radius: 12px;
+          width: 100%;
+          max-width: 400px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+          overflow: hidden;
+        }
+        .ticket-header {
+          background: linear-gradient(135deg, #003d82, #0056b3);
+          color: white;
+          padding: 20px;
+          text-align: center;
+        }
+        .ticket-header img {
+          width: 56px;
+          height: 56px;
+          object-fit: contain;
+          background: white;
+          border-radius: 8px;
+          padding: 4px;
+          margin-bottom: 10px;
+        }
+        .ticket-header h2 {
+          font-size: 16px;
+          font-weight: 700;
+          margin-bottom: 2px;
+        }
+        .ticket-header p {
+          font-size: 12px;
+          opacity: 0.8;
+        }
+        .ticket-numero {
+          background: #f0f4f8;
+          text-align: center;
+          padding: 20px;
+          border-bottom: 2px dashed #dee2e6;
+        }
+        .ticket-numero span {
+          font-size: 48px;
+          font-weight: 800;
+          color: #003d82;
+          display: block;
+          line-height: 1;
+        }
+        .ticket-numero small {
+          font-size: 13px;
+          color: #666;
+          margin-top: 4px;
+          display: block;
+        }
+        .ticket-body {
+          padding: 20px;
+        }
+        .ticket-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 10px 0;
+          border-bottom: 1px solid #f0f4f8;
+          gap: 12px;
+        }
+        .ticket-row:last-child { border-bottom: none; }
+        .ticket-row label {
+          font-size: 11px;
+          font-weight: 700;
+          color: #888;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+        }
+        .ticket-row span {
+          font-size: 14px;
+          color: #333;
+          font-weight: 500;
+          text-align: right;
+        }
+        .prioridad-badge {
+          display: inline-block;
+          background: ${cp.bg};
+          color: ${cp.color};
+          font-size: 13px;
+          font-weight: 700;
+          padding: 4px 14px;
+          border-radius: 20px;
+        }
+        .ticket-estado {
+          text-align: center;
+          padding: 12px 20px;
+          background: ${t.atendido ? "#d4edda" : "#fff3cd"};
+          color: ${t.atendido ? "#155724" : "#856404"};
+          font-size: 13px;
+          font-weight: 700;
+        }
+        .ticket-footer {
+          background: #003d82;
+          color: rgba(255,255,255,0.7);
+          text-align: center;
+          padding: 12px;
+          font-size: 11px;
+        }
+        .btn-imprimir-real {
+          display: block;
+          width: calc(100% - 48px);
+          margin: 16px auto;
+          background: linear-gradient(135deg, #003d82, #0056b3);
+          color: white;
+          border: none;
+          padding: 12px;
+          border-radius: 8px;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        @media print {
+          body { background: white; padding: 0; }
+          .btn-imprimir-real { display: none; }
+          .ticket { box-shadow: none; }
+        }
+      </style>
+    </head>
+    <body>
+      <div>
+        <div class="ticket">
+          <div class="ticket-header">
+            <img src="../../global/images/logo.jpg" alt="Logo Hospital">
+            <h2>Hospital Regional</h2>
+            <p>Eleazar Guzmán Barrón</p>
+          </div>
+
+          <div class="ticket-numero">
+            <span>#${String(t.id).padStart(3, "0")}</span>
+            <small>Ticket de Atención</small>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-row">
+              <label>Paciente</label>
+              <span>${t.paciente}</span>
+            </div>
+            <div class="ticket-row">
+              <label>Motivo</label>
+              <span>${t.motivo}</span>
+            </div>
+            <div class="ticket-row">
+              <label>Prioridad</label>
+              <span><span class="prioridad-badge">${cp.label}</span></span>
+            </div>
+            <div class="ticket-row">
+              <label>Fecha</label>
+              <span>${fecha}</span>
+            </div>
+            <div class="ticket-row">
+              <label>Hora emisión</label>
+              <span>${hora}</span>
+            </div>
+          </div>
+
+          <div class="ticket-estado">
+            ${t.atendido ? "✅ Atendido" : "⏳ En espera de atención"}
+          </div>
+
+          <div class="ticket-footer">
+            © 2026 Hospital Regional Eleazar Guzmán Barrón · CRM por Royser
+          </div>
+        </div>
+
+        <button class="btn-imprimir-real" onclick="window.print()">🖨️ Imprimir Ticket</button>
+      </div>
+    </body>
+    </html>
+  `);
+  ventana.document.close();
+}
+
+
 // =============================================
-//  MODO OSCURO
+//  ANIMACIONES DE ENTRADA
+// =============================================
+function initAnimaciones() {
+  const elementos = [
+    { selector: ".page-header",         delay: 0   },
+    { selector: ".stats-grid",          delay: 100 },
+    { selector: ".stat-card:nth-child(1)", delay: 150 },
+    { selector: ".stat-card:nth-child(2)", delay: 220 },
+    { selector: ".stat-card:nth-child(3)", delay: 290 },
+    { selector: ".stat-card:nth-child(4)", delay: 360 },
+    { selector: ".stat-card:nth-child(5)", delay: 430 },
+    { selector: ".buscador-container",  delay: 500 },
+    { selector: ".seccion-titulo",      delay: 580 },
+    { selector: ".card",                delay: 650 },
+  ];
+
+  elementos.forEach(({ selector, delay }) => {
+    const els = document.querySelectorAll(selector);
+    els.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add("animar");
+        // Restaurar transform después de animación para no romper 3D
+        setTimeout(() => {
+          el.style.opacity  = "1";
+          el.style.transform = "";
+        }, 500);
+      }, delay + i * 80);
+    });
+  });
+}
+
+// =============================================
+//  EFECTO 3D EN CARDS DE ESTADÍSTICAS
+// =============================================
+function init3DCards() {
+  document.querySelectorAll(".stat-card").forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect    = card.getBoundingClientRect();
+      const x       = e.clientX - rect.left;
+      const y       = e.clientY - rect.top;
+      const cx      = rect.width  / 2;
+      const cy      = rect.height / 2;
+      const rotateX = ((y - cy) / cy) * -12;
+      const rotateY = ((x - cx) / cx) *  12;
+      card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
+
 // =============================================
 function toggleDarkMode() {
   const body = document.body;
