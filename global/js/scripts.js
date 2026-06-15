@@ -714,29 +714,3 @@ if (formularioPaciente) {
     });
 }
 
-// --- SISTEMA DE MODO OSCURO GLOBAL ---
-document.addEventListener('DOMContentLoaded', () => {
-    const btnDarkMode = document.getElementById('btn-dark-mode');
-    
-    // Verificar si el usuario ya tenía el modo oscuro activado antes
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        if(btnDarkMode) btnDarkMode.textContent = '☀️'; // Cambia el icono a sol
-    }
-
-    // Evento al hacer clic en el botón
-    if(btnDarkMode) {
-        btnDarkMode.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            
-            // Guardar la preferencia y cambiar el icono
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                btnDarkMode.textContent = '☀️';
-            } else {
-                localStorage.setItem('theme', 'light');
-                btnDarkMode.textContent = '🌙';
-            }
-        });
-    }
-});
