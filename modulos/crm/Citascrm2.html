@@ -18,9 +18,18 @@
           <span class="logo-sub">Eleazar Guzmán Barrón</span>
         </div>
       </div>
+      <div id="toast-container"></div>
       <nav class="nav">
         <a href="../../index.html" class="nav-btn btn-inicio">🏠 Inicio</a>
         <a href="dashboardcitas.html" class="nav-btn btn-dashboard">📊 Dashboard</a>
+        <div class="campana-wrapper" onclick="toggleCampana()">
+          <button class="campana-btn">🔔</button>
+          <span class="campana-badge oculto" id="campana-badge">0</span>
+          <div class="campana-dropdown oculto" id="campana-dropdown">
+            <div class="campana-header">🔔 Alertas activas</div>
+            <div class="campana-lista" id="campana-lista"></div>
+          </div>
+        </div>
       </nav>
     </div>
   </header>

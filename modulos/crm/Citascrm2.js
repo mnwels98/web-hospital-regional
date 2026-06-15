@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTickets();
   actualizarEstadisticas();
   verificarAlertas();
+  actualizarCampana();
 });
 
 // ─── VALIDACIONES ─────────────────────────────────────────────────
@@ -136,6 +137,7 @@ function registrarCita() {
   actualizarEstadisticas();
   limpiarFormularioCita();
   mostrarMensaje("mensaje", "exito", `✅ Cita #${contadorCitas} registrada para ${nombre}.`);
+  mostrarToast("📅", "Cita registrada", `${nombre} · ${especialidad}`, "exito");
 }
 
 function renderTabla(lista) {
@@ -208,8 +210,11 @@ function registrarTicket() {
   renderTickets();
   actualizarEstadisticas();
   verificarAlertas();
+  actualizarCampana();
   limpiarFormularioTicket();
   mostrarMensaje("mensajeTicket", "exito", `✅ Ticket #${contadorTickets} generado para ${paciente}.`);
+  const iconoToast = prioridad === "emergencia" ? "🚨" : prioridad === "urgente" ? "⚠️" : "🎫";
+  mostrarToast(iconoToast, `Ticket ${prioridad}`, `${paciente} — ${motivo.substring(0,40)}`, prioridad === "normal" ? "exito" : prioridad);
 }
 
 function renderTickets() {
@@ -243,7 +248,7 @@ function renderTickets() {
 
 function marcarAtendido(id) {
   const t = tickets.find(t => t.id === id);
-  if (t) { t.atendido = !t.atendido; guardarDatos(); renderTickets(); actualizarEstadisticas(); verificarAlertas(); }
+  if (t) { t.atendido = !t.atendido; guardarDatos(); renderTickets(); actualizarEstadisticas(); verificarAlertas(); actualizarCampana(); }
 }
 
 function limpiarFormularioTicket() {
@@ -330,4 +335,71 @@ function formatFecha(f) {
 
 function horaActual() {
   return new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" });
+}
+
+// =============================================
+//  NOTIFICACIONES — Toast + Campana + Parpadeo
+// =============================================
+
+// ─── TOAST ────────────────────────────────────────────────────────
+function mostrarToast(icono, titulo, subtitulo, tipo = "exito") {
+  const container = document.getElementById("toast-container");
+  const id = "toast-" + Date.now();
+
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${tipo}`;
+  toast.id = id;
+  toast.innerHTML = `
+    <span class="toast-icono">${icono}</span>
+    <div class="toast-texto">
+      <strong>${titulo}</strong>
+      <span>${subtitulo}</span>
+    </div>
+    <button class="toast-cerrar" onclick="cerrarToast('${id}')">✕</button>
+  `;
+
+  container.appendChild(toast);
+  setTimeout(() => cerrarToast(id), 4000);
+}
+
+function cerrarToast(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// ─── CAMPANA ──────────────────────────────────────────────────────
+function toggleCampana() {
+  const dropdown = document.getElementById("campana-dropdown");
+  dropdown.classList.toggle("oculto");
+}
+
+// Cierra campana si hace clic fuera
+document.addEventListener("click", function(e) {
+  const wrapper = document.querySelector(".campana-wrapper");
+  if (wrapper && !wrapper.contains(e.target)) {
+    document.getElementById("campana-dropdown").classList.add("oculto");
+  }
+});
+
+function actualizarCampana() {
+  const activos = tickets.filter(t => !t.atendido && (t.prioridad === "urgente" || t.prioridad === "emergencia"));
+  const badge   = document.getElementById("campana-badge");
+  const lista   = document.getElementById("campana-lista");
+
+  if (activos.length === 0) {
+    badge.classList.add("oculto");
+    lista.innerHTML = `<div class="campana-vacia">Sin alertas activas 🎉</div>`;
+  } else {
+    badge.classList.remove("oculto");
+    badge.textContent = activos.length;
+    lista.innerHTML = activos.map(t => `
+      <div class="campana-item">
+        <span class="campana-item-icono">${t.prioridad === "emergencia" ? "🚨" : "⚠️"}</span>
+        <div class="campana-item-texto">
+          <strong>${t.paciente}</strong>
+          <span>${t.motivo.substring(0, 50)}${t.motivo.length > 50 ? "..." : ""}</span>
+        </div>
+      </div>
+    `).join("");
+  }
 }

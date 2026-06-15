@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard CRM · Citas - Hospital Regional</title>
   <link rel="stylesheet" href="citasCRM2.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   <style>
     /* Estilos específicos del dashboard */
     .dash-grid {
@@ -102,6 +104,15 @@
       font-size: 13px;
     }
 
+    .dash-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .btn-volver {
       display: inline-flex;
       align-items: center;
@@ -114,9 +125,25 @@
       font-size: 14px;
       font-weight: 600;
       transition: all 0.2s;
-      margin-bottom: 24px;
     }
     .btn-volver:hover { background: var(--azul-oscuro); transform: translateY(-2px); }
+
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #dc3545, #a71d2a);
+      color: var(--blanco);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 3px 8px rgba(220,53,69,0.35);
+    }
+    .btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(220,53,69,0.45); }
 
     .dash-numero-grande {
       font-size: 48px;
@@ -157,7 +184,10 @@
 
   <main class="main">
 
-    <a href="citasCRM2.html" class="btn-volver">← Volver al módulo de citas</a>
+    <div class="dash-top-bar">
+      <a href="citasCRM2.html" class="btn-volver">← Volver al módulo de citas</a>
+      <button class="btn-pdf" onclick="exportarPDF()">📄 Exportar PDF</button>
+    </div>
 
     <div class="page-header">
       <h2 class="page-title">Dashboard · CRM Citas</h2>
@@ -382,6 +412,138 @@
 
     function formatFecha(f) {
       const [y,m,d] = f.split("-"); return `${d}/${m}/${y}`;
+    }
+
+    // ── EXPORTAR PDF ──────────────────────────────────────────────
+    function exportarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const azul   = [0, 61, 130];
+      const azulCl = [0, 86, 179];
+      const blanco  = [255, 255, 255];
+      const gris    = [248, 249, 250];
+      const fecha   = new Date().toLocaleDateString("es-PE", { day:"2-digit", month:"long", year:"numeric" });
+
+      // ── Encabezado ──
+      doc.setFillColor(...azul);
+      doc.rect(0, 0, 210, 32, "F");
+
+      doc.setTextColor(...blanco);
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("Hospital Regional Eleazar Guzmán Barrón", 14, 13);
+
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text("Reporte CRM · Módulo de Citas y Tickets", 14, 21);
+      doc.text(`Fecha: ${fecha}`, 14, 28);
+
+      // ── Estadísticas ──
+      let y = 42;
+      doc.setTextColor(...azul);
+      doc.setFontSize(13);
+      doc.setFont("helvetica", "bold");
+      doc.text("Resumen General", 14, y);
+      y += 8;
+
+      const stats = [
+        ["Total de Citas",    citas.length],
+        ["Confirmadas",       citas.filter(c => c.estado === "confirmada").length],
+        ["Pendientes",        citas.filter(c => c.estado === "pendiente").length],
+        ["Canceladas",        citas.filter(c => c.estado === "cancelada").length],
+        ["Tickets Activos",   tickets.filter(t => !t.atendido).length],
+        ["Tickets Urgentes",  tickets.filter(t => !t.atendido && (t.prioridad==="urgente"||t.prioridad==="emergencia")).length],
+      ];
+
+      const colW = 60;
+      stats.forEach(([label, val], i) => {
+        const x = 14 + (i % 3) * colW;
+        if (i % 3 === 0 && i > 0) y += 18;
+        doc.setFillColor(...gris);
+        doc.roundedRect(x, y, 55, 14, 2, 2, "F");
+        doc.setTextColor(80, 80, 80);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text(label, x + 4, y + 6);
+        doc.setTextColor(...azul);
+        doc.setFontSize(13);
+        doc.setFont("helvetica", "bold");
+        doc.text(String(val), x + 4, y + 13);
+      });
+
+      y += 26;
+
+      // ── Tabla Citas ──
+      doc.setTextColor(...azul);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text("Citas Agendadas", 14, y);
+      y += 4;
+
+      if (citas.length === 0) {
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "italic");
+        doc.setTextColor(150,150,150);
+        doc.text("No hay citas registradas.", 14, y + 8);
+        y += 16;
+      } else {
+        doc.autoTable({
+          startY: y,
+          head: [["Paciente", "DNI", "Especialidad", "Médico", "Fecha", "Hora", "Estado"]],
+          body: citas.map(c => [c.nombre, c.dni, c.especialidad, c.medico, formatFecha(c.fecha), c.hora, c.estado.charAt(0).toUpperCase()+c.estado.slice(1)]),
+          styles: { fontSize: 8, cellPadding: 3 },
+          headStyles: { fillColor: azul, textColor: blanco, fontStyle: "bold" },
+          alternateRowStyles: { fillColor: [240, 246, 255] },
+          margin: { left: 14, right: 14 },
+        });
+        y = doc.lastAutoTable.finalY + 10;
+      }
+
+      // ── Tabla Tickets ──
+      doc.setTextColor(...azul);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text("Tickets de Atención", 14, y);
+      y += 4;
+
+      if (tickets.length === 0) {
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "italic");
+        doc.setTextColor(150,150,150);
+        doc.text("No hay tickets registrados.", 14, y + 8);
+      } else {
+        doc.autoTable({
+          startY: y,
+          head: [["#", "Paciente", "Motivo", "Prioridad", "Estado"]],
+          body: tickets.map(t => [
+            `#${t.id}`,
+            t.paciente,
+            t.motivo.substring(0, 50) + (t.motivo.length > 50 ? "..." : ""),
+            t.prioridad.charAt(0).toUpperCase() + t.prioridad.slice(1),
+            t.atendido ? "Atendido" : "Pendiente"
+          ]),
+          styles: { fontSize: 8, cellPadding: 3 },
+          headStyles: { fillColor: azul, textColor: blanco, fontStyle: "bold" },
+          alternateRowStyles: { fillColor: [240, 246, 255] },
+          margin: { left: 14, right: 14 },
+        });
+      }
+
+      // ── Pie de página ──
+      const totalPages = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFillColor(...azul);
+        doc.rect(0, 285, 210, 12, "F");
+        doc.setTextColor(...blanco);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text("© 2026 Hospital Regional Eleazar Guzmán Barrón · CRM desarrollado por Royser", 14, 292);
+        doc.text(`Página ${i} de ${totalPages}`, 185, 292, { align: "right" });
+      }
+
+      doc.save(`reporte-citas-${new Date().toISOString().split("T")[0]}.pdf`);
     }
   </script>
 </body>
