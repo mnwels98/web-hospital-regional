@@ -4,17 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CRM Historial Clínico — Hospital Regional EGB</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Iconos Tabler -->
   <link rel="stylesheet" href="historial.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
 </head>
 <body>
 
   <!-- ===== BARRA SUPERIOR ===== -->
-  <header class="topbar">
+  <header class="topbar animate-slide-down">
     <div class="topbar-logo">
-      <div class="logo-badge">
-        <i class="ti ti-building-hospital" aria-hidden="true"></i>
+      <div class="logo-badge pulse-ring">
+        <i class="ti ti-building-hospital"></i>
       </div>
       <div>
         <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
@@ -22,6 +21,14 @@
       </div>
     </div>
     <div class="topbar-spacer"></div>
+
+    <!-- Botón Dashboard -->
+    <a href="dashboard.html" class="btn-dashboard" title="Ir al Dashboard">
+      <i class="ti ti-layout-dashboard"></i>
+      <span>Dashboard</span>
+      <span class="btn-dashboard-dot"></span>
+    </a>
+
     <div class="topbar-user">
       <div class="avatar-sm">DR</div>
       <div>
@@ -34,13 +41,13 @@
   <!-- ===== NAVEGACIÓN POR PESTAÑAS ===== -->
   <nav class="nav-tabs">
     <button class="nav-tab active" data-tab="buscar">
-      <i class="ti ti-search" aria-hidden="true"></i> Buscar Paciente
+      <i class="ti ti-search"></i> Buscar Paciente
     </button>
     <button class="nav-tab" data-tab="nuevo">
-      <i class="ti ti-user-plus" aria-hidden="true"></i> Nuevo Paciente
+      <i class="ti ti-user-plus"></i> Nuevo Paciente
     </button>
-    <button class="nav-tab" data-tab="dashboard">
-      <i class="ti ti-chart-bar" aria-hidden="true"></i> Estadísticas
+    <button class="nav-tab" data-tab="dashboard-tab">
+      <i class="ti ti-chart-bar"></i> Resumen
     </button>
   </nav>
 
@@ -49,15 +56,10 @@
 
     <!-- PANEL: BUSCAR PACIENTE -->
     <section id="panel-buscar" class="panel active">
-
-      <!-- Barra de búsqueda -->
-      <div class="search-bar">
-        <i class="ti ti-search search-icon" aria-hidden="true"></i>
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Buscar por nombre, DNI o historia clínica..."
-        />
+      <div class="search-bar animate-fade-in">
+        <i class="ti ti-search search-icon"></i>
+        <input type="text" id="searchInput"
+          placeholder="Buscar por nombre, DNI o historia clínica..." />
         <select id="filterEsp">
           <option value="">Todas las especialidades</option>
           <option value="Medicina Interna">Medicina Interna</option>
@@ -69,18 +71,19 @@
           <option value="Ginecología">Ginecología</option>
         </select>
         <button class="btn" id="btnClearSearch">
-          <i class="ti ti-x" aria-hidden="true"></i> Limpiar
+          <i class="ti ti-x"></i> Limpiar
         </button>
       </div>
 
       <div id="alertBox"></div>
 
-      <!-- Dos columnas: lista + detalle -->
       <div class="two-col">
         <div id="patientsList"></div>
         <div id="detailArea">
-          <div class="empty-state">
-            <i class="ti ti-user-search" aria-hidden="true"></i>
+          <div class="empty-state animate-fade-in">
+            <div class="empty-icon-wrap">
+              <i class="ti ti-user-search"></i>
+            </div>
             <p>Selecciona un paciente para ver su historial clínico</p>
           </div>
         </div>
@@ -89,13 +92,14 @@
 
     <!-- PANEL: NUEVO PACIENTE -->
     <section id="panel-nuevo" class="panel">
-      <div class="form-card">
-
+      <div class="form-card animate-fade-in">
         <div class="form-card-header">
-          <i class="ti ti-user-plus form-header-icon" aria-hidden="true"></i>
+          <div class="form-header-icon-wrap">
+            <i class="ti ti-user-plus"></i>
+          </div>
           <div>
             <h2>Registrar nuevo paciente</h2>
-            <p>Completa los datos del paciente</p>
+            <p>Completa todos los datos del paciente</p>
           </div>
         </div>
 
@@ -111,7 +115,6 @@
             <input type="text" id="np_apellidos" placeholder="Apellidos completos" />
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="np_dni">DNI *</label>
@@ -122,7 +125,6 @@
             <input type="date" id="np_fecha_nac" />
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="np_sexo">Sexo</label>
@@ -141,7 +143,6 @@
             </select>
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="np_tel">Teléfono</label>
@@ -160,42 +161,51 @@
             </select>
           </div>
         </div>
-
         <div class="form-group">
           <label for="np_alergias">Alergias conocidas</label>
-          <input type="text" id="np_alergias" placeholder="Penicilina, Aspirina… (separadas por coma)" />
+          <input type="text" id="np_alergias"
+            placeholder="Penicilina, Aspirina… (separadas por coma)" />
         </div>
-
         <div class="form-group">
           <label for="np_antecedentes">Antecedentes médicos</label>
-          <textarea id="np_antecedentes" placeholder="Enfermedades previas, cirugías anteriores, etc."></textarea>
+          <textarea id="np_antecedentes"
+            placeholder="Enfermedades previas, cirugías anteriores, etc."></textarea>
         </div>
-
         <div class="form-actions">
           <button class="btn btn-success" id="btnSaveNewPatient">
-            <i class="ti ti-device-floppy" aria-hidden="true"></i> Registrar paciente
+            <i class="ti ti-device-floppy"></i> Registrar paciente
           </button>
           <button class="btn" id="btnClearNewPatient">
-            <i class="ti ti-refresh" aria-hidden="true"></i> Limpiar
+            <i class="ti ti-refresh"></i> Limpiar
           </button>
         </div>
-
       </div>
     </section>
 
-    <!-- PANEL: ESTADÍSTICAS / DASHBOARD -->
-    <section id="panel-dashboard" class="panel">
+    <!-- PANEL: RESUMEN RÁPIDO -->
+    <section id="panel-dashboard-tab" class="panel">
+      <div class="dash-quick-header animate-fade-in">
+        <div>
+          <h2 class="dash-quick-title">Resumen del sistema</h2>
+          <p class="dash-quick-sub">Vista rápida de métricas e indicadores</p>
+        </div>
+        <a href="dashboard.html" class="btn btn-primary btn-lg">
+          <i class="ti ti-layout-dashboard"></i>
+          Ver Dashboard completo
+          <i class="ti ti-arrow-right"></i>
+        </a>
+      </div>
       <div class="stats-grid" id="statsGrid"></div>
       <div class="dashboard-cols">
         <div class="detail-panel">
           <h3 class="section-title">
-            <i class="ti ti-stethoscope" aria-hidden="true"></i> Últimas consultas
+            <i class="ti ti-stethoscope"></i> Últimas consultas
           </h3>
           <div id="recentConsults"></div>
         </div>
         <div class="detail-panel">
           <h3 class="section-title">
-            <i class="ti ti-chart-pie" aria-hidden="true"></i> Pacientes por especialidad
+            <i class="ti ti-chart-pie"></i> Pacientes por especialidad
           </h3>
           <div id="specialtyChart"></div>
         </div>
@@ -204,9 +214,9 @@
 
   </main>
 
-  <!-- ===== TOAST DE NOTIFICACIÓN ===== -->
+  <!-- TOAST -->
   <div id="toast" role="status" aria-live="polite">
-    <i class="ti ti-check" aria-hidden="true"></i>
+    <i class="ti ti-check"></i>
     <span id="toastMsg"></span>
   </div>
 

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Hospital Regional EGB</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+/* =========================================================
+   DASHBOARD — Hospital Regional Eleazar Guzmán Barrón
+   dashboard.css (inline)
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --azul:      #0A3D62;
+  --azul2:     #0E4C78;
+  --acento:    #2471A3;
+  --verde:     #1A8A4A;
+  --verde-bg:  #D5F5E3;
+  --rojo:      #C0392B;
+  --rojo-bg:   #FDEDEC;
+  --naranja:   #D35400;
+  --naranja-bg:#FDEBD0;
+  --morado:    #7D3C98;
+  --morado-bg: #E8DAEF;
+  --gris-bg:   #F0F3F7;
+  --gris-borde:#DDE1E6;
+  --gris-txt:  #6B7280;
+  --txt:       #111827;
+  --txt2:      #4B5563;
+  --blanco:    #FFFFFF;
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px;
+  --sh-sm:0 1px 4px rgba(0,0,0,.07);
+  --sh-md:0 4px 16px rgba(0,0,0,.09);
+  --sh-lg:0 8px 32px rgba(0,0,0,.12);
+  --trans:.2s ease;
+}
+
+/* ── Animaciones ── */
+@keyframes fadeIn    { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:none} }
+@keyframes scaleIn   { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:none} }
+@keyframes countUp   { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+@keyframes barGrow   { from{width:0!important} to{} }
+@keyframes pulse     { 0%,100%{opacity:1} 50%{opacity:.5} }
+@keyframes ring      { 0%{box-shadow:0 0 0 0 rgba(36,113,163,.5)} 70%{box-shadow:0 0 0 10px rgba(36,113,163,0)} 100%{box-shadow:0 0 0 0 rgba(36,113,163,0)} }
+@keyframes shimmer   { 0%{background-position:-600px 0} 100%{background-position:600px 0} }
+@keyframes dotBlink  { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--gris-bg); color:var(--txt);
+  font-size:14px; line-height:1.6; min-height:100vh;
+}
+
+/* ─── TOPBAR ─── */
+.topbar{
+  background:linear-gradient(135deg,var(--azul) 0%,#0d4d7a 100%);
+  color:#fff; padding:0 1.5rem; height:58px;
+  display:flex; align-items:center; gap:1rem;
+  position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 12px rgba(10,61,98,.35);
+  animation:slideDown .4s ease both;
+}
+.logo-badge{
+  width:36px; height:36px; border-radius:50%;
+  background:var(--acento); display:flex;
+  align-items:center; justify-content:center;
+  font-size:17px; color:#fff; animation:ring 2.5s infinite;
+}
+.topbar-title  { font-size:13px; font-weight:700; }
+.topbar-sub    { font-size:11px; opacity:.7; }
+.topbar-spacer { flex:1; }
+.back-btn{
+  display:flex; align-items:center; gap:7px;
+  padding:6px 14px; border-radius:var(--r-md);
+  background:rgba(255,255,255,.12); color:#fff;
+  font-size:12px; font-weight:600; text-decoration:none;
+  border:1px solid rgba(255,255,255,.2);
+  transition:background var(--trans),transform var(--trans);
+}
+.back-btn:hover{ background:rgba(255,255,255,.22); transform:translateY(-1px); }
+.now-badge{
+  display:flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:var(--r-md);
+  background:rgba(255,255,255,.1); font-size:11px; color:rgba(255,255,255,.85);
+}
+.now-dot{ width:7px; height:7px; border-radius:50%; background:#2ECC71; animation:dotBlink 1.8s infinite; }
+
+/* ─── CONTENIDO ─── */
+.dash-content{ padding:1.25rem 1.5rem; max-width:1400px; margin:0 auto; }
+
+/* ─── SECCIÓN TÍTULO ─── */
+.dash-section-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; font-weight:700; color:var(--txt);
+  margin-bottom:.85rem; padding-left:4px;
+}
+.dash-section-title::before{
+  content:''; width:4px; height:18px;
+  background:var(--acento); border-radius:2px;
+}
+
+/* ─── KPI CARDS (fila principal) ─── */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px; margin-bottom:1.25rem;
+}
+.kpi-card{
+  background:var(--blanco);
+  border:1px solid var(--gris-borde);
+  border-radius:var(--r-lg);
+  padding:1.1rem 1.25rem;
+  box-shadow:var(--sh-sm);
+  position:relative; overflow:hidden;
+  transition:transform var(--trans), box-shadow var(--trans);
+  animation:fadeIn .4s ease both;
+}
+.kpi-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:var(--kpi-color, var(--acento));
+}
+.kpi-card:hover{ transform:translateY(-4px); box-shadow:var(--sh-md); }
+.kpi-card .bg-icon{
+  position:absolute; bottom:-8px; right:-8px;
+  font-size:64px; opacity:.05; line-height:1;
+  color:var(--kpi-color, var(--acento));
+}
+.kpi-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.kpi-label { font-size:11px; font-weight:700; color:var(--gris-txt); text-transform:uppercase; letter-spacing:.05em; }
+.kpi-icon  { width:34px; height:34px; border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; font-size:17px; }
+.kpi-value { font-size:32px; font-weight:800; color:var(--txt); line-height:1; margin-bottom:6px; animation:countUp .5s ease both; }
+.kpi-sub   { font-size:11px; color:var(--gris-txt); display:flex; align-items:center; gap:5px; }
+.kpi-delta { font-size:11px; font-weight:700; padding:2px 7px; border-radius:10px; }
+.kpi-delta.up   { background:var(--verde-bg); color:var(--verde); }
+.kpi-delta.down { background:var(--rojo-bg);  color:var(--rojo); }
+.kpi-delta.neu  { background:#f0f0f0; color:var(--gris-txt); }
+
+/* ─── FILA MEDIA ─── */
+.mid-row{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:12px; margin-bottom:1.25rem; }
+
+/* ─── PANEL GENÉRICO ─── */
+.panel-card{
+  background:var(--blanco);
+  border:1px solid var(--gris-borde);
+  border-radius:var(--r-lg); padding:1.1rem 1.25rem;
+  box-shadow:var(--sh-sm); animation:fadeIn .45s ease both;
+}
+
+/* ─── TABLA ESPECIALIDADES ─── */
+.esp-table{ width:100%; border-collapse:collapse; }
+.esp-table th{
+  font-size:10px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--gris-txt); font-weight:700; padding:6px 8px;
+  border-bottom:1px solid var(--gris-borde); text-align:left;
+}
+.esp-table td{ padding:8px; font-size:12px; border-bottom:1px solid var(--gris-borde); }
+.esp-table tr:last-child td{ border-bottom:none; }
+.esp-table tr{ transition:background var(--trans); }
+.esp-table tr:hover td{ background:var(--gris-bg); }
+.esp-bar-wrap{ width:100px; }
+.esp-bar-track{ height:6px; background:var(--gris-bg); border-radius:3px; overflow:hidden; }
+.esp-bar-fill { height:6px; border-radius:3px; animation:barGrow .7s ease both; }
+.esp-pct{ font-size:10px; color:var(--gris-txt); margin-left:6px; }
+
+/* ─── MINI PIE (CSS) ─── */
+.donut-wrap{ display:flex; align-items:center; justify-content:center; padding:.5rem 0; gap:1.5rem; flex-wrap:wrap; }
+.donut-svg  { flex-shrink:0; }
+.donut-legend{ display:flex; flex-direction:column; gap:8px; }
+.legend-item{ display:flex; align-items:center; gap:7px; font-size:12px; }
+.legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.legend-val { font-weight:700; color:var(--txt); margin-left:auto; padding-left:10px; }
+
+/* ─── SANGRE ─── */
+.blood-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:.25rem 0; }
+.blood-item{
+  background:var(--gris-bg); border-radius:var(--r-md);
+  padding:10px 8px; text-align:center;
+  border:1px solid transparent;
+  transition:border-color var(--trans), transform var(--trans);
+}
+.blood-item:hover{ border-color:var(--acento); transform:scale(1.04); }
+.blood-type{ font-size:16px; font-weight:800; color:var(--rojo); }
+.blood-cnt { font-size:11px; color:var(--gris-txt); margin-top:2px; }
+
+/* ─── FILA INFERIOR ─── */
+.bot-row{ display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-bottom:1.25rem; }
+
+/* ─── TABLA CONSULTAS ─── */
+.consultas-table{ width:100%; border-collapse:collapse; }
+.consultas-table th{
+  font-size:10px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--gris-txt); font-weight:700; padding:7px 10px;
+  background:var(--gris-bg); text-align:left;
+}
+.consultas-table th:first-child{ border-radius:var(--r-sm) 0 0 0; }
+.consultas-table th:last-child { border-radius:0 var(--r-sm) 0 0; }
+.consultas-table td{ padding:9px 10px; font-size:12px; border-bottom:1px solid var(--gris-borde); }
+.consultas-table tr:last-child td{ border-bottom:none; }
+.consultas-table tr{ transition:background var(--trans); animation:fadeIn .3s ease both; }
+.consultas-table tr:hover td{ background:#f7fafd; }
+.p-avatar-sm{
+  width:26px; height:26px; border-radius:50%; display:inline-flex;
+  align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0;
+}
+
+/* ─── MÉDICOS ─── */
+.medico-item{
+  display:flex; align-items:center; gap:10px;
+  padding:9px 0; border-bottom:1px solid var(--gris-borde);
+}
+.medico-item:last-child{ border-bottom:none; }
+.medico-avatar{
+  width:34px; height:34px; border-radius:50%;
+  background:var(--acento); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; flex-shrink:0;
+}
+.medico-name  { font-size:12px; font-weight:700; color:var(--txt); }
+.medico-role  { font-size:10px; color:var(--gris-txt); }
+.medico-cnt   { margin-left:auto; font-size:12px; font-weight:700; color:var(--acento); }
+.medico-bar-wrap{ flex:1; max-width:80px; }
+
+/* ─── BADGES ─── */
+.badge{
+  display:inline-block; padding:2px 8px;
+  border-radius:10px; font-size:10px; font-weight:700;
+}
+.badge-info    { background:#D6EAF8; color:#1A5276; }
+.badge-success { background:var(--verde-bg); color:var(--verde); }
+.badge-warn    { background:var(--naranja-bg); color:var(--naranja); }
+.badge-danger  { background:var(--rojo-bg); color:var(--rojo); }
+.badge-gray    { background:#f0f0f0; color:var(--gris-txt); }
+
+/* ─── SKELETON ─── */
+.skel{
+  background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);
+  background-size:600px 100%; animation:shimmer 1.2s infinite;
+  border-radius:var(--r-md);
+}
+
+/* ─── FOOTER ─── */
+.dash-footer{
+  text-align:center; padding:1.25rem 0 2rem;
+  font-size:11px; color:var(--gris-txt);
+  border-top:1px solid var(--gris-borde);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .kpi-grid  { grid-template-columns:repeat(2,1fr); }
+  .mid-row   { grid-template-columns:1fr 1fr; }
+  .bot-row   { grid-template-columns:1fr; }
+}
+@media(max-width:700px){
+  .kpi-grid  { grid-template-columns:1fr 1fr; }
+  .mid-row   { grid-template-columns:1fr; }
+  .dash-content{ padding:1rem; }
+  .topbar     { padding:0 1rem; }
+  .topbar-sub { display:none; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR ===== -->
+<header class="topbar">
+  <div class="logo-badge"><i class="ti ti-building-hospital"></i></div>
+  <div style="margin-left:10px;">
+    <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
+    <div class="topbar-sub">Dashboard — Métricas e Indicadores Clave</div>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="now-badge">
+    <div class="now-dot"></div>
+    <span id="clockDisplay">—</span>
+  </div>
+  <a href="index.html" class="back-btn" style="margin-left:10px;">
+    <i class="ti ti-arrow-left"></i> Volver al CRM
+  </a>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="dash-content">
+
+  <!-- ── KPIs Principales ── -->
+  <div class="dash-section-title">Indicadores Clave de Rendimiento (KPI)</div>
+  <div class="kpi-grid" id="kpiGrid">
+    <!-- JS lo llena -->
+    <div class="kpi-card skel" style="height:110px;"></div>
+    <div class="kpi-card skel" style="height:110px;"></div>
+    <div class="kpi-card skel" style="height:110px;"></div>
+    <div class="kpi-card skel" style="height:110px;"></div>
+  </div>
+
+  <!-- ── Fila media ── -->
+  <div class="mid-row">
+
+    <!-- Tabla especialidades -->
+    <div class="panel-card">
+      <div class="dash-section-title">Distribución por Especialidad</div>
+      <table class="esp-table" id="espTable">
+        <thead>
+          <tr>
+            <th>Especialidad</th>
+            <th>Pacientes</th>
+            <th>Consultas</th>
+            <th>Distribución</th>
+          </tr>
+        </thead>
+        <tbody id="espBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Donut estados diagnóstico -->
+    <div class="panel-card">
+      <div class="dash-section-title">Estado de Diagnósticos</div>
+      <div class="donut-wrap" id="donutWrap"></div>
+    </div>
+
+    <!-- Tipos de sangre -->
+    <div class="panel-card">
+      <div class="dash-section-title">Tipos de Sangre</div>
+      <div class="blood-grid" id="bloodGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- ── Fila inferior ── -->
+  <div class="bot-row">
+
+    <!-- Últimas consultas -->
+    <div class="panel-card">
+      <div class="dash-section-title">Últimas 10 Consultas Registradas</div>
+      <div style="overflow-x:auto;">
+        <table class="consultas-table">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Fecha</th>
+              <th>Diagnóstico</th>
+              <th>Especialidad</th>
+              <th>Médico</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="consultasBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Médicos más activos -->
+    <div class="panel-card">
+      <div class="dash-section-title">Médicos más Activos</div>
+      <div id="medicosPanel"></div>
+    </div>
+
+  </div>
+
+  <!-- ── KPIs secundarios ── -->
+  <div class="dash-section-title">Métricas Adicionales</div>
+  <div class="kpi-grid" id="kpiGrid2"></div>
+
+  <footer class="dash-footer">
+    Hospital Regional Eleazar Guzmán Barrón &mdash; Sistema CRM &mdash;
+    Datos actualizados en tiempo real &mdash; <span id="footerDate"></span>
+  </footer>
+
+</main>
+
+<script>
+/* =========================================================
+   DASHBOARD — lógica
+   ========================================================= */
+const AVATAR_COLORS=[
+  {bg:'#D6EAF8',text:'#1A5276'},{bg:'#D5F5E3',text:'#1E8449'},
+  {bg:'#FDEBD0',text:'#935116'},{bg:'#FDEDEC',text:'#A93226'},
+  {bg:'#E8DAEF',text:'#6C3483'},{bg:'#D1F2EB',text:'#0E6655'},
+  {bg:'#FAE5D3',text:'#784212'},
+];
+const BAR_COLORS=['#2471A3','#1A5276','#148F77','#D35400','#8E44AD','#CB4335','#117A65','#1A8A4A'];
+
+/* ── Datos embebidos (mirror de historial.js) ── */
+const PATIENTS=[
+  {id:'P001',nombres:'Carlos Alberto', apellidos:'Quispe Mendoza', dni:'45678912',fechaNac:'1978-03-15',sexo:'Masculino',sangre:'O+', especialidad:'Medicina Interna',colorIdx:0},
+  {id:'P002',nombres:'María Elena',    apellidos:'Torres Castillo',dni:'52341678',fechaNac:'1990-07-22',sexo:'Femenino', sangre:'A+', especialidad:'Cardiología',     colorIdx:1},
+  {id:'P003',nombres:'Juan Roberto',   apellidos:'Flores Vásquez', dni:'38901234',fechaNac:'1965-11-08',sexo:'Masculino',sangre:'B-', especialidad:'Traumatología',   colorIdx:2},
+  {id:'P004',nombres:'Rosa Amelia',    apellidos:'Huanca Paredes', dni:'61234890',fechaNac:'2001-05-30',sexo:'Femenino', sangre:'AB+',especialidad:'Ginecología',     colorIdx:3},
+  {id:'P005',nombres:'Pedro Antonio',  apellidos:'Sánchez Rojas',  dni:'29876543',fechaNac:'1955-01-20',sexo:'Masculino',sangre:'O-', especialidad:'Neurología',      colorIdx:4},
+  {id:'P006',nombres:'Lucía Fernanda', apellidos:'Ramos Cárdenas', dni:'73456123',fechaNac:'1985-09-12',sexo:'Femenino', sangre:'B+', especialidad:'Pediatría',       colorIdx:5},
+  {id:'P007',nombres:'Marco Antonio',  apellidos:'Díaz Espinoza',  dni:'60123456',fechaNac:'1972-04-05',sexo:'Masculino',sangre:'A-', especialidad:'Cirugía',         colorIdx:6},
+];
+const DIAGNOSES=[
+  {id:'D001',patId:'P001',fecha:'2025-11-10',diagnostico:'Hipertensión arterial controlada',        medico:'Dr. Rafael Torres', especialidad:'Medicina Interna',estado:'Activo'},
+  {id:'D002',patId:'P001',fecha:'2025-08-22',diagnostico:'Cefalea tensional',                       medico:'Dr. Rafael Torres', especialidad:'Medicina Interna',estado:'Resuelto'},
+  {id:'D003',patId:'P002',fecha:'2025-12-01',diagnostico:'Taquicardia supraventricular paroxística',medico:'Dra. Carmen Vidal', especialidad:'Cardiología',     estado:'Activo'},
+  {id:'D004',patId:'P003',fecha:'2025-10-15',diagnostico:'Fractura de clavícula derecha',           medico:'Dr. Luis Barrera',  especialidad:'Traumatología',   estado:'En seguimiento'},
+  {id:'D005',patId:'P005',fecha:'2025-12-05',diagnostico:'Diabetes mellitus tipo 2 descompensada',  medico:'Dr. Rafael Torres', especialidad:'Neurología',      estado:'Activo'},
+  {id:'D006',patId:'P006',fecha:'2025-11-20',diagnostico:'Crisis asmática leve',                    medico:'Dra. Ana Solis',    especialidad:'Pediatría',       estado:'Resuelto'},
+  {id:'D007',patId:'P007',fecha:'2025-12-10',diagnostico:'Hernia inguinal derecha',                 medico:'Dr. Marcos León',   especialidad:'Cirugía',         estado:'En seguimiento'},
+];
+
+/* intentar tomar datos más frescos de sessionStorage */
+let patients  = PATIENTS;
+let diagnoses = DIAGNOSES;
+try {
+  const sp = sessionStorage.getItem('egb_patients');
+  const sd = sessionStorage.getItem('egb_diagnoses');
+  if (sp) patients  = JSON.parse(sp);
+  if (sd) diagnoses = JSON.parse(sd);
+} catch(e){}
+
+/* ── Utilidades ── */
+function calcAge(iso){
+  const b=new Date(iso),n=new Date();
+  let a=n.getFullYear()-b.getFullYear();
+  if(n<new Date(n.getFullYear(),b.getMonth(),b.getDate()))a--;
+  return a;
+}
+function initials(p){ return (p.nombres[0]+p.apellidos[0]).toUpperCase(); }
+function avatarColor(p){ return AVATAR_COLORS[p.colorIdx%AVATAR_COLORS.length]; }
+
+function estadoBadge(e){
+  const m={'Activo':'badge-warn','En seguimiento':'badge-info','Resuelto':'badge-success'};
+  return m[e]||'badge-gray';
+}
+
+/* ── Reloj ── */
+function updateClock(){
+  const n=new Date();
+  document.getElementById('clockDisplay').textContent=
+    n.toLocaleDateString('es-PE',{weekday:'short',day:'2-digit',month:'short'})+
+    ' '+n.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+}
+setInterval(updateClock,1000); updateClock();
+
+/* ── Footer fecha ── */
+document.getElementById('footerDate').textContent=
+  new Date().toLocaleDateString('es-PE',{year:'numeric',month:'long',day:'numeric'});
+
+/* ── KPIs principales ── */
+function renderKPIs(){
+  const total   = patients.length;
+  const totalD  = diagnoses.length;
+  const activos = diagnoses.filter(d=>d.estado==='Activo').length;
+  const seguim  = diagnoses.filter(d=>d.estado==='En seguimiento').length;
+  const resueltos=diagnoses.filter(d=>d.estado==='Resuelto').length;
+  const pctResueltos=totalD?Math.round(resueltos/totalD*100):0;
+  const masc=patients.filter(p=>p.sexo==='Masculino').length;
+  const fem =patients.filter(p=>p.sexo==='Femenino').length;
+
+  const kpis=[
+    {
+      label:'Pacientes registrados', value:total, icon:'ti-users',
+      color:'#2471A3', iconBg:'#D6EAF8',
+      sub:'Total en el sistema', delta:'+2 este mes', deltaClass:'up',
+    },
+    {
+      label:'Consultas totales', value:totalD, icon:'ti-notes',
+      color:'#1A5276', iconBg:'#D6EAF8',
+      sub:'Historial completo', delta:`${pctResueltos}% resueltos`, deltaClass:'up',
+    },
+    {
+      label:'Diagnósticos activos', value:activos, icon:'ti-heartbeat',
+      color:'#C0392B', iconBg:'#FDEDEC',
+      sub:'Requieren atención', delta:`${seguim} en seguimiento`, deltaClass:'neu',
+    },
+    {
+      label:'Tasa de resolución', value:pctResueltos+'%', icon:'ti-circle-check',
+      color:'#1A8A4A', iconBg:'#D5F5E3',
+      sub:`${resueltos} de ${totalD} consultas`, delta:'Meta: 80%', deltaClass:pctResueltos>=80?'up':'down',
+    },
+  ];
+
+  document.getElementById('kpiGrid').innerHTML=kpis.map((k,i)=>`
+    <div class="kpi-card" style="--kpi-color:${k.color}; animation-delay:${i*80}ms">
+      <div class="kpi-header">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-icon" style="background:${k.iconBg}; color:${k.color};">
+          <i class="ti ${k.icon}"></i>
+        </div>
+      </div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">
+        ${k.sub}
+        <span class="kpi-delta ${k.deltaClass}">${k.delta}</span>
+      </div>
+      <i class="ti ${k.icon} bg-icon"></i>
+    </div>`).join('');
+}
+
+/* ── KPIs secundarios ── */
+function renderKPIs2(){
+  const espCount={};
+  patients.forEach(p=>{espCount[p.especialidad]=(espCount[p.especialidad]||0)+1;});
+  const espMax=Object.values(espCount).sort((a,b)=>b-a)[0];
+  const espMaxName=Object.keys(espCount).find(k=>espCount[k]===espMax)||'—';
+  const masc=patients.filter(p=>p.sexo==='Masculino').length;
+  const fem =patients.filter(p=>p.sexo==='Femenino').length;
+  const medicos=[...new Set(diagnoses.map(d=>d.medico))].length;
+  const ages=patients.map(p=>calcAge(p.fechaNac));
+  const avgAge=ages.length?Math.round(ages.reduce((a,b)=>a+b,0)/ages.length):0;
+
+  const kpis2=[
+    {label:'Especialidad líder', value:espMaxName.split(' ')[0], icon:'ti-stethoscope', color:'#8E44AD', iconBg:'#E8DAEF', sub:`${espMax} pacientes asignados`,delta:'Mayor demanda',deltaClass:'neu'},
+    {label:'Ratio M / F',  value:`${masc}/${fem}`, icon:'ti-gender-bigender', color:'#2471A3', iconBg:'#D6EAF8', sub:`${masc} masc. · ${fem} fem.`,delta:'Distribución actual',deltaClass:'neu'},
+    {label:'Médicos activos', value:medicos, icon:'ti-user-md',  color:'#D35400', iconBg:'#FDEBD0', sub:'Con consultas registradas',delta:'Equipo médico',deltaClass:'neu'},
+    {label:'Edad promedio',   value:avgAge+' a',icon:'ti-calendar-stats',color:'#1A8A4A',iconBg:'#D5F5E3',sub:'De los pacientes',delta:'Años promedio',deltaClass:'neu'},
+  ];
+  document.getElementById('kpiGrid2').innerHTML=kpis2.map((k,i)=>`
+    <div class="kpi-card" style="--kpi-color:${k.color}; animation-delay:${i*80}ms">
+      <div class="kpi-header">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-icon" style="background:${k.iconBg}; color:${k.color};">
+          <i class="ti ${k.icon}"></i>
+        </div>
+      </div>
+      <div class="kpi-value" style="font-size:${String(k.value).length>4?'22px':'30px'}">${k.value}</div>
+      <div class="kpi-sub">
+        ${k.sub} <span class="kpi-delta ${k.deltaClass}">${k.delta}</span>
+      </div>
+      <i class="ti ${k.icon} bg-icon"></i>
+    </div>`).join('');
+}
+
+/* ── Tabla especialidades ── */
+function renderEspTable(){
+  const espPat={}, espDiag={};
+  patients.forEach(p=>{espPat[p.especialidad]=(espPat[p.especialidad]||0)+1;});
+  diagnoses.forEach(d=>{espDiag[d.especialidad]=(espDiag[d.especialidad]||0)+1;});
+  const allEsp=[...new Set([...Object.keys(espPat),...Object.keys(espDiag)])];
+  const maxPat=Math.max(...Object.values(espPat),1);
+
+  document.getElementById('espBody').innerHTML=allEsp
+    .sort((a,b)=>(espPat[b]||0)-(espPat[a]||0))
+    .map((esp,i)=>{
+      const pc=espPat[esp]||0, dc=espDiag[esp]||0;
+      const pct=Math.round(pc/patients.length*100);
+      return `<tr>
+        <td><span class="badge badge-info">${esp}</span></td>
+        <td><strong>${pc}</strong></td>
+        <td>${dc}</td>
+        <td style="display:flex;align-items:center;">
+          <div class="esp-bar-wrap">
+            <div class="esp-bar-track">
+              <div class="esp-bar-fill" style="width:${Math.round(pc/maxPat*100)}%;background:${BAR_COLORS[i%BAR_COLORS.length]};"></div>
+            </div>
+          </div>
+          <span class="esp-pct">${pct}%</span>
+        </td>
+      </tr>`;
+    }).join('');
+}
+
+/* ── Donut estados ── */
+function renderDonut(){
+  const activos  = diagnoses.filter(d=>d.estado==='Activo').length;
+  const seguim   = diagnoses.filter(d=>d.estado==='En seguimiento').length;
+  const resueltos= diagnoses.filter(d=>d.estado==='Resuelto').length;
+  const total    = diagnoses.length||1;
+
+  const slices=[
+    {label:'Activos',       value:activos,   color:'#D35400'},
+    {label:'En seguimiento',value:seguim,    color:'#2471A3'},
+    {label:'Resueltos',     value:resueltos, color:'#1A8A4A'},
+  ];
+
+  /* SVG donut simple */
+  const cx=60,cy=60,r=48,strokeW=14;
+  const circ=2*Math.PI*r;
+  let offset=0;
+  let paths='';
+  slices.forEach(s=>{
+    const pct=s.value/total;
+    const dash=circ*pct;
+    paths+=`<circle cx="${cx}" cy="${cy}" r="${r}"
+      fill="none" stroke="${s.color}" stroke-width="${strokeW}"
+      stroke-dasharray="${dash} ${circ-dash}"
+      stroke-dashoffset="${-offset}"
+      style="transition:stroke-dasharray .6s ease;"
+      transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset+=dash;
+  });
+
+  const legendHtml=slices.map(s=>`
+    <div class="legend-item">
+      <div class="legend-dot" style="background:${s.color};"></div>
+      <span style="color:var(--txt2);font-size:12px;">${s.label}</span>
+      <span class="legend-val">${s.value}</span>
+    </div>`).join('');
+
+  document.getElementById('donutWrap').innerHTML=`
+    <svg class="donut-svg" viewBox="0 0 120 120" width="110" height="110">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#f0f3f7" stroke-width="${strokeW}"/>
+      ${paths}
+      <text x="${cx}" y="${cy}" text-anchor="middle" dy=".35em"
+        style="font-size:16px;font-weight:800;fill:var(--txt);">${total}</text>
+    </svg>
+    <div class="donut-legend">${legendHtml}</div>`;
+}
+
+/* ── Tipos de sangre ── */
+function renderBlood(){
+  const counts={};
+  patients.forEach(p=>{counts[p.sangre]=(counts[p.sangre]||0)+1;});
+  const order=['O+','O-','A+','A-','B+','B-','AB+','AB-'];
+  document.getElementById('bloodGrid').innerHTML=order.map(t=>`
+    <div class="blood-item">
+      <div class="blood-type">${t}</div>
+      <div class="blood-cnt">${counts[t]||0} pac.</div>
+    </div>`).join('');
+}
+
+/* ── Tabla consultas ── */
+function renderConsultas(){
+  const recent=[...diagnoses].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,10);
+  document.getElementById('consultasBody').innerHTML=recent.map((d,i)=>{
+    const p=patients.find(x=>x.id===d.patId);
+    if(!p)return'';
+    const c=avatarColor(p);
+    return `<tr style="animation-delay:${i*40}ms">
+      <td style="display:flex;align-items:center;gap:8px;">
+        <div class="p-avatar-sm" style="background:${c.bg};color:${c.text};">${initials(p)}</div>
+        <span>${p.nombres} ${p.apellidos}</span>
+      </td>
+      <td>${d.fecha}</td>
+      <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.diagnostico}</td>
+      <td><span class="badge badge-info" style="font-size:9px;">${d.especialidad}</span></td>
+      <td>${d.medico}</td>
+      <td><span class="badge ${estadoBadge(d.estado)}">${d.estado}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── Médicos más activos ── */
+function renderMedicos(){
+  const cnt={};
+  diagnoses.forEach(d=>{cnt[d.medico]=(cnt[d.medico]||0)+1;});
+  const sorted=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0]?.[1]||1;
+  const medicosColors=['#2471A3','#1A8A4A','#D35400','#8E44AD','#C0392B'];
+
+  document.getElementById('medicosPanel').innerHTML=sorted.slice(0,6).map(([med,n],i)=>{
+    const ini=med.replace('Dr.','').replace('Dra.','').trim().split(' ').slice(0,2).map(s=>s[0]).join('').toUpperCase();
+    return `<div class="medico-item">
+      <div class="medico-avatar" style="background:${medicosColors[i%medicosColors.length]};">${ini}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="medico-name">${med}</div>
+        <div class="medico-role">${n} consulta${n>1?'s':''}</div>
+      </div>
+      <div class="medico-bar-wrap">
+        <div class="esp-bar-track">
+          <div class="esp-bar-fill" style="width:${Math.round(n/max*100)}%;background:${medicosColors[i%medicosColors.length]};"></div>
+        </div>
+      </div>
+      <div class="medico-cnt">${n}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ── Init ── */
+function init(){
+  renderKPIs();
+  renderKPIs2();
+  renderEspTable();
+  renderDonut();
+  renderBlood();
+  renderConsultas();
+  renderMedicos();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
