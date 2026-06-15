@@ -987,3 +987,179 @@ body.dark .mensaje.editando {
   background: #6c757d;
   color: white;
 }
+
+/* ========== BOTÓN IMPRIMIR TICKET ========== */
+.btn-imprimir {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn-imprimir:hover {
+  background: #e8f0fb;
+  color: var(--azul-principal);
+}
+
+body.dark .btn-imprimir:hover {
+  background: #1a2a3a;
+  color: #4d9fff;
+}
+
+/* ========== EFECTO 3D + GLASSMORPHISM ========== */
+
+/* Cards de estadísticas con efecto 3D */
+.stat-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) rotateX(6deg) rotateY(-4deg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+/* Glassmorphism en cards principales */
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 86, 179, 0.12);
+}
+
+/* Glassmorphism modo oscuro */
+body.dark .card {
+  background: rgba(30, 39, 50, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.dark .stat-card {
+  background: rgba(30, 39, 50, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.dark .stat-card:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+/* Fondo con gradiente suave para que el blur se note */
+body {
+  background: linear-gradient(135deg, #e8f0fb 0%, #f0f4f8 50%, #e3ecf7 100%);
+  background-attachment: fixed;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0a0f16 0%, #0f1419 50%, #0d1520 100%);
+  background-attachment: fixed;
+}
+
+/* Botones con efecto presión 3D */
+.btn-primary {
+  position: relative;
+  transform: translateY(0);
+  box-shadow: 0 6px 0 rgba(0, 40, 100, 0.4), 0 3px 8px rgba(0,86,179,0.3);
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 rgba(0, 40, 100, 0.4), 0 6px 14px rgba(0,86,179,0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 40, 100, 0.4), 0 1px 4px rgba(0,86,179,0.2);
+}
+
+/* Stat cards con brillo interno */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+  border-radius: 10px 10px 0 0;
+  pointer-events: none;
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== ANIMACIONES DE ENTRADA ========== */
+
+/* Estado inicial — elementos invisibles */
+.stat-card,
+.card,
+.buscador-container,
+.seccion-titulo,
+.page-header,
+.stats-grid {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* Clase que activa la animación */
+.animar {
+  animation: entrar 0.5s ease forwards;
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stats con efecto 3D no interfieren con animación */
+.stat-card.animar:hover {
+  animation: none;
+  opacity: 1;
+}
+
+/* Animación especial para el header */
+.header {
+  animation: headerEntrar 0.4s ease forwards;
+}
+
+@keyframes headerEntrar {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Animación del page title */
+.page-title {
+  animation: titleEntrar 0.6s ease 0.2s both;
+}
+
+.page-subtitle {
+  animation: titleEntrar 0.6s ease 0.35s both;
+}
+
+@keyframes titleEntrar {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
