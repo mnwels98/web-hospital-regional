@@ -1175,3 +1175,112 @@ body.dark {
   from { opacity: 0; transform: translateX(-20px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+
+/* ========== RESPONSIVE MÓVIL ========== */
+@media (max-width: 768px) {
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Header completo azul */
+  .header {
+    background: linear-gradient(135deg, #003d82 0%, #0056b3 100%) !important;
+    padding: 10px 14px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  .header-inner {
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
+    gap: 8px !important;
+    background: transparent !important;
+  }
+
+  .logo-img   { height: 36px; width: 36px; }
+  .logo-title { font-size: 13px; }
+  .logo-sub   { font-size: 9px; }
+
+  .nav {
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+    background: transparent !important;
+  }
+
+  .nav-btn {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    border-radius: 20px !important;
+  }
+
+  .btn-dark-mode,
+  .campana-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 14px !important;
+    border-radius: 50% !important;
+  }
+
+  /* Main */
+  .main { padding: 16px 12px; }
+  .page-title { font-size: 20px; }
+  .page-subtitle { font-size: 13px; }
+
+  /* Stats — 2 columnas */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  .stat-card { padding: 12px 10px; gap: 10px; }
+  .stat-numero { font-size: 22px; }
+  .stat-icon { font-size: 20px; }
+  .stat-label { font-size: 10px; }
+
+  /* Buscador */
+  .buscador-inner { flex-wrap: wrap; padding: 10px 12px; }
+  .buscador-input { min-width: 100%; order: 2; }
+  .buscador-icon { order: 1; }
+  .buscador-btn { flex: 1; }
+
+  /* Formulario — 1 columna */
+  .form-grid,
+  .form-grid-3 { grid-template-columns: 1fr !important; gap: 12px; }
+
+  .form-footer { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-cancelar-edicion { width: 100%; justify-content: center; }
+
+  /* Tabla scroll horizontal */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tabla-citas { min-width: 580px; }
+
+  /* Tickets */
+  .ticket-item { flex-direction: column; gap: 10px; }
+  .ticket-meta {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Toast */
+  #toast-container { top: 10px; right: 10px; left: 10px; }
+  .toast { min-width: unset; max-width: 100%; }
+
+  /* Footer */
+  .footer {
+    font-size: 11px;
+    padding: 12px;
+    background: linear-gradient(135deg, #003d82, #0056b3) !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+}
