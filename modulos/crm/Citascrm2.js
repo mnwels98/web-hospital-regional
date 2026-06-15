@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   verificarAlertas();
   actualizarCampana();
   init3DCards();
+  initAnimaciones();
 });
 
 // ─── VALIDACIONES ─────────────────────────────────────────────────
@@ -311,7 +312,7 @@ function renderTickets() {
   }
 
   lista.innerHTML = tickets.map(t => `
-    <div class="ticket-item ${t.prioridad} ${t.atendido ? "atendido" : ""}">
+    <div class="ticket-item ${t.prioridad}" data-atendido="${t.atendido}">
       <div class="ticket-info">
         <h4>Ticket #${t.id} — ${t.paciente}</h4>
         <p>${t.motivo}</p>
@@ -629,6 +630,38 @@ function imprimirTicket(id) {
   ventana.document.close();
 }
 
+
+// =============================================
+//  ANIMACIONES DE ENTRADA
+// =============================================
+function initAnimaciones() {
+  const elementos = [
+    { selector: ".page-header",         delay: 0   },
+    { selector: ".stats-grid",          delay: 100 },
+    { selector: ".stat-card:nth-child(1)", delay: 150 },
+    { selector: ".stat-card:nth-child(2)", delay: 220 },
+    { selector: ".stat-card:nth-child(3)", delay: 290 },
+    { selector: ".stat-card:nth-child(4)", delay: 360 },
+    { selector: ".stat-card:nth-child(5)", delay: 430 },
+    { selector: ".buscador-container",  delay: 500 },
+    { selector: ".seccion-titulo",      delay: 580 },
+    { selector: ".card",                delay: 650 },
+  ];
+
+  elementos.forEach(({ selector, delay }) => {
+    const els = document.querySelectorAll(selector);
+    els.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add("animar");
+        // Restaurar transform después de animación para no romper 3D
+        setTimeout(() => {
+          el.style.opacity  = "1";
+          el.style.transform = "";
+        }, 500);
+      }, delay + i * 80);
+    });
+  });
+}
 
 // =============================================
 //  EFECTO 3D EN CARDS DE ESTADÍSTICAS

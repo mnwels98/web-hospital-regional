@@ -536,7 +536,7 @@ body {
 }
 
 .ticket-item {
-  background: var(--fondo-card);
+  background: var(--blanco);
   border-radius: 8px;
   padding: 14px 18px;
   border-left: 5px solid var(--azul-principal);
@@ -545,12 +545,12 @@ body {
   align-items: flex-start;
   gap: 16px;
   transition: transform 0.2s, box-shadow 0.2s;
+  opacity: 1;
 }
 
 .ticket-item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
 .ticket-item.urgente    { border-left-color: var(--naranja); }
 .ticket-item.emergencia { border-left-color: var(--rojo-error); }
-.ticket-item.atendido   { opacity: 0.55; }
 
 .ticket-info h4 { font-size: 14px; font-weight: 700; color: var(--texto-oscuro); margin-bottom: 4px; }
 .ticket-info p  { font-size: 13px; color: var(--texto-suave); line-height: 1.4; }
@@ -754,18 +754,30 @@ body {
 }
 
 /* ========== PARPADEO EMERGENCIA ========== */
-.ticket-item.emergencia {
-  animation: parpadeoEmergencia 1.5s infinite;
+.ticket-item.emergencia[data-atendido="false"] {
+  animation: parpadeoEmergencia 1.2s infinite;
 }
 
 @keyframes parpadeoEmergencia {
-  0%, 100% { background-color: var(--fondo-card); }
-  50%       { background-color: #ffeaea; }
+  0%   { background-color: var(--blanco); box-shadow: none; }
+  50%  { background-color: #ffd0d0; box-shadow: 0 0 16px rgba(220, 53, 69, 0.5), inset 0 0 8px rgba(220,53,69,0.15); }
+  100% { background-color: var(--blanco); box-shadow: none; }
 }
 
-.ticket-item.emergencia.atendido {
+.ticket-item.emergencia[data-atendido="true"] {
   animation: none;
-  background-color: var(--fondo-card);
+  background-color: var(--blanco);
+  box-shadow: none;
+}
+
+body.dark .ticket-item.emergencia[data-atendido="false"] {
+  animation: parpadeoEmergenciaDark 1.2s infinite;
+}
+
+@keyframes parpadeoEmergenciaDark {
+  0%   { background-color: #1e2732; box-shadow: none; }
+  50%  { background-color: #3a1a1a; box-shadow: 0 0 16px rgba(248, 81, 73, 0.4), inset 0 0 8px rgba(248,81,73,0.1); }
+  100% { background-color: #1e2732; box-shadow: none; }
 }
 
 /* ========== MODO OSCURO ========== */
