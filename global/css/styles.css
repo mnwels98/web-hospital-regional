@@ -365,12 +365,10 @@ nav ul li a:hover {
 /* ZONA DE DIEGO - FOOTER                     */
 /* ========================================== */
 footer {
-    background-color: #343a40; /* Gris oscuro elegante */
+    background-color: #333; /* El gris oscuro que ya tienes */
     color: white;
+    padding: 20px 0; /* Arriba/abajo 20px, lados 0.*/
     text-align: center;
-    padding: 30px 20px;
-    padding-bottom: 140px;
-    margin-top: 50px;
 }
 
 footer .footer-info p {
@@ -1699,4 +1697,25 @@ nav ul li.dropdown:hover .dropdown-menu {
     }
     
     .about-container { padding: 15px !important; margin-top: 10px !important; }
+}
+
+/* --- TEMA MODO OSCURO --- */
+body.dark-mode {
+    background-color: #121212; /* Fondo casi negro, muy elegante */
+    color: #e0e0e0; /* Texto gris claro para no cansar la vista */
+}
+
+/* Oscurecer contenedores blancos, como tarjetas o el fondo del texto */
+body.dark-mode .tabla-container,
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode .directivos-card {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    border-color: #333 !important;
+}
+
+/* Ajuste para los enlaces en modo oscuro */
+body.dark-mode a {
+    color: #66b2ff;
 }
