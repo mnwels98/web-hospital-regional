@@ -8,10 +8,26 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Le damos un fondo gris muy clarito y limpio a toda la web */
+:root {
+    --bg-principal: #ffffff; /* Fondo de la página */
+    --bg-tarjetas: #ffffff;  /* Fondo de cuadros y secciones */
+    --texto-principal: #333333;
+    --borde-tarjetas: #dddddd;
+}
+
+/* Cuando el modo oscuro está activo, las variables mutan: */
+body.dark-mode {
+    --bg-principal: #121212;
+    --bg-tarjetas: #1e1e1e;
+    --texto-principal: #e0e0e0;
+    --borde-tarjetas: #333333;
+}
+
+/* Le damos un fondo general a toda la web USANDO LAS VARIABLES */
 body {
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: var(--bg-principal);
+    color: var(--texto-principal);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efecto de transición suave */
 }
 
 /* Esto hace que todas las secciones con un ID se frenen 100px antes de llegar arriba */
@@ -1697,25 +1713,4 @@ nav ul li.dropdown:hover .dropdown-menu {
     }
     
     .about-container { padding: 15px !important; margin-top: 10px !important; }
-}
-
-/* --- TEMA MODO OSCURO --- */
-body.dark-mode {
-    background-color: #121212; /* Fondo casi negro, muy elegante */
-    color: #e0e0e0; /* Texto gris claro para no cansar la vista */
-}
-
-/* Oscurecer contenedores blancos, como tarjetas o el fondo del texto */
-body.dark-mode .tabla-container,
-body.dark-mode header,
-body.dark-mode footer,
-body.dark-mode .directivos-card {
-    background-color: #1e1e1e !important;
-    color: #e0e0e0 !important;
-    border-color: #333 !important;
-}
-
-/* Ajuste para los enlaces en modo oscuro */
-body.dark-mode a {
-    color: #66b2ff;
 }
