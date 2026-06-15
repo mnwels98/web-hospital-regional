@@ -165,7 +165,8 @@ function renderTabla(lista) {
           ${c.estado.charAt(0).toUpperCase() + c.estado.slice(1)}
         </span>
       </td>
-      <td><button class="btn-eliminar" onclick="eliminarCita(${c.id})">🗑️</button></td>
+      <td><button class="btn-eliminar" onclick="eliminarCita(${c.id})">🗑️</button>
+          <button class="btn-editar" onclick="editarCita(${c.id})">✏️</button></td>
     </tr>
   `).join("");
 }
@@ -186,6 +187,87 @@ function eliminarCita(id) {
   guardarDatos();
   renderTabla();
   actualizarEstadisticas();
+}
+
+// ─── Editar Cita ──────────────────────────────────────────────────
+let citaEditandoId = null;
+
+function editarCita(id) {
+  const cita = citas.find(c => c.id === id);
+  if (!cita) return;
+
+  citaEditandoId = id;
+
+  // Cargar datos en el formulario
+  document.getElementById("nombre").value = cita.nombre;
+  document.getElementById("dni").value    = cita.dni;
+  document.getElementById("fecha").value  = cita.fecha;
+
+  // Cargar especialidad y médico
+  const selectEsp = document.getElementById("especialidad");
+  selectEsp.value = cita.especialidad;
+  selectEsp.dispatchEvent(new Event("change"));
+
+  setTimeout(() => {
+    document.getElementById("medico").value = cita.medico;
+    document.getElementById("hora").value   = cita.hora;
+  }, 50);
+
+  // Cambiar botón a modo edición
+  const btn = document.querySelector(".form-footer .btn-primary");
+  btn.textContent = "💾 Actualizar Cita";
+  btn.onclick = actualizarCita;
+  btn.classList.add("btn-editando");
+
+  // Mostrar botón cancelar
+  document.getElementById("btn-cancelar").style.display = "block";
+
+  // Mostrar indicador de edición
+  document.getElementById("mensaje").textContent = `✏️ Editando cita de ${cita.nombre} — modifica los datos y guarda.`;
+  document.getElementById("mensaje").className = "mensaje editando";
+
+  // Scroll al formulario
+  document.querySelector(".card").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function actualizarCita() {
+  if (!validarCita()) return;
+
+  const nombre       = document.getElementById("nombre").value.trim();
+  const dni          = document.getElementById("dni").value.trim();
+  const especialidad = document.getElementById("especialidad").value;
+  const medico       = document.getElementById("medico").value;
+  const fecha        = document.getElementById("fecha").value;
+  const hora         = document.getElementById("hora").value;
+
+  const cita = citas.find(c => c.id === citaEditandoId);
+  if (!cita) return;
+
+  cita.nombre       = nombre;
+  cita.dni          = dni;
+  cita.especialidad = especialidad;
+  cita.medico       = medico;
+  cita.fecha        = fecha;
+  cita.hora         = hora;
+
+  guardarDatos();
+  renderTabla();
+  actualizarEstadisticas();
+  cancelarEdicion();
+  mostrarToast("✏️", "Cita actualizada", `${nombre} · ${especialidad}`, "exito");
+}
+
+function cancelarEdicion() {
+  citaEditandoId = null;
+  limpiarFormularioCita();
+
+  const btn = document.querySelector(".form-footer .btn-primary");
+  btn.textContent = "📅 Registrar Cita";
+  btn.onclick = registrarCita;
+  btn.classList.remove("btn-editando");
+
+  document.getElementById("btn-cancelar").style.display = "none";
+  document.getElementById("mensaje").className = "mensaje oculto";
 }
 
 function limpiarFormularioCita() {
@@ -336,6 +418,28 @@ function formatFecha(f) {
 function horaActual() {
   return new Date().toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" });
 }
+
+// =============================================
+//  MODO OSCURO
+// =============================================
+function toggleDarkMode() {
+  const body = document.body;
+  const btn  = document.getElementById("btn-dark");
+  body.classList.toggle("dark");
+  const isDark = body.classList.contains("dark");
+  btn.textContent = isDark ? "☀️" : "🌙";
+  btn.title = isDark ? "Modo claro" : "Modo oscuro";
+  localStorage.setItem("crm_dark_mode", isDark ? "1" : "0");
+}
+
+// Cargar preferencia guardada
+(function() {
+  if (localStorage.getItem("crm_dark_mode") === "1") {
+    document.body.classList.add("dark");
+    const btn = document.getElementById("btn-dark");
+    if (btn) { btn.textContent = "☀️"; btn.title = "Modo claro"; }
+  }
+})();
 
 // =============================================
 //  NOTIFICACIONES — Toast + Campana + Parpadeo
