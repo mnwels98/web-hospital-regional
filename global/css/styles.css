@@ -8,10 +8,26 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Le damos un fondo gris muy clarito y limpio a toda la web */
+:root {
+    --bg-principal: #ffffff; /* Fondo de la página */
+    --bg-tarjetas: #ffffff;  /* Fondo de cuadros y secciones */
+    --texto-principal: #333333;
+    --borde-tarjetas: #dddddd;
+}
+
+/* Cuando el modo oscuro está activo, las variables mutan: */
+body.dark-mode {
+    --bg-principal: #121212;
+    --bg-tarjetas: #1e1e1e;
+    --texto-principal: #e0e0e0;
+    --borde-tarjetas: #333333;
+}
+
+/* Le damos un fondo general a toda la web USANDO LAS VARIABLES */
 body {
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: var(--bg-principal);
+    color: var(--texto-principal);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efecto de transición suave */
 }
 
 /* Esto hace que todas las secciones con un ID se frenen 100px antes de llegar arriba */
@@ -72,7 +88,7 @@ html {
 
 .content-section {
     padding: 36px 20px 60px;
-    background-color: #f4f7f6;
+    background-color: var(--bg-body);
 }
 
 .content-container {
@@ -92,7 +108,7 @@ html {
 .content-card,
 .sidebar-card,
 .org-info {
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     border-radius: 18px;
     border: 1px solid #dbe7f1;
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
@@ -365,7 +381,7 @@ nav ul li a:hover {
 /* ZONA DE DIEGO - FOOTER                     */
 /* ========================================== */
 footer {
-    background-color: #333; /* El gris oscuro que ya tienes */
+    background-color: var(--texto-principal); /* El gris oscuro que ya tienes */
     color: white;
     padding: 20px 0; /* Arriba/abajo 20px, lados 0.*/
     text-align: center;
@@ -388,7 +404,7 @@ footer .footer-legal {
 /* Eddy: Escribe tus estilos aquí abajo */
 .about-section {
     padding: 60px 20px;
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     display: flex;
     justify-content: center;
 }
@@ -443,7 +459,7 @@ footer .footer-legal {
 
 .about-text h3 {
     font-size: 24px;
-    color: #333;
+    color: var(--texto-principal);
     margin-bottom: 15px;
 }
 
@@ -485,7 +501,7 @@ footer .footer-legal {
 .card-mv {
     flex: 1;
     min-width: 280px;
-    background-color: #f8f9fa;
+    background-color: var(--bg-tarjetas);
     padding: 30px;
     border-radius: 8px;
     border-left: 5px solid #0056b3; /* Detalle azul a la izquierda */
@@ -522,7 +538,7 @@ footer .footer-legal {
 
 /* NUEVO: Estilos para el bloque de descripción que te pidieron */
 .about-description-block {
-    background-color: #f8f9fa;
+    background-color: var(--bg-tarjetas);
     padding: 25px;
     border-radius: 8px;
     margin-bottom: 40px;
@@ -560,7 +576,7 @@ footer .footer-legal {
 }
 
 .header-search-trigger button:hover {
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     color: #0056b3;
     transform: scale(1.05);
 }
@@ -591,7 +607,7 @@ footer .footer-legal {
 
 /* Caja blanca contenedora del buscador */
 .modal-content {
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     width: 90%;
     max-width: 750px;
     max-height: 85vh;
@@ -671,7 +687,7 @@ footer .footer-legal {
 }
 
 .card-specialty {
-    background-color: #f8f9fa;
+    background-color: var(--bg-tarjetas);
     flex: 1;
     min-width: 200px;
     max-width: 300px;
@@ -712,7 +728,7 @@ nav ul li .dropdown-menu {
     top: 100%; /* Aparece justo abajo del enlace 'Institucional' */
     left: 50%;
     transform: translateX(-50%); /* Lo centra perfectamente debajo del texto */
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     min-width: 180px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
     border-radius: 4px;
@@ -731,7 +747,7 @@ nav ul li .dropdown-menu li {
 
 /* Estilos de los enlaces del submenú */
 nav ul li .dropdown-menu li a {
-    color: #333333 !important;
+    color: var(--texto-principal)333 !important;
     padding: 10px 20px !important;
     display: block !important;
     font-size: 14px !important;
@@ -894,7 +910,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 
 .servicios-section {
     padding: 60px 20px;
-    background-color: #f4f7f6; /* Respeta el fondo global */
+    background-color: var(--bg-body); /* Respeta el fondo global */
     text-align: center;
 }
 
@@ -925,7 +941,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 
 /* Diseño individual de cada tarjeta */
 .card {
-    background-color: white;
+    background-color: var(--bg-tarjetas);
     border-radius: 10px;
     padding: 30px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -946,7 +962,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 }
 
 .card h3 {
-    color: #333;
+    color: var(--texto-principal);
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -1008,7 +1024,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 /* Alyson: Escribe tus estilos aquí abajo */
     .testimonios-section {
     padding: 40px;
-    background-color: #f9f9f9;
+    background-color: var(--bg-body);
     font-family: sans-serif;
 }
 
@@ -1046,7 +1062,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 }
 
 .testimonio-texto {
-    color: #333;
+    color: var(--texto-principal);
     line-height: 1.5;
 }
 
@@ -1173,7 +1189,7 @@ nav ul li.dropdown:hover .dropdown-menu {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    color: #333;
+    color: var(--texto-principal);
     background: #f4f7f6;
     cursor: pointer;
 }
@@ -1209,7 +1225,7 @@ nav ul li.dropdown:hover .dropdown-menu {
     border-radius: 4px;
     font-size: 14px;
     background: #fff;
-    color: #333;
+    color: var(--texto-principal);
     transition: border-color 0.2s;
 }
 
@@ -1499,7 +1515,7 @@ nav ul li.dropdown:hover .dropdown-menu {
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 15px;
-    background-color: white;
+    background-color: var(--bg-tarjetas);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
@@ -1560,7 +1576,7 @@ nav ul li.dropdown:hover .dropdown-menu {
 
 /* Tarjeta blanca central */
 .custom-modal-content {
-    background-color: #ffffff;
+    background-color: var(--bg-tarjetas);
     padding: 35px;
     border-radius: 12px;
     width: 100%;
@@ -1580,7 +1596,7 @@ nav ul li.dropdown:hover .dropdown-menu {
     color: #999;
 }
 .custom-modal-close:hover {
-    color: #333;
+    color: var(--texto-principal);
 }
 
 .custom-modal-content h2 {
@@ -1606,7 +1622,7 @@ nav ul li.dropdown:hover .dropdown-menu {
     margin-bottom: 5px;
     font-weight: 600;
     font-size: 14px;
-    color: #333;
+    color: var(--texto-principal);
 }
 
 .input-group input {
@@ -1690,32 +1706,11 @@ nav ul li.dropdown:hover .dropdown-menu {
     /* Botones del submenú */
     nav ul li ul li { width: 100% !important; }
     nav ul li ul li a {
-        color: #333333 !important; background: transparent !important;
+        color: var(--texto-principal)333 !important; background: transparent !important;
         padding: 12px 20px !important; font-size: 14px !important; text-align: center !important;
         display: block !important;
         white-space: normal !important; 
     }
     
     .about-container { padding: 15px !important; margin-top: 10px !important; }
-}
-
-/* --- TEMA MODO OSCURO --- */
-body.dark-mode {
-    background-color: #121212; /* Fondo casi negro, muy elegante */
-    color: #e0e0e0; /* Texto gris claro para no cansar la vista */
-}
-
-/* Oscurecer contenedores blancos, como tarjetas o el fondo del texto */
-body.dark-mode .tabla-container,
-body.dark-mode header,
-body.dark-mode footer,
-body.dark-mode .directivos-card {
-    background-color: #1e1e1e !important;
-    color: #e0e0e0 !important;
-    border-color: #333 !important;
-}
-
-/* Ajuste para los enlaces en modo oscuro */
-body.dark-mode a {
-    color: #66b2ff;
 }
