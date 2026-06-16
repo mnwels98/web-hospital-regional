@@ -85,7 +85,7 @@
                         <button type="submit" class="btn btn-primario">Buscar</button>
                     </div>
                 </form>
-                <button id="btn-nuevo-turno" class="btn btn-exito">+ Asignar Nuevo Turno</button>
+                <button id="btn-nuevo-turno" class="btn btn-exito" onclick="abrirModalAsignarTurno()">+ Asignar Nuevo Turno</button>
             </section>
 
             <section class="tabla-contenedor">
@@ -110,8 +110,8 @@
                             <td>Noche (20:00 - 08:00)</td>
                             <td><span class="badge badge-activo">En Turno</span></td>
                             <td>
-                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Editar</button>
-                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;">Relevar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;" onclick="abrirEditarTurno('MED-0045', 'Dr. Carlos Mendoza', 'noche')">Editar</button>
+                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;" onclick="relevaTurno('MED-0045', 'Dr. Carlos Mendoza', 'UCI')">Relevar</button>
                             </td>
                         </tr>
                         <tr>
@@ -122,39 +122,44 @@
                             <td>Mañana (08:00 - 14:00)</td>
                             <td><span class="badge badge-pendiente">Finalizado</span></td>
                             <td>
-                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Editar</button>
-                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;">Relevar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;" onclick="abrirEditarTurno('ENF-0112', 'Lic. Ana Torres', 'manana')">Editar</button>
+                                <button class="btn btn-peligro" style="padding: 4px 8px; font-size: 0.8rem;" onclick="relevaTurno('ENF-0112', 'Lic. Ana Torres', 'Emergencia')">Relevar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section class="modal modal-asignacion" id="modal-turno">
-                <h3>Asignar Guardia</h3>
-                <p style="color: var(--color-texto-mutado); margin-bottom: 15px;">Complete los datos para programar una nueva cobertura médica.</p>
-                <form action="#" method="POST" class="form-grid">
-                    <div class="grupo-form">
-                        <label for="id_empleado">Buscar Empleado:</label>
-                        <input type="text" id="id_empleado" class="form-control" placeholder="Ej. DNI o Código">
+            <section class="modal" id="modal-turno">
+                <div class="modal-contenido">
+                    <div class="modal-encabezado">
+                        <h3 id="tituloModalTurno">Asignar Guardia</h3>
+                        <button class="modal-cerrar" onclick="cerrarModalTurno()">&times;</button>
                     </div>
-                    <div class="grupo-form">
-                        <label for="tipo_turno">Tipo de Turno:</label>
-                        <select id="tipo_turno" class="form-control">
-                            <option value="manana">Mañana</option>
-                            <option value="tarde">Tarde</option>
-                            <option value="noche">Noche (Guardia)</option>
-                        </select>
-                    </div>
-                    <div class="grupo-form">
-                        <label for="observacion">Observación:</label>
-                        <input type="text" id="observacion" class="form-control" placeholder="Ej. Reemplazo por licencia">
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn" style="background-color: #e9ecef; color: #333;">Cancelar</button>
-                        <button type="submit" class="btn btn-primario">Guardar Asignación</button>
-                    </div>
-                </form>
+                    <form id="formularioTurno" onsubmit="guardarTurno(event)" class="formulario-grid">
+                        <div class="grupo-form">
+                            <label for="id_empleado">Buscar Empleado:</label>
+                            <input type="text" id="id_empleado" class="form-control" placeholder="Ej. DNI o Código" required>
+                        </div>
+                        <div class="grupo-form">
+                            <label for="tipo_turno">Tipo de Turno:</label>
+                            <select id="tipo_turno" class="form-control" required>
+                                <option value="">Seleccionar turno</option>
+                                <option value="manana">Mañana (08:00 - 14:00)</option>
+                                <option value="tarde">Tarde (14:00 - 20:00)</option>
+                                <option value="noche">Noche (20:00 - 08:00)</option>
+                            </select>
+                        </div>
+                        <div class="grupo-form">
+                            <label for="observacion">Observación:</label>
+                            <input type="text" id="observacion" class="form-control" placeholder="Ej. Reemplazo por licencia">
+                        </div>
+                        <div class="modal-pie" style="grid-column: 1/-1;">
+                            <button type="button" class="btn btn-primario" style="background-color: #6c757d;" onclick="cerrarModalTurno()">Cancelar</button>
+                            <button type="submit" class="btn btn-primario">Guardar Asignación</button>
+                        </div>
+                    </form>
+                </div>
             </section>
 
         </main>
@@ -169,5 +174,94 @@
     </div>
 
     <script src="rrhh-theme.js"></script>
+    <script src="app-rrhh.js"></script>
+    <script>
+        // Variables globales para almacenar el turno en edición
+        let turnoEnEdicion = null;
+
+        // Funciones para controlar el modal de turnos
+        function abrirModalAsignarTurno() {
+            document.getElementById('tituloModalTurno').textContent = 'Asignar Nuevo Turno';
+            document.getElementById('modal-turno').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            document.getElementById('formularioTurno').reset();
+            turnoEnEdicion = null;
+        }
+
+        function abrirEditarTurno(idEmpleado, nombre, tipoTurno) {
+            document.getElementById('tituloModalTurno').textContent = 'Editar Turno';
+            document.getElementById('id_empleado').value = idEmpleado + ' - ' + nombre;
+            document.getElementById('id_empleado').setAttribute('readonly', 'true');
+            document.getElementById('tipo_turno').value = tipoTurno;
+            document.getElementById('observacion').value = '';
+            
+            turnoEnEdicion = {
+                id: idEmpleado,
+                nombre: nombre,
+                tipoTurno: tipoTurno
+            };
+            
+            document.getElementById('modal-turno').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModalTurno() {
+            document.getElementById('modal-turno').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('formularioTurno').reset();
+            document.getElementById('id_empleado').removeAttribute('readonly');
+            turnoEnEdicion = null;
+        }
+
+        function guardarTurno(event) {
+            event.preventDefault();
+            
+            const empleado = document.getElementById('id_empleado').value;
+            const tipoTurno = document.getElementById('tipo_turno').value;
+            const observacion = document.getElementById('observacion').value;
+
+            if (turnoEnEdicion) {
+                // Editando turno existente
+                const tipoTurnoText = tipoTurno === 'manana' ? 'Mañana (08:00 - 14:00)' : 
+                                     tipoTurno === 'tarde' ? 'Tarde (14:00 - 20:00)' : 
+                                     'Noche (20:00 - 08:00)';
+                
+                alert(`✅ Turno actualizado exitosamente:\n\nEmpleado: ${empleado}\nTurno: ${tipoTurnoText}\nObservación: ${observacion || 'Ninguna'}\n\nLos cambios han sido guardados en el sistema.`);
+                console.log('Turno editado:', { empleado, tipoTurno, observacion });
+            } else {
+                // Asignando nuevo turno
+                const tipoTurnoText = tipoTurno === 'manana' ? 'Mañana (08:00 - 14:00)' : 
+                                     tipoTurno === 'tarde' ? 'Tarde (14:00 - 20:00)' : 
+                                     'Noche (20:00 - 08:00)';
+                
+                alert(`✅ Nuevo turno asignado exitosamente:\n\nEmpleado: ${empleado}\nTurno: ${tipoTurnoText}\nObservación: ${observacion || 'Ninguna'}\n\nLa asignación ha sido guardada en el sistema.`);
+                console.log('Turno asignado:', { empleado, tipoTurno, observacion });
+            }
+            
+            cerrarModalTurno();
+        }
+
+        function relevaTurno(idEmpleado, nombre, area) {
+            const confirmacion = confirm(`¿Desea relevar al personal?\n\nEmpleado: ${nombre}\nÁrea: ${area}\n\nEsta acción finalizará el turno actual.`);
+            
+            if (confirmacion) {
+                // Solicitar quién será el relevo
+                const relevo = prompt(`¿Quién será el relevo para ${area}?`, "Especifique el nombre o código");
+                
+                if (relevo) {
+                    alert(`✅ Turno relevado exitosamente:\n\nEmpleado Saliente: ${nombre}\nNuevo Personal: ${relevo}\nÁrea: ${area}\n\nLa relevación ha sido registrada en el sistema.`);
+                    console.log('Turno relevado:', { empleadoSaliente: idEmpleado, relevo, area });
+                }
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-turno');
+            if (event.target === modal) {
+                cerrarModalTurno();
+            }
+        }
+    </script>
 </body>
 </html>

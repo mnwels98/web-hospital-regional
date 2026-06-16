@@ -70,7 +70,7 @@
                 </form>
 
                 <div>
-                    <button class="btn btn-exito">+ Nuevo Empleado</button>
+                    <button class="btn btn-exito" onclick="abrirModalNuevoEmpleado()">+ Nuevo Empleado</button>
                 </div>
             </section>
 
@@ -96,8 +96,8 @@
                             <td>987-654-321</td>
                             <td><span class="badge badge-activo">Activo</span></td>
                             <td>
-                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
-                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;" onclick="abrirVerPerfil('09123456', 'Mendoza Ruiz, Carlos Augusto', 'Médico Intensivista', 'UCI', '987-654-321', 'Activo')">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;" onclick="abrirEditarEmpleado('09123456', 'MED-0045', 'Mendoza Ruiz', 'Carlos Augusto', 'Médico Intensivista', 'UCI', '987-654-321', 'carlos.mendoza@hospital.com', 'Tiempo Completo', 'Activo')">Editar</button>
                             </td>
                         </tr>
                         
@@ -109,8 +109,8 @@
                             <td>912-345-678</td>
                             <td><span class="badge badge-pendiente">Vacaciones</span></td>
                             <td>
-                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
-                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;" onclick="abrirVerPerfil('45678912', 'Torres Castro, Ana María', 'Licenciada en Enfermería', 'Emergencia', '912-345-678', 'Vacaciones')">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;" onclick="abrirEditarEmpleado('45678912', 'ENF-0112', 'Torres Castro', 'Ana María', 'Licenciada en Enfermería', 'Emergencia', '912-345-678', 'ana.torres@hospital.com', 'Tiempo Completo', 'Vacaciones')">Editar</button>
                             </td>
                         </tr>
 
@@ -122,8 +122,8 @@
                             <td>999-888-777</td>
                             <td><span class="badge badge-inactivo">Licencia</span></td>
                             <td>
-                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;">Ver Perfil</button>
-                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Editar</button>
+                                <button class="btn" style="background-color: var(--color-info); color: white; padding: 4px 8px; font-size: 0.8rem;" onclick="abrirVerPerfil('10293847', 'Salinas Vega, Jorge', 'Asistente Contable', 'Administración', '999-888-777', 'Licencia')">Ver Perfil</button>
+                                <button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;" onclick="abrirEditarEmpleado('10293847', 'ADM-0089', 'Salinas Vega', 'Jorge', 'Asistente Contable', 'Administración', '999-888-777', 'jorge.salinas@hospital.com', 'Tiempo Parcial', 'Licencia')">Editar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -141,6 +141,203 @@
         </label>
     </div>
 
+    <!-- Modal para Ver Perfil -->
+    <div id="modalVerPerfil" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-encabezado">
+                <h3>Perfil del Empleado</h3>
+                <button class="modal-cerrar" onclick="cerrarModalVerPerfil()">&times;</button>
+            </div>
+            <div class="perfil-contenido">
+                <div class="perfil-seccion">
+                    <h4>Información General</h4>
+                    <div class="perfil-grid">
+                        <div class="perfil-campo">
+                            <label>DNI:</label>
+                            <p id="perfilDni"></p>
+                        </div>
+                        <div class="perfil-campo">
+                            <label>Nombre Completo:</label>
+                            <p id="perfilNombre"></p>
+                        </div>
+                        <div class="perfil-campo">
+                            <label>Cargo / Especialidad:</label>
+                            <p id="perfilCargo"></p>
+                        </div>
+                        <div class="perfil-campo">
+                            <label>Departamento:</label>
+                            <p id="perfilDepartamento"></p>
+                        </div>
+                        <div class="perfil-campo">
+                            <label>Teléfono:</label>
+                            <p id="perfilTelefono"></p>
+                        </div>
+                        <div class="perfil-campo">
+                            <label>Estado:</label>
+                            <p id="perfilEstado"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-pie">
+                <button type="button" class="btn btn-primario" onclick="cerrarModalVerPerfil()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Empleado -->
+    <div id="modalEditarEmpleado" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-encabezado">
+                <h3>Editar Empleado</h3>
+                <button class="modal-cerrar" onclick="cerrarModalEditarEmpleado()">&times;</button>
+            </div>
+            <form id="formularioEditarEmpleado" onsubmit="guardarEditarEmpleado(event)">
+                <div class="formulario-grid">
+                    <div class="grupo-form">
+                        <label for="editDni">DNI / Cédula de Identidad:</label>
+                        <input type="text" id="editDni" class="form-control" placeholder="Ej: 12345678" required maxlength="8" readonly>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editCodigo">Código de Empleado:</label>
+                        <input type="text" id="editCodigo" class="form-control" placeholder="Ej: MED-0046" required readonly>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editApellidos">Apellidos:</label>
+                        <input type="text" id="editApellidos" class="form-control" placeholder="Apellidos del empleado" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editNombres">Nombres:</label>
+                        <input type="text" id="editNombres" class="form-control" placeholder="Nombres del empleado" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editCargo">Cargo / Especialidad:</label>
+                        <input type="text" id="editCargo" class="form-control" placeholder="Ej: Médico General" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editDepartamento">Departamento:</label>
+                        <select id="editDepartamento" class="form-control" required>
+                            <option value="">Seleccionar departamento</option>
+                            <option value="UCI">UCI</option>
+                            <option value="Emergencia">Emergencia</option>
+                            <option value="Pediatría">Pediatría</option>
+                            <option value="Cirugía">Cirugía</option>
+                            <option value="Administración">Administración</option>
+                            <option value="Farmacia">Farmacia</option>
+                            <option value="Laboratorio">Laboratorio</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editTelefono">Teléfono:</label>
+                        <input type="tel" id="editTelefono" class="form-control" placeholder="Ej: 987-654-321" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editEmail">Correo Electrónico:</label>
+                        <input type="email" id="editEmail" class="form-control" placeholder="empleado@hospital.com" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editTipoContrato">Tipo de Contrato:</label>
+                        <select id="editTipoContrato" class="form-control" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="Tiempo Completo">Tiempo Completo</option>
+                            <option value="Tiempo Parcial">Tiempo Parcial</option>
+                            <option value="Por Guardias">Por Guardias</option>
+                            <option value="Práctica">Práctica</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="editEstado">Estado:</label>
+                        <select id="editEstado" class="form-control" required>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                            <option value="Licencia">Licencia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-pie">
+                    <button type="button" class="btn btn-primario" style="background-color: #6c757d;" onclick="cerrarModalEditarEmpleado()">Cancelar</button>
+                    <button type="submit" class="btn btn-exito">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Nuevo Empleado -->
+    <div id="modalNuevoEmpleado" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-encabezado">
+                <h3>Registrar Nuevo Empleado</h3>
+                <button class="modal-cerrar" onclick="cerrarModalNuevoEmpleado()">&times;</button>
+            </div>
+            <form id="formularioNuevoEmpleado" onsubmit="guardarNuevoEmpleado(event)">
+                <div class="formulario-grid">
+                    <div class="grupo-form">
+                        <label for="dni">DNI / Cédula de Identidad:</label>
+                        <input type="text" id="dni" class="form-control" placeholder="Ej: 12345678" required maxlength="8">
+                    </div>
+                    <div class="grupo-form">
+                        <label for="codigo">Código de Empleado:</label>
+                        <input type="text" id="codigo" class="form-control" placeholder="Ej: MED-0046" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" class="form-control" placeholder="Apellidos del empleado" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" class="form-control" placeholder="Nombres del empleado" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="cargo">Cargo / Especialidad:</label>
+                        <input type="text" id="cargo" class="form-control" placeholder="Ej: Médico General" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="departamento">Departamento:</label>
+                        <select id="departamento" class="form-control" required>
+                            <option value="">Seleccionar departamento</option>
+                            <option value="UCI">UCI</option>
+                            <option value="Emergencia">Emergencia</option>
+                            <option value="Pediatría">Pediatría</option>
+                            <option value="Cirugía">Cirugía</option>
+                            <option value="Administración">Administración</option>
+                            <option value="Farmacia">Farmacia</option>
+                            <option value="Laboratorio">Laboratorio</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" id="telefono" class="form-control" placeholder="Ej: 987-654-321" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" class="form-control" placeholder="empleado@hospital.com" required>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="tipoContrato">Tipo de Contrato:</label>
+                        <select id="tipoContrato" class="form-control" required>
+                            <option value="">Seleccionar tipo</option>
+                            <option value="Tiempo Completo">Tiempo Completo</option>
+                            <option value="Tiempo Parcial">Tiempo Parcial</option>
+                            <option value="Por Guardias">Por Guardias</option>
+                            <option value="Práctica">Práctica</option>
+                        </select>
+                    </div>
+                    <div class="grupo-form">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" class="form-control" required>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                            <option value="Licencia">Licencia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-pie">
+                    <button type="button" class="btn btn-primario" style="background-color: #6c757d;" onclick="cerrarModalNuevoEmpleado()">Cancelar</button>
+                    <button type="submit" class="btn btn-exito">Guardar Empleado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="rrhh-theme.js"></script>
-</body>
-</html>
+    <script src="rrhh-personal.js"></script>

@@ -93,8 +93,8 @@
                     <h3>Accesos Rápidos Operativos</h3>
                     <p style="margin-bottom: 15px; color: var(--color-texto-mutado);">Accesos directos a las tareas más frecuentes del área:</p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <a href="turnos-rrhh.html" class="btn btn-primario" style="text-align: center;">→ Gestionar Roles y Guardias Médicas</a>
-                        <a href="#personal" class="btn btn-primario" style="text-align: center; background-color: #6c757d;">+ Registrar Nuevo Médico / Enfermero</a>
+                        <a href="turnos-rrhh.html" class="btn btn-primario" style="text-align: center; text-decoration: none; display: block;">→ Gestionar Roles y Guardias Médicas</a>
+                        <a href="personal-rrhh.html" class="btn btn-primario" style="text-align: center; background-color: #6c757d; text-decoration: none; display: block;">+ Registrar Nuevo Médico / Enfermero</a>
                     </div>
                 </div>
 
@@ -116,14 +116,14 @@
                                 <td>Pediatría</td>
                                 <td><span class="badge badge-pendiente">Falta Injustificada</span></td>
                                 <td>08:15 AM</td>
-                                <td><button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Llamar</button></td>
+                                <td><button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;" onclick="handleLlamar('Lic. Elena Ramos', 'Pediatría')">Llamar</button></td>
                             </tr>
                             <tr>
                                 <td>Dr. Luis Espinoza</td>
                                 <td>Emergencia</td>
                                 <td><span class="badge badge-pendiente">Tardanza (25 min)</span></td>
                                 <td>08:25 AM</td>
-                                <td><button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;">Justificar</button></td>
+                                <td><button class="btn btn-primario" style="padding: 4px 8px; font-size: 0.8rem;" onclick="handleJustificar('Dr. Luis Espinoza', 'Emergencia')">Justificar</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -143,5 +143,6 @@
     </div>
 
     <script src="rrhh-theme.js"></script>
+    <script src="rrhh-dash.js"></script>
 </body>
 </html>
