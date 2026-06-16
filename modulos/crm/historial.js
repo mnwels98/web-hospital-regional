@@ -49,9 +49,25 @@ function seedData() {
 
 function syncStorage() {
   try {
-    sessionStorage.setItem('egb_patients',  JSON.stringify(patients));
-    sessionStorage.setItem('egb_diagnoses', JSON.stringify(diagnoses));
+    localStorage.setItem('egb_patients',   JSON.stringify(patients));
+    localStorage.setItem('egb_diagnoses',  JSON.stringify(diagnoses));
+    localStorage.setItem('egb_nextPatId',  String(nextPatId));
+    localStorage.setItem('egb_nextDiagId', String(nextDiagId));
   } catch(e) {}
+}
+
+function loadStorage() {
+  try {
+    const sp = localStorage.getItem('egb_patients');
+    const sd = localStorage.getItem('egb_diagnoses');
+    const ni = localStorage.getItem('egb_nextPatId');
+    const nd = localStorage.getItem('egb_nextDiagId');
+    if (sp) patients   = JSON.parse(sp);
+    if (sd) diagnoses  = JSON.parse(sd);
+    if (ni) nextPatId  = parseInt(ni, 10);
+    if (nd) nextDiagId = parseInt(nd, 10);
+    return !!(sp && sd);
+  } catch(e) { return false; }
 }
 
 /* =========================================================
@@ -465,7 +481,8 @@ function switchTab(name) {
    INIT
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-  seedData();
+  /* Intentar cargar datos persistidos; si no hay, usar datos de ejemplo */
+  if (!loadStorage()) seedData();
   renderPatientsList();
 
   document.querySelectorAll('.nav-tab').forEach(t=>{

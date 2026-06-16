@@ -267,10 +267,19 @@ body{
 
 <!-- ===== TOPBAR ===== -->
 <header class="topbar">
-  <div class="logo-badge"><i class="ti ti-building-hospital"></i></div>
-  <div style="margin-left:10px;">
-    <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
-    <div class="topbar-sub">Dashboard — Métricas e Indicadores Clave</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <img src="../../global/images/logo.jpg"
+         alt="Logo Hospital Regional"
+         style="width:44px;height:44px;border-radius:8px;object-fit:cover;
+                flex-shrink:0;border:2px solid rgba(255,255,255,.25);
+                box-shadow:0 2px 8px rgba(0,0,0,.25);
+                transition:transform .2s ease,box-shadow .2s ease;"
+         onmouseover="this.style.transform='scale(1.06)'"
+         onmouseout="this.style.transform='scale(1)'">
+    <div>
+      <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
+      <div class="topbar-sub">Dashboard — Métricas e Indicadores Clave</div>
+    </div>
   </div>
   <div class="topbar-spacer"></div>
   <div class="now-badge">
@@ -402,12 +411,12 @@ const DIAGNOSES=[
   {id:'D007',patId:'P007',fecha:'2025-12-10',diagnostico:'Hernia inguinal derecha',                 medico:'Dr. Marcos León',   especialidad:'Cirugía',         estado:'En seguimiento'},
 ];
 
-/* intentar tomar datos más frescos de sessionStorage */
+/* intentar tomar datos más frescos de localStorage (persiste entre sesiones) */
 let patients  = PATIENTS;
 let diagnoses = DIAGNOSES;
 try {
-  const sp = sessionStorage.getItem('egb_patients');
-  const sd = sessionStorage.getItem('egb_diagnoses');
+  const sp = localStorage.getItem('egb_patients');
+  const sd = localStorage.getItem('egb_diagnoses');
   if (sp) patients  = JSON.parse(sp);
   if (sd) diagnoses = JSON.parse(sd);
 } catch(e){}
