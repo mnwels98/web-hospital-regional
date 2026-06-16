@@ -186,6 +186,85 @@ body {
 }
 
 /* =========================================================
+   BOTÓN INICIO DESTACADO
+   ========================================================= */
+
+.btn-home{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:10px 18px;
+
+  background: linear-gradient(
+    135deg,
+    #2471A3 0%,
+    #0E4C78 100%
+  );
+
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+
+  border-radius:12px;
+  border:2px solid rgba(255,255,255,.25);
+
+  box-shadow:
+    0 4px 15px rgba(36,113,163,.45),
+    0 0 10px rgba(36,113,163,.25);
+
+  transition: all .3s ease;
+
+  position:relative;
+  overflow:hidden;
+
+  margin-right:12px;
+}
+
+/* brillo animado */
+.btn-home::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.25),
+    transparent
+  );
+
+  transition:.6s;
+}
+
+.btn-home:hover::before{
+  left:100%;
+}
+
+.btn-home:hover{
+  transform:translateY(-3px) scale(1.03);
+
+  box-shadow:
+    0 8px 22px rgba(36,113,163,.55),
+    0 0 18px rgba(36,113,163,.35);
+}
+
+/* animación al presionar */
+.btn-home:active{
+  transform:scale(.95);
+}
+
+.btn-home i{
+  font-size:18px;
+}
+
+
+
+/* =========================================================
    NAVEGACIÓN POR PESTAÑAS
    ========================================================= */
 .nav-tabs {
