@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Inventario y Kárdex - Hospital Regional Eleazar Guzmán Barrón</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bg-light">
+
+    <header class="hospital-header py-3 mb-4">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="m-0 fs-4 fw-bold">Hospital Regional Eleazar Guzmán Barrón</h1>
+                <span class="text-white-50 small">Módulo de Farmacia e Inventarios</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4">
+        
+        <div class="mb-4">
+            <h2 class="fs-5 fw-bold text-dark m-0">Buscador General y Control Transaccional</h2>
+            <p class="text-muted small m-0">Monitoreo dinámico del inventario biomédico y farmacológico del hospital.</p>
+        </div>
+
+        <div class="alerta-hospital mb-4 shadow-sm">
+            <strong>Notificación de Almacén Central (DIRESA):</strong> Quiebre de stock detectado o crítico en insumos con Código SIGA de clase fármaco. Priorizar distribución PEPS.
+        </div>
+
+        <!-- BLOQUE DE FILTROS REORGANIZADO EN 3 COLUMNAS SIMÉTRICAS 
+        <!-- ========================================== -->
+        <div class="card panel-inventario p-4 mb-4 border-0 shadow-sm">
+            <div class="row g-3 align-items-end">
+                
+                <!-- Columna 1: Buscador de Texto (Un tercio del ancho) -->
+                <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Buscar por Medicamento/Equipo (Nombre, Código SIGA o Lote)</label>
+                    <input type="text" class="form-control" placeholder="Escribe el nombre, código SIGA o lote..." oninput="actualizarFiltroBusqueda(this.value)">
+                </div>
+                
+                <!-- Columna 2: Filtro por Sub-Almacén (Un tercio del ancho) -->
+                <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Filtrar por Sub-Almacén</label>
+                    <select class="form-select" onchange="actualizarFiltroAlmacen(this.value)">
+                        <option selected>Todos los almacenes internos...</option>
+                        <option>Almacén Farmacéutico Central</option>
+                        <option>Sub-almacén de Emergencia y Trauma Shock</option>
+                        <option>Insumos Quirúrgicos - Pabellón Central</option>
+                    </select>
+                </div>
+
+                <!-- Columna 3: Filtro de Estado Crítico (Un tercio del ancho) -->
+                <div class="col-md-4">
+                    <label class="form-label text-muted small fw-bold mb-1">Condición de Stock</label>
+                    <select id="select-filtro-estado" class="form-select" onchange="actualizarFiltroEstado(this.value)">
+                        <option value="TODOS">Ver todas las condiciones (Todo el catálogo)</option>
+                        <option value="ALERTA">Ver solo en Alerta (Quiebres ❌ y Stock Mínimo ⚠️)</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+<div class="row g-4">
+            
+            <div class="col-xl-4 col-lg-5 order-2 order-lg-1">
+                <div class="card panel-inventario p-4 border-0 shadow-sm">
+                    <h3 class="panel-titulo fs-6 fw-bold pb-3 mb-3 border-bottom text-primary">Registrar Operación Kárdex</h3>
+                    <div id="notificacion-alerta" class="alert p-3 mb-3 small fw-medium" style="display: none;"></div>
+
+                    <form id="form-movimiento-hospital">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Seleccionar Producto / Equipo</label>
+                            <select id="select-producto" class="form-select" required>
+                                <option value="" disabled selected>Cargando catálogo hospitalario...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Tipo de Operación</label>
+                            <select id="select-tipo" class="form-select" required>
+                                <option value="INGRESO">▲ INGRESO (Compra / Donación / Entrada)</option>
+                                <option value="SALIDA">▼ SALIDA (Egreso a Pabellón / Clínica)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Cantidad Unidades</label>
+                            <input type="number" id="input-cantidad" class="form-control" placeholder="Ej. 50" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Documento Oficial Sustentatorio</label>
+                            <input type="text" id="input-documento" class="form-control" placeholder="Ej. PECOSA-0042 o Receta-109" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Área Destino o Procedencia</label>
+                            <input type="text" id="input-area" class="form-control" placeholder="Ej. Emergencia, UCI, Almacén Central">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 shadow-sm button-hospital">Procesar Transacción</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-xl-8 col-lg-7 order-1 order-lg-2">
+                <div class="card panel-inventario border-0 shadow-sm custom-card-table">
+                    <h3 class="panel-titulo fs-6 fw-bold p-4 m-0 text-dark">Inventario Disponible y Alertas de Stock</h3>
+                    <div class="table-responsive px-2 pb-3">
+                        <table class="table table-hover table-hospital align-middle text-secondary m-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-dark py-3">Código SIGA</th>
+                                    <th class="text-dark py-3">Descripción</th>
+                                    <th class="text-dark py-3">Clasificación</th>
+                                    <th class="text-dark py-3">Lote</th>
+                                    <th class="text-dark py-3">Vencimiento</th>
+                                    <th class="text-dark py-3 text-center">Stock Actual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-inventario"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="card panel-inventario border-0 shadow-sm mt-4 mb-5 custom-card-table">
+            <div class="panel-titulo p-4 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 border-bottom">
+                <span class="fs-6 fw-bold text-dark">📋 Historial de Auditoría en Tiempo Real (Sesión Actual)</span>
+                <div class="d-flex align-items-center gap-2">
+                    <select id="select-kardex-filtro" class="form-select form-select-sm" style="width: 250px;" onchange="filtrarKardexPorProducto(this.value)">
+                        <option value="TODOS">Ver todos los movimientos</option>
+                        <option value="1">Paracetamol 500mg</option>
+                        <option value="2">Ceftriaxona 1g Inyectable</option>
+                        <option value="5">Ibuprofeno 400mg Tableta</option>
+                        <option value="6">Insulina Humana NPH</option>
+                        <option value="7">Amoxicilina 250mg Suspensión</option>
+                        <option value="3">Catéter Intravenoso 18G</option>
+                        <option value="8">Guantes de Látex Quirúrgicos</option>
+                        <option value="9">Jeringa Descartable 10ml</option>
+                        <option value="10">Mascarilla Quirúrgica</option>
+                        <option value="11">Gasa Quirúrgica Estéril</option>
+                        <option value="4">Ventilador Mecánico</option>
+                        <option value="12">Monitor de Funciones Vitales</option>
+                        <option value="13">Bomba de Infusión</option>
+                        <option value="14">Desfibrilador (DEA)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive px-2 pb-2">
+                <table class="table table-hover align-middle m-0 text-secondary" style="font-size: 13px;">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="py-3">Fecha/Hora</th>
+                            <th class="py-3 text-center">Operación</th>
+                            <th class="py-3">Producto / Insumo</th>
+                            <th class="py-3 text-center">Cantidad</th>
+                            <th class="py-3">Documento</th>
+                            <th class="py-3">Destino / Procedencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-historial"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   </div>
+    <footer>
+        <div class="footer-info">
+            <p><strong>Hospital Regional Eleazar Guzmán Barrón</strong></p>
+            <p>📍 Av. Brasil S/N, Distrito de Nuevo Chimbote</p>
+        </div>
+        <div class="footer-legal">
+            <p>© <span id="year"></span> 2026 - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="simulador.js"></script>
+    <script>
+        document.getElementById('form-movimiento-hospital').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const productoId = document.getElementById('select-producto').value;
+            const tipo = document.getElementById('select-tipo').value;
+            const cantidad = parseInt(document.getElementById('input-cantidad').value);
+            const documento = document.getElementById('input-documento').value;
+            const area = document.getElementById('input-area').value;
+            
+            const resultado = procesarMovimiento(productoId, tipo, cantidad, documento, area);
+            const divAlerta = document.getElementById('notificacion-alerta');
+            
+            divAlerta.style.display = 'block';
+            divAlerta.innerText = resultado.mensaje;
+            if (resultado.exito) {
+                divAlerta.className = "alert alert-success p-3 mb-3 small fw-medium card shadow-sm";
+                document.getElementById('input-cantidad').value = '';
+                document.getElementById('input-documento').value = '';
+                document.getElementById('input-area').value = '';
+            } else {
+                divAlerta.className = "alert alert-danger p-3 mb-3 small fw-medium card shadow-sm";
+            }
+        });
+
+    </script>
+</body>
+</html>

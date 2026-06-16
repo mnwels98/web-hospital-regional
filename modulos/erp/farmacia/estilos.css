@@ -1,0 +1,170 @@
+/* ==========================================================================
+   DISEÑO PREMIUM HOSPITALARIO - ELEAZAR GUZMÁN BARRÓN
+   ========================================================================== */
+:root {
+    --hospital-blue: #0056b3;
+    --hospital-blue-hover: #004085;
+    --bg-light: #f8fafc;
+    --text-dark: #334155;
+    --border-color: #f1f5f9;
+}
+
+body {
+    background-color: var(--bg-light) !important;
+    color: var(--text-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Encabezado */
+.hospital-header {
+    background-color: var(--hospital-blue);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.15);
+}
+
+/* Modificaciones de Tarjetas */
+.panel-inventario {
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.custom-card-table {
+    overflow: hidden;
+}
+
+/* Entradas de Formulario Hermosas (Como en la Imagen C) */
+/* Subimos la especificidad usando el contenedor padre */
+.panel-inventario .form-control, 
+.panel-inventario .form-select {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text-dark); /* Usamos la variable que ya definiste en :root */
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #93c5fd !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Botón de Transacción */
+.button-hospital {
+    background-color: var(--hospital-blue) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+}
+.button-hospital:hover {
+    background-color: var(--hospital-blue-hover) !important;
+}
+
+/* Tablas Estilo Minimalista (Imagen C) */
+.table-hospital thead {
+    background-color: #ffffff !important;
+}
+
+.table-hospital th {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid var(--border-color) !important;
+    padding: 16px 20px !important;
+}
+
+.table-hospital tbody td {
+    padding: 16px 20px !important;
+    font-size: 14px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* BADGES DE CLASIFICACIÓN (Misma tipografía compacta de la foto C) */
+.badge-medicamento {
+    background-color: #eff6ff;
+    color: #1e40af;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-material-medico {
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.badge-equipo-hospitalario {
+    background-color: #faf5ff;
+    color: #6b21a8;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* SEMAFORIZACIÓN HIGHLIGHT (Fila entera destacada solo en alertas, como en el Catéter de la foto C) */
+.table-danger-critica {
+    background-color: #fef9c3 !important; /* Amarillo pastel suave idéntico */
+}
+.table-danger-critica td {
+    color: #854d0e !important;
+}
+
+/* Condiciones de Stock compactos */
+.badge-critico-intenso {
+    color: #b91c1c;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.badge-nominal-intenso {
+    color: #d97706;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.stock-optimo {
+    color: #475569;
+    font-weight: 400;
+}
+
+/* Líneas de registro Kárdex */
+.kardex-entrada { border-left: 4px solid #10b981; }
+.kardex-salida { border-left: 4px solid #ef4444; }
+
+.alerta-hospital {
+    background-color: #fee2e2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   PIE DE PÁGINA ANCHO COMPLETO - IDENTICO A LA PAGINA PRINCIPAL
+   ========================================================================== */
+footer {
+    background-color: #333; /* El gris oscuro que ya tienes */
+    color: white;
+    padding: 20px 0; /* Arriba/abajo 20px, lados 0.*/
+    text-align: center;
+}
+
+footer .footer-info p {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+footer .footer-legal {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #aaaaaa; /* Texto un poco más apagado para los derechos */
+}
