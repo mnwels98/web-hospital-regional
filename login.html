@@ -175,6 +175,42 @@
             display: none; /* Oculto por defecto */
             text-align: center;
         }
+
+        /* =========================================
+           RESPONSIVE DESIGN: MÓVILES (LOGIN)
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto; /* Permite scroll vertical */
+            }
+            
+            /* Compactamos el panel institucional */
+            .login-sidebar {
+                flex: none;
+                padding: 30px 20px;
+                text-align: center;
+            }
+            
+            .login-logo {
+                margin: 0 auto 15px auto;
+                width: 60px;
+            }
+            
+            .login-sidebar h1 { font-size: 1.8rem; }
+            
+            /* Ocultamos los textos largos para priorizar el formulario */
+            .login-sidebar p, .feature-list { display: none; } 
+            
+            .login-main {
+                align-items: flex-start; /* Sube el formulario */
+            }
+            
+            .login-form-container {
+                padding: 30px 20px;
+            }
+        }
+
     </style>
 </head>
 <body>

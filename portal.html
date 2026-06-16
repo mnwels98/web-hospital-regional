@@ -37,6 +37,61 @@
         
         .modulo-card h3 { margin: 0 0 10px 0; color: #002b54; font-size: 1.2rem; }
         .modulo-card p { margin: 0; color: #666; font-size: 0.9rem; }
+
+        /* =========================================
+           RESPONSIVE DESIGN: MÓVILES (PORTAL)
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+            }
+            
+            /* Transformamos el sidebar en un header superior */
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            .sidebar-header {
+                padding: 10px;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .sidebar-header img { margin: 0; width: 45px; }
+            
+            /* Convertimos el menú vertical en horizontal con scroll */
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 0 10px;
+            }
+            
+            .sidebar-menu li { border: none; }
+            .sidebar-menu a { padding: 10px 15px; font-size: 0.9rem; }
+            
+            .sidebar-footer { padding: 10px 20px; }
+            
+            /* Ajustes del área principal */
+            .topbar {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .dashboard-container { padding: 15px; }
+            
+            /* Las tarjetas ocuparán el 100% del ancho */
+            .modulos-grid { grid-template-columns: 1fr; }
+        }
+
     </style>
 </head>
 <body>
@@ -68,28 +123,24 @@
             <p>Seleccione un módulo operativo para gestionar los recursos del hospital.</p>
 
             <div class="modulos-grid">
-                <!-- Enlace al trabajo de Royser/Eddy -->
                 <a href="modulos/crm/Dashboardcitas.html" class="modulo-card card-crm">
-                    <h3>CRM: Gestión de Citas</h3>
-                    <p>Administración de pacientes, historial médico y seguimiento.</p>
+                    <h3>CRM: Dashboard de Citas</h3>
+                    <p>Administración activa y programación de citas médicas.</p>
                 </a>
 
-                <!-- Enlace al trabajo de Farmacia -->
+                <a href="modulos/crm/Dashboardhistorial.html" class="modulo-card card-crm">
+                    <h3>CRM: Historial Clínico</h3>
+                    <p>Consulta y seguimiento de antecedentes y registros médicos.</p>
+                </a>
+
                 <a href="modulos/erp/farmacia/farmacia.html" class="modulo-card card-farmacia">
                     <h3>ERP: Farmacia</h3>
-                    <p>Control de inventario de medicamentos y dispensación.</p>
+                    <p>Control de inventario y medicamentos.</p>
                 </a>
-
-                <!-- Enlace al trabajo de Ángel (RRHH) -->
+                
                 <a href="modulos/erp/rrhh/dashboard-rrhh.html" class="modulo-card card-rrhh">
                     <h3>Backoffice: RR.HH.</h3>
-                    <p>Gestión de personal, asistencias, reportes y dashboards.</p>
-                </a>
-
-                <!-- Enlace al módulo de Turnos -->
-                <a href="modulos/erp/turnos.html" class="modulo-card card-turnos">
-                    <h3>Control de Turnos</h3>
-                    <p>Gestión operativa de guardias y asignación de personal.</p>
+                    <p>Gestión de personal, asistencias y reportes.</p>
                 </a>
             </div>
         </div>
