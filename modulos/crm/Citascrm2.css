@@ -1183,13 +1183,15 @@ body.dark {
     margin: 0 !important;
     padding: 0 !important;
     overflow-x: hidden !important;
+    width: 100% !important;
   }
 
-  /* Header completo azul */
+  * { box-sizing: border-box !important; }
+
+  /* ── Header ── */
   .header {
     background: linear-gradient(135deg, #003d82 0%, #0056b3 100%) !important;
     padding: 10px 14px !important;
-    box-sizing: border-box !important;
     width: 100% !important;
   }
 
@@ -1199,23 +1201,23 @@ body.dark {
     padding: 0 !important;
     gap: 8px !important;
     background: transparent !important;
+    width: 100% !important;
   }
 
-  .logo-img   { height: 36px; width: 36px; }
-  .logo-title { font-size: 13px; }
-  .logo-sub   { font-size: 9px; }
+  .logo-img   { height: 34px !important; width: 34px !important; }
+  .logo-title { font-size: 13px !important; }
+  .logo-sub   { font-size: 9px !important; }
 
   .nav {
-    gap: 6px !important;
+    gap: 5px !important;
     flex-wrap: nowrap !important;
     background: transparent !important;
   }
 
   .nav-btn {
-    padding: 6px 10px !important;
+    padding: 5px 10px !important;
     font-size: 11px !important;
     white-space: nowrap !important;
-    border-radius: 20px !important;
   }
 
   .btn-dark-mode,
@@ -1223,64 +1225,257 @@ body.dark {
     width: 32px !important;
     height: 32px !important;
     font-size: 14px !important;
-    border-radius: 50% !important;
   }
 
-  /* Main */
-  .main { padding: 16px 12px; }
-  .page-title { font-size: 20px; }
-  .page-subtitle { font-size: 13px; }
+  .campana-dropdown {
+    right: 0 !important;
+    min-width: 240px !important;
+  }
 
-  /* Stats — 2 columnas */
+  /* ── Main ── */
+  .main {
+    padding: 16px 12px !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .page-title    { font-size: 20px !important; }
+  .page-subtitle { font-size: 13px !important; }
+
+  /* ── Stats: 2x2 + 1 centrado ── */
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
   }
 
-  .stat-card { padding: 12px 10px; gap: 10px; }
-  .stat-numero { font-size: 22px; }
-  .stat-icon { font-size: 20px; }
-  .stat-label { font-size: 10px; }
+  .stats-grid .stat-card:last-child {
+    grid-column: 1 / -1 !important;
+    max-width: 50% !important;
+    margin: 0 auto !important;
+  }
 
-  /* Buscador */
-  .buscador-inner { flex-wrap: wrap; padding: 10px 12px; }
-  .buscador-input { min-width: 100%; order: 2; }
-  .buscador-icon { order: 1; }
-  .buscador-btn { flex: 1; }
+  .stat-card {
+    padding: 12px 10px !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
 
-  /* Formulario — 1 columna */
+  .stat-numero { font-size: 22px !important; }
+  .stat-icon   { font-size: 20px !important; }
+  .stat-label  { font-size: 10px !important; }
+
+  /* ── Buscador ── */
+  .buscador-container { width: 100% !important; }
+  .buscador-inner {
+    flex-wrap: wrap !important;
+    padding: 10px 12px !important;
+    width: 100% !important;
+  }
+  .buscador-input {
+    width: 100% !important;
+    min-width: 100% !important;
+    order: 2 !important;
+  }
+  .buscador-icon { order: 1 !important; }
+  .buscador-btn  { flex: 1 !important; }
+
+  /* ── Cards ── */
+  .card {
+    padding: 16px 12px !important;
+    width: 100% !important;
+  }
+
+  /* ── Formulario 1 columna ── */
   .form-grid,
-  .form-grid-3 { grid-template-columns: 1fr !important; gap: 12px; }
+  .form-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
 
-  .form-footer { flex-direction: column; align-items: stretch; }
-  .btn-primary, .btn-cancelar-edicion { width: 100%; justify-content: center; }
+  .form-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
 
-  /* Tabla scroll horizontal */
-  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .tabla-citas { min-width: 580px; }
+  .btn-primary,
+  .btn-cancelar-edicion {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 
-  /* Tickets */
-  .ticket-item { flex-direction: column; gap: 10px; }
+  /* ── Tabla scroll ── */
+  .table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+  }
+
+  .tabla-citas {
+    min-width: 560px !important;
+    max-width: none !important;
+  }
+
+  /* ── Tickets ── */
+  .lista-tickets { width: 100% !important; }
+
+  .ticket-item {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+    padding: 12px !important;
+  }
+
   .ticket-meta {
     flex-direction: row !important;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 8px;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
   }
 
-  /* Toast */
-  #toast-container { top: 10px; right: 10px; left: 10px; }
-  .toast { min-width: unset; max-width: 100%; }
+  .ticket-info h4 { font-size: 13px !important; }
+  .ticket-info p  { font-size: 12px !important; }
 
-  /* Footer */
+  /* ── Toast ── */
+  #toast-container {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+  }
+  .toast {
+    min-width: unset !important;
+    max-width: 100% !important;
+  }
+
+  /* ── Footer ── */
   .footer {
-    font-size: 11px;
-    padding: 12px;
     background: linear-gradient(135deg, #003d82, #0056b3) !important;
+    font-size: 11px !important;
+    padding: 12px !important;
+  }
+
+  /* ── Sección título ── */
+  .seccion-titulo h3 { font-size: 15px !important; }
+}
+
+/* ========== FIX TICKETS ESCRITORIO Y MÓVIL ========== */
+
+/* Botones ticket en fila horizontal - escritorio */
+.ticket-meta {
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+}
+
+/* Móvil - tickets con fondo alternado */
+@media (max-width: 768px) {
+  .lista-tickets {
+    gap: 0 !important;
+    background: #f0f4f8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .ticket-item {
+    border-radius: 0 !important;
+    border-left-width: 5px !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    margin: 0 !important;
+    padding: 14px 12px !important;
+  }
+
+  .ticket-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .ticket-item:nth-child(even) {
+    background-color: #e8f0fb !important;
+  }
+
+  .ticket-item:nth-child(odd) {
+    background-color: #ffffff !important;
+  }
+
+  /* Mantener parpadeo emergencia en móvil */
+  .ticket-item.emergencia[data-atendido="false"]:nth-child(even),
+  .ticket-item.emergencia[data-atendido="false"]:nth-child(odd) {
+    animation: parpadeoEmergencia 1.2s infinite !important;
+  }
+
+  /* Botones ticket en fila en móvil también */
+  .ticket-meta {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
   }
 }
 
-@media (max-width: 400px) {
-  .stats-grid { grid-template-columns: 1fr !important; }
+/* ========== FIX TICKETS ESCRITORIO + MÓVIL ========== */
+
+/* Tickets alternados azul tenue y gris - ESCRITORIO */
+.lista-tickets {
+  gap: 0 !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.ticket-item {
+  border-radius: 0 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  margin: 0 !important;
+}
+
+.ticket-item:last-child {
+  border-bottom: none !important;
+}
+
+.ticket-item:nth-child(odd) {
+  background-color: #eaf3fb !important;
+}
+
+.ticket-item:nth-child(even) {
+  background-color: #f4f6f8 !important;
+}
+
+/* Botones siempre horizontales */
+.ticket-meta {
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+}
+
+/* Mantener parpadeo emergencia */
+.ticket-item.emergencia[data-atendido=false]:nth-child(odd),
+.ticket-item.emergencia[data-atendido=false]:nth-child(even) {
+  animation: parpadeoEmergencia 1.2s infinite !important;
+}
+
+/* MÓVIL - mismos estilos */
+@media (max-width: 768px) {
+  .ticket-item {
+    padding: 12px !important;
+  }
+
+  .ticket-item:nth-child(odd) {
+    background-color: #eaf3fb !important;
+  }
+
+  .ticket-item:nth-child(even) {
+    background-color: #f4f6f8 !important;
+  }
+
+  .ticket-meta {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
 }
