@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal ERP/CRM - Hospital Regional</title>
+    <link rel="stylesheet" href="global/css/styles.css">
+    <style>
+        body { margin: 0; background-color: #f4f7fa; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Barra lateral del Portal */
+        .sidebar { width: 250px; background: #002b54; color: white; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-header img { width: 60px; border-radius: 8px; margin-bottom: 10px; }
+        .sidebar-menu { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        .sidebar-menu li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .sidebar-menu a { display: block; padding: 15px 20px; color: #b3d4ff; text-decoration: none; transition: 0.3s; }
+        .sidebar-menu a:hover, .sidebar-menu a.activo { background: #004a8f; color: white; border-left: 4px solid #4db8ff; }
+        .sidebar-footer { padding: 20px; }
+        .btn-salir { display: block; text-align: center; background: #dc3545; color: white; padding: 10px; border-radius: 5px; text-decoration: none; }
+        
+        /* Área Principal */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .topbar { background: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .dashboard-container { padding: 30px; }
+        
+        /* Grilla de Módulos */
+        .modulos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .modulo-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #ccc; transition: transform 0.2s; text-decoration: none; color: #333; display: block; }
+        .modulo-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        
+        /* Colores por módulo */
+        .card-crm { border-top-color: #007bff; }
+        .card-farmacia { border-top-color: #28a745; }
+        .card-rrhh { border-top-color: #6f42c1; }
+        .card-turnos { border-top-color: #fd7e14; }
+        
+        .modulo-card h3 { margin: 0 0 10px 0; color: #002b54; font-size: 1.2rem; }
+        .modulo-card p { margin: 0; color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="global/images/logo.jpg" alt="Logo">
+            <div style="font-weight: bold;">Eleazar Guzmán Barrón</div>
+            <div style="font-size: 0.8rem; color: #4db8ff;">Portal Integrado</div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="activo">Dashboard Principal</a></li>
+            <li><a href="modulos/crm/Citascrm2.html">Módulo CRM</a></li>
+            <li><a href="modulos/erp/farmacia/farmacia.html">Farmacia</a></li>
+            <li><a href="modulos/erp/rrhh/dashboard-rrhh.html">Recursos Humanos</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="index.html" class="btn-salir">Cerrar Sesión</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h2>Panel de Control General</h2>
+            <div>Usuario: <strong>Administrador Central</strong></div>
+        </header>
+
+        <div class="dashboard-container">
+            <p>Seleccione un módulo operativo para gestionar los recursos del hospital.</p>
+
+            <div class="modulos-grid">
+                <!-- Enlace al trabajo de Royser/Eddy -->
+                <a href="modulos/crm/Dashboardcitas.html" class="modulo-card card-crm">
+                    <h3>CRM: Gestión de Citas</h3>
+                    <p>Administración de pacientes, historial médico y seguimiento.</p>
+                </a>
+
+                <!-- Enlace al trabajo de Farmacia -->
+                <a href="modulos/erp/farmacia/farmacia.html" class="modulo-card card-farmacia">
+                    <h3>ERP: Farmacia</h3>
+                    <p>Control de inventario de medicamentos y dispensación.</p>
+                </a>
+
+                <!-- Enlace al trabajo de Ángel (RRHH) -->
+                <a href="modulos/erp/rrhh/dashboard-rrhh.html" class="modulo-card card-rrhh">
+                    <h3>Backoffice: RR.HH.</h3>
+                    <p>Gestión de personal, asistencias, reportes y dashboards.</p>
+                </a>
+
+                <!-- Enlace al módulo de Turnos -->
+                <a href="modulos/erp/turnos.html" class="modulo-card card-turnos">
+                    <h3>Control de Turnos</h3>
+                    <p>Gestión operativa de guardias y asignación de personal.</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
