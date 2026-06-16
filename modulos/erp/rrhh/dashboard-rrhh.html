@@ -143,30 +143,6 @@
     </div>
 
     <script src="rrhh-theme.js"></script>
-    
-    <script>
-        // Función para llamar a un empleado
-        function handleLlamar(nombre, area) {
-            const mensaje = prompt(`¿Cuál es el motivo de la llamada a ${nombre} (${area})?`, "Falta injustificada");
-            if (mensaje !== null) {
-                alert(`📞 Llamada iniciada a ${nombre}\n\nMotivo: ${mensaje}\n\nRegistro de contacto guardado en el sistema.\nHora: ${new Date().toLocaleTimeString('es-ES')}`);
-                console.log(`Llamada a: ${nombre} (${area}) - Motivo: ${mensaje}`);
-            }
-        }
-
-        // Función para justificar tardanza
-        function handleJustificar(nombre, area) {
-            const razon = prompt(`Ingrese la justificación de la tardanza para ${nombre} (${area}):`, "");
-            if (razon) {
-                const aprobacion = confirm(`¿Desea aprobar la justificación de tardanza para ${nombre}?\n\nRazón: ${razon}`);
-                if (aprobacion) {
-                    alert(`✅ Tardanza justificada y aprobada\n\nPersonal: ${nombre}\nÁrea: ${area}\nJustificación: ${razon}\n\nRegistro actualizado en el sistema.`);
-                    console.log(`Tardanza justificada: ${nombre} - ${razon}`);
-                } else {
-                    alert(`⏸️ Justificación pendiente de revisión.\n\nPersonal: ${nombre}\nÁrea: ${area}\n\nSe notificará al personal sobre la decisión.`);
-                }
-            }
-        }
-    </script>
+    <script src="rrhh-dash.js"></script>
 </body>
 </html>

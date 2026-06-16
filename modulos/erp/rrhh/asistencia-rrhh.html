@@ -46,7 +46,7 @@
             </section>
 
             <section class="panel-filtros">
-                <form action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                <form id="form-filtros-asistencia" action="#" method="GET" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">                 
                     <div class="grupo-form" style="margin-bottom: 0;">
                         <label for="area">Área:</label>
                         <select id="area" class="form-control">
@@ -65,7 +65,7 @@
                     </div>
                 </form>
 
-                <button class="btn btn-exito">+ Marcar Asistencia</button>
+                <button id="btn-marcar-asistencia" class="btn btn-exito">+ Marcar Asistencia Manual</button>
             </section>
 
             <section class="tabla-contenedor">
@@ -80,7 +80,7 @@
                             <th>Observación</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabla-asistencia-body">
                         <tr>
                             <td>Dr. Carlos Mendoza</td>
                             <td>UCI</td>
@@ -119,6 +119,49 @@
         </label>
     </div>
 
+    <div id="modal-asistencia" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-encabezado">
+                <h3>Registrar Asistencia Manual</h3>
+                <button type="button" class="modal-cerrar" id="btn-cerrar-modal">&times;</button>
+            </div>
+            <form id="formulario-asistencia">
+                <div class="formulario-grid">
+                    
+                    <div class="grupo-form">
+                        <label for="select-colaborador">Seleccionar Colaborador:</label>
+                        <select id="select-colaborador" class="form-control" required>
+                            <option value="">-- Seleccione un empleado --</option>
+                            <option value="Mendoza Ruiz, Carlos Augusto" data-area="UCI">Dr. Carlos Mendoza (UCI)</option>
+                            <option value="Torres Castro, Ana María" data-area="Emergencia">Lic. Ana Torres (Emergencia)</option>
+                            <option value="Salinas Vega, Jorge" data-area="Administración">Jorge Salinas (Administración)</option>
+                            <option value="Ramos Elena, Licenciada" data-area="Pediatría">Lic. Elena Ramos (Pediatría)</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="select-tipo-marca">Tipo de Registro:</label>
+                        <select id="select-tipo-marca" class="form-control" required>
+                            <option value="Ingreso">Ingreso (Marcación de Entrada)</option>
+                            <option value="Salida">Salida (Marcación de Sábado/Termino)</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form" style="grid-column: 1 / -1;">
+                        <label for="txt-observacion">Observación / Justificación:</label>
+                        <input type="text" id="txt-observacion" class="form-control" placeholder="Ej. Registro manual por falla del reloj biométrico">
+                    </div>
+
+                </div>
+                <div class="modal-pie">
+                    <button type="button" class="btn btn-primario" style="background-color: #6c757d;" id="btn-cancelar-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-exito">Confirmar Registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <script src="rrhh-theme.js"></script>
+    <script src="rrhh-asistencia.js"></script>
 </body>
 </html>
