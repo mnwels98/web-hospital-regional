@@ -344,6 +344,7 @@ nav ul {
     list-style: none; /* Quita las viñetas */
     display: flex; /* Pone los enlaces uno al lado del otro */
     gap: 20px; /* Espacio entre los enlaces */
+    align-items: center;
 }
 
 /* Estilos para los botones del menú */
@@ -694,7 +695,7 @@ footer .footer-legal {
 /* MENÚ DESPLEGABLE (DROPDOWN) DEL HEADER     */
 /* ========================================== */
 
-/* Evita que el contenedor del menú oculte tu lista desplegable */
+/* Evita que el contenedor del menú oculte la lista desplegable */
 header, .logo-container, nav, nav ul {
     overflow: visible !important;
 }
