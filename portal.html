@@ -106,16 +106,16 @@
         
         <ul class="sidebar-menu">
             <li><a href="portal.html" class="activo">Dashboard Principal</a></li>
-            <!-- CRM con Historial incluido -->
-            <li><a href="modulos/crm/Dashboardcitas.html">Módulo Citas</a></li>
-            <li><a href="modulos/crm/Dashboardhistorial.html">Historial Clínico</a></li>
-            <!-- ERP -->
+            <!-- Corrección de rutas CRM -->
+            <li><a href="modulos/crm/Citascrm2.html">Módulo Citas</a></li>
+            <li><a href="modulos/crm/historial.html">Historial Clínico</a></li>
+            <!-- Corrección de rutas ERP -->
             <li><a href="modulos/erp/farmacia/farmacia.html">Farmacia</a></li>
             <li><a href="modulos/erp/rrhh/dashboard-rrhh.html">Recursos Humanos</a></li>
         </ul>
         
         <div class="sidebar-footer">
-            <a href="index.html" class="btn-salir">Cerrar Sesión</a>
+            <a href="login.html" class="btn-salir">Cerrar Sesión</a>
         </div>
     </aside>
 
@@ -126,29 +126,79 @@
         </header>
 
         <div class="dashboard-container">
-            <p>Seleccione un módulo operativo para gestionar los recursos del hospital.</p>
-
+            <div style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 4px solid #004a8f; padding: 15px 20px; border-radius: 4px; margin-bottom: 30px; color: #495057; font-size: 1.05rem; display: flex; align-items: center; gap: 10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#004a8f" viewBox="0 0 16 16">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            <span><strong>Portal Integrado Activo:</strong> Seleccione un módulo operativo para gestionar los recursos del hospital.</span>
+        </div>
+        
             <div class="modulos-grid">
-                <a href="modulos/crm/Dashboardcitas.html" class="modulo-card card-crm">
-                    <h3>CRM: Dashboard de Citas</h3>
+                <!-- Enlace corregido a Citascrm2.html -->
+                <a href="modulos/crm/Citascrm2.html" class="modulo-card card-crm">
+                    <h3>CRM: Citas</h3>
                     <p>Administración activa y programación de citas médicas.</p>
                 </a>
 
-                <a href="modulos/crm/Dashboardhistorial.html" class="modulo-card card-crm">
+                <!-- Enlace corregido a historial.html -->
+                <a href="modulos/crm/historial.html" class="modulo-card card-crm">
                     <h3>CRM: Historial Clínico</h3>
                     <p>Consulta y seguimiento de antecedentes y registros médicos.</p>
                 </a>
 
+                <!-- Enlace a Farmacia -->
                 <a href="modulos/erp/farmacia/farmacia.html" class="modulo-card card-farmacia">
                     <h3>ERP: Farmacia</h3>
                     <p>Control de inventario y medicamentos.</p>
                 </a>
-                
+
+                <!-- Enlace al Dashboard principal de RRHH -->
                 <a href="modulos/erp/rrhh/dashboard-rrhh.html" class="modulo-card card-rrhh">
                     <h3>Backoffice: RR.HH.</h3>
                     <p>Gestión de personal, asistencias y reportes.</p>
                 </a>
             </div>
+
+            <!-- ========================================== -->
+            <!-- SECCIÓN: RESUMEN OPERATIVO (WIDGETS FALSOS)-->
+            <!-- ========================================== -->
+            <div style="margin-top: 50px;">
+                <h2 style="color: #004a8f; font-size: 1.4rem; border-bottom: 2px solid #e1e5eb; padding-bottom: 10px; margin-bottom: 25px;">
+                    Resumen Operativo del Día
+                </h2>
+                
+                <div class="modulos-grid">
+                <!-- Indicador 1: CRM -->
+                    <div class="modulo-card" style="border-left: 5px solid #17a2b8; cursor: default; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h3 style="font-size: 1rem; color: #555;">Pacientes en Espera</h3>
+                        <p style="font-size: 2.5rem; font-weight: bold; color: #17a2b8; margin: 10px 0;">24</p>
+                        <p style="font-size: 0.85rem; color: #888;">Actualizado hace 5 min</p>
+                    </div>
+
+                    <!-- Indicador 2: Farmacia -->
+                    <div class="modulo-card" style="border-left: 5px solid #ffc107; cursor: default; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h3 style="font-size: 1rem; color: #555;">Alertas de Stock</h3>
+                        <p style="font-size: 2.5rem; font-weight: bold; color: #ffc107; margin: 10px 0;">3</p>
+                        <p style="font-size: 0.85rem; color: #888;">Insumos críticos a revisar</p>
+                    </div>
+
+                    <!-- Indicador 3: RRHH -->
+                    <div class="modulo-card" style="border-left: 5px solid #28a745; cursor: default; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h3 style="font-size: 1rem; color: #555;">Personal Activo</h3>
+                        <p style="font-size: 2.5rem; font-weight: bold; color: #28a745; margin: 10px 0;">42</p>
+                        <p style="font-size: 0.85rem; color: #888;">Médicos y enfermeras (T. Mañana)</p>
+                    </div>
+
+                    <!-- Indicador 4: General -->
+                    <div class="modulo-card" style="border-left: 5px solid #6f42c1; cursor: default; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h3 style="font-size: 1rem; color: #555;">Camas Disponibles</h3>
+                        <p style="font-size: 2.5rem; font-weight: bold; color: #6f42c1; margin: 10px 0;">85%</p>
+                        <p style="font-size: 0.85rem; color: #888;">Área de hospitalización</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </div>
     </main>
 
