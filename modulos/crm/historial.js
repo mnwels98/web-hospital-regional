@@ -374,22 +374,125 @@ function saveDiagnosis() {
 /* =========================================================
    NUEVO PACIENTE
    ========================================================= */
+
+/* Utilidades de validación inline */
+function setFieldState(inputId, hintId, ok, msg) {
+  const inp  = document.getElementById(inputId);
+  const hint = document.getElementById(hintId);
+  if (!inp) return;
+  inp.classList.toggle('field-error', !ok && !!msg);
+  inp.classList.toggle('field-ok',    ok  && !!msg);
+  if (hint) {
+    hint.textContent = msg;
+    hint.className   = 'field-hint ' + (ok ? 'ok' : (msg ? 'err' : ''));
+  }
+}
+function clearFieldState(inputId, hintId) {
+  setFieldState(inputId, hintId, false, '');
+  const inp = document.getElementById(inputId);
+  if (inp) { inp.classList.remove('field-error','field-ok'); }
+}
+
+function initFieldValidators() {
+  const today_ = new Date().toISOString().split('T')[0];
+
+  /* ── DNI: solo números, bloquear letras en tiempo real ── */
+  const dniEl = document.getElementById('np_dni');
+  if (dniEl) {
+    dniEl.setAttribute('max', '');           // limpia atributos html5 de fecha
+    dniEl.addEventListener('input', () => {
+      dniEl.value = dniEl.value.replace(/\D/g, '').slice(0, 8);
+      const v = dniEl.value;
+      if (!v)           clearFieldState('np_dni','hint_dni');
+      else if (v.length < 8) setFieldState('np_dni','hint_dni', false, `Faltan ${8-v.length} dígito(s)`);
+      else              setFieldState('np_dni','hint_dni', true, '✓ DNI válido');
+    });
+    dniEl.addEventListener('keypress', e => {
+      if (!/\d/.test(e.key)) e.preventDefault();
+    });
+    dniEl.addEventListener('paste', e => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'').slice(0,8);
+      dniEl.value = txt; dniEl.dispatchEvent(new Event('input'));
+    });
+  }
+
+  /* ── Fecha de nacimiento: máximo hoy ── */
+  const fechaEl = document.getElementById('np_fecha_nac');
+  if (fechaEl) {
+    fechaEl.setAttribute('max', today_);
+    fechaEl.addEventListener('change', () => {
+      const v = fechaEl.value;
+      if (!v) { clearFieldState('np_fecha_nac','hint_fecha'); return; }
+      if (v > today_) {
+        setFieldState('np_fecha_nac','hint_fecha', false, 'La fecha no puede ser futura');
+        fechaEl.value = '';
+      } else {
+        const age = calcAge(v);
+        setFieldState('np_fecha_nac','hint_fecha', true, `✓ Edad: ${age} años`);
+      }
+    });
+  }
+
+  /* ── Teléfono: solo números, 9 dígitos ── */
+  const telEl = document.getElementById('np_tel');
+  if (telEl) {
+    telEl.addEventListener('input', () => {
+      telEl.value = telEl.value.replace(/\D/g, '').slice(0, 9);
+      const v = telEl.value;
+      if (!v)           clearFieldState('np_tel','hint_tel');
+      else if (v.length < 9) setFieldState('np_tel','hint_tel', false, `Faltan ${9-v.length} dígito(s)`);
+      else              setFieldState('np_tel','hint_tel', true, '✓ Teléfono válido');
+    });
+    telEl.addEventListener('keypress', e => {
+      if (!/\d/.test(e.key)) e.preventDefault();
+    });
+    telEl.addEventListener('paste', e => {
+      e.preventDefault();
+      const txt = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g,'').slice(0,9);
+      telEl.value = txt; telEl.dispatchEvent(new Event('input'));
+    });
+  }
+}
+
 function saveNewPatient() {
   const nombres   = document.getElementById('np_nombres').value.trim();
   const apellidos = document.getElementById('np_apellidos').value.trim();
   const dni       = document.getElementById('np_dni').value.trim();
   const fechaNac  = document.getElementById('np_fecha_nac').value;
-  if (!nombres||!apellidos||!dni||!fechaNac) {
-    showAlert('newPatientAlert','Completa los campos obligatorios marcados con *','error'); return; }
+  const tel       = document.getElementById('np_tel').value.trim();
+  const todayStr  = new Date().toISOString().split('T')[0];
+
+  /* Validaciones ── campos obligatorios */
+  if (!nombres || !apellidos || !dni || !fechaNac) {
+    showAlert('newPatientAlert','Completa los campos obligatorios marcados con *','error'); return;
+  }
+  /* DNI: exactamente 8 dígitos */
   if (!/^\d{8}$/.test(dni)) {
-    showAlert('newPatientAlert','El DNI debe tener exactamente 8 dígitos','error'); return; }
-  if (patients.find(p=>p.dni===dni)) {
-    showAlert('newPatientAlert','Ya existe un paciente con ese DNI','error'); return; }
+    setFieldState('np_dni','hint_dni', false, 'El DNI debe tener exactamente 8 dígitos numéricos');
+    showAlert('newPatientAlert','DNI inválido: debe tener 8 dígitos numéricos','error'); return;
+  }
+  /* Fecha: no puede ser futura */
+  if (fechaNac > todayStr) {
+    setFieldState('np_fecha_nac','hint_fecha', false, 'La fecha no puede ser futura');
+    showAlert('newPatientAlert','La fecha de nacimiento no puede ser futura','error'); return;
+  }
+  /* DNI duplicado */
+  if (patients.find(p => p.dni === dni)) {
+    setFieldState('np_dni','hint_dni', false, 'Este DNI ya está registrado');
+    showAlert('newPatientAlert','Ya existe un paciente con ese DNI','error'); return;
+  }
+  /* Teléfono: si se llenó, debe ser 9 dígitos */
+  if (tel && !/^\d{9}$/.test(tel)) {
+    setFieldState('np_tel','hint_tel', false, 'El teléfono debe tener exactamente 9 dígitos');
+    showAlert('newPatientAlert','Teléfono inválido: debe tener 9 dígitos numéricos','error'); return;
+  }
+
   const id = newPatientId();
   patients.push({ id, nombres, apellidos, dni, fechaNac,
     sexo:         document.getElementById('np_sexo').value,
     sangre:       document.getElementById('np_sangre').value,
-    tel:          document.getElementById('np_tel').value.trim(),
+    tel,
     especialidad: document.getElementById('np_esp').value,
     alergias:     document.getElementById('np_alergias').value.trim(),
     antecedentes: document.getElementById('np_antecedentes').value.trim(),
@@ -403,8 +506,17 @@ function saveNewPatient() {
 }
 function clearNewPatientForm() {
   ['np_nombres','np_apellidos','np_dni','np_tel','np_alergias','np_antecedentes']
-    .forEach(id=>{ document.getElementById(id).value=''; });
-  document.getElementById('np_fecha_nac').value='';
+    .forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('np_fecha_nac').value = '';
+  /* limpiar estados visuales */
+  ['np_dni','np_fecha_nac','np_tel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('field-error','field-ok'); }
+  });
+  ['hint_dni','hint_fecha','hint_tel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = ''; el.className = 'field-hint'; }
+  });
 }
 function clearSearch() {
   document.getElementById('searchInput').value='';
@@ -478,19 +590,56 @@ function switchTab(name) {
 }
 
 /* =========================================================
+   MODO OSCURO
+   ========================================================= */
+const DARK_KEY = 'egb_dark_mode';
+
+function applyDarkMode(on) {
+  document.body.classList.toggle('dark', on);
+  const btn  = document.getElementById('btnDarkMode');
+  if (!btn) return;
+  const icon = btn.querySelector('i');
+  if (on) {
+    icon.className = 'ti ti-sun';
+    btn.title = 'Modo claro';
+  } else {
+    icon.className = 'ti ti-moon';
+    btn.title = 'Modo oscuro';
+  }
+}
+
+function toggleDarkMode() {
+  const isDark = !document.body.classList.contains('dark');
+  applyDarkMode(isDark);
+  try { localStorage.setItem(DARK_KEY, isDark ? '1' : '0'); } catch(e) {}
+}
+
+/* =========================================================
    INIT
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-  /* Intentar cargar datos persistidos; si no hay, usar datos de ejemplo */
+  /* Restaurar preferencia de modo oscuro */
+  try {
+    const saved = localStorage.getItem(DARK_KEY);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyDarkMode(saved !== null ? saved === '1' : prefersDark);
+  } catch(e) {}
+
+  /* Cargar datos persistidos; si no hay, usar seedData */
   if (!loadStorage()) seedData();
   renderPatientsList();
 
-  document.querySelectorAll('.nav-tab').forEach(t=>{
-    t.addEventListener('click', ()=>switchTab(t.dataset.tab));
+  /* Activar validadores en tiempo real */
+  initFieldValidators();
+
+  /* Eventos generales */
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.addEventListener('click', () => switchTab(t.dataset.tab));
   });
   document.getElementById('searchInput').addEventListener('input', renderPatientsList);
   document.getElementById('filterEsp').addEventListener('change', renderPatientsList);
   document.getElementById('btnClearSearch').addEventListener('click', clearSearch);
   document.getElementById('btnSaveNewPatient').addEventListener('click', saveNewPatient);
   document.getElementById('btnClearNewPatient').addEventListener('click', clearNewPatientForm);
+  document.getElementById('btnDarkMode').addEventListener('click', toggleDarkMode);
 });

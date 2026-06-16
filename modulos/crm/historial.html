@@ -35,6 +35,11 @@
       <span class="btn-dashboard-dot"></span>
     </a>
 
+    <!-- Botón Modo Oscuro -->
+    <button class="btn-dark-mode" id="btnDarkMode" title="Modo oscuro">
+      <i class="ti ti-moon"></i>
+    </button>
+
     <div class="topbar-user">
       <div class="avatar-sm">DR</div>
       <div>
@@ -124,11 +129,15 @@
         <div class="form-row">
           <div class="form-group">
             <label for="np_dni">DNI *</label>
-            <input type="text" id="np_dni" placeholder="8 dígitos" maxlength="8" />
+            <input type="text" id="np_dni" placeholder="8 dígitos numéricos"
+              maxlength="8" inputmode="numeric" pattern="\d{8}"
+              autocomplete="off" />
+            <span class="field-hint" id="hint_dni"></span>
           </div>
           <div class="form-group">
             <label for="np_fecha_nac">Fecha de nacimiento *</label>
             <input type="date" id="np_fecha_nac" />
+            <span class="field-hint" id="hint_fecha"></span>
           </div>
         </div>
         <div class="form-row">
@@ -152,7 +161,9 @@
         <div class="form-row">
           <div class="form-group">
             <label for="np_tel">Teléfono</label>
-            <input type="text" id="np_tel" placeholder="Número de contacto" />
+            <input type="text" id="np_tel" placeholder="9 dígitos numéricos"
+              maxlength="9" inputmode="numeric" pattern="\d{9}" />
+            <span class="field-hint" id="hint_tel"></span>
           </div>
           <div class="form-group">
             <label for="np_esp">Especialidad asignada</label>
