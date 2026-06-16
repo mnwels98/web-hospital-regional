@@ -894,6 +894,12 @@ body.dark .alerta-emergencia {
   color: #f85149;
 }
 
+body.dark .seccion-titulo h3,
+body.dark .card-title,
+body.dark h4 {
+  color: #ffffff !important;
+}
+
 /* ========== BOTÓN MODO OSCURO ========== */
 .btn-dark-mode {
   background: rgba(255,255,255,0.15);
@@ -1391,6 +1397,14 @@ body.dark {
   .registro-texto {
     min-width: 120px; /* Le da un espacio base al texto para que no aplaste a la hora/fecha */
   }
+
+  /* Corregir el recuadro blanco de 'No hay tickets' SOLO en Modo Oscuro + Móvil */
+  body.dark .lista-tickets .empty-tickets {
+    background-color: var(--blanco) !important;
+    color: var(--texto-suave) !important;
+    border: 1px solid var(--borde) !important;
+  }
+
 }
 
 /* ========== FIX TICKETS ESCRITORIO Y MÓVIL ========== */
@@ -1472,8 +1486,12 @@ body.dark {
   background-color: #eaf3fb !important;
 }
 
+.ticket-item:nth-child(odd) {
+  background-color: var(--blanco) !important;
+}
+
 .ticket-item:nth-child(even) {
-  background-color: #f4f6f8 !important;
+  background-color: var(--azul-claro) !important;
 }
 
 /* Botones siempre horizontales */
