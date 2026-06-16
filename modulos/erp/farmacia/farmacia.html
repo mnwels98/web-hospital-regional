@@ -9,17 +9,32 @@
 </head>
 <body class="bg-light">
 
-    <!-- Botón de retorno al Portal Integrado (Capa superior) -->
-    <a href="../../../portal.html" style="position: fixed; right: 25px; top: 20px; background-color: #ffffff; color: #0056b3; padding: 8px 16px; text-decoration: none; font-weight: bold; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 1000; font-family: sans-serif;">
-        ← Volver al Portal
-    </a>
-
-    <header class="hospital-header py-3 mb-4">
-        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
-            <div>
-                <h1 class="m-0 fs-4 fw-bold">Hospital Regional Eleazar Guzmán Barrón</h1>
-                <span class="text-white-50 small">Módulo de Farmacia e Inventarios</span>
+<header class="hospital-header py-3 mb-4">
+        <div class="container-fluid px-4 d-flex flex-row align-items-center justify-content-between flex-wrap gap-3">
+            
+            <div class="d-flex align-items-center gap-3">
+                <img src="../../../global/images/logo.jpg" alt="Logo Hospital Eleazar Guzmán Barrón" class="hospital-logo">
+                <div>
+                    <h1 class="m-0 fs-4 fw-bold text-white">Hospital Regional Eleazar Guzmán Barrón</h1>
+                    <span class="text-white-50 small">Módulo de Farmacia e Inventarios</span>
+                </div>
             </div>
+
+            <div class="header-controls d-flex align-items-center gap-3">
+                <a href="../../../portal.html" class="btn-circular-tema d-flex align-items-center justify-content-center" title="Volver al Portal Principal" style="text-decoration: none;">
+                    <span style="font-size: 1.1rem;">🏠</span>
+                </a>
+
+                <div class="capsula-tiempo d-flex align-items-center gap-2">
+                    <span class="indicador-vivo"></span>
+                    <span id="fecha-hora-texto">mar, 16 jun. 11:49 a. m.</span>
+                </div>
+                
+                <button id="btn-theme" class="btn-circular-tema" title="Cambiar tema">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+
         </div>
     </header>
 
@@ -31,7 +46,7 @@
         </div>
 
         <div class="alerta-hospital mb-4 shadow-sm">
-            <strong>Notificación de Almacén Central (DIRESA):</strong> Quiebre de stock detectado o crítico en insumos con Código SIGA de clase fármaco. Priorizar distribución PEPS.
+            <strong>Notificación de Almacén Central:</strong> Quiebre de stock detectado o crítico en insumos . Priorizar distribución PEPS.
         </div>
 
         <!-- BLOQUE DE FILTROS REORGANIZADO EN 3 COLUMNAS SIMÉTRICAS 
@@ -85,7 +100,7 @@
                         <div class="mb-3">
                             <label class="form-label small fw-bold text-secondary">Tipo de Operación</label>
                             <select id="select-tipo" class="form-select" required>
-                                <option value="INGRESO">▲ INGRESO (Compra / Donación / Entrada)</option>
+                                <option value="INGRESO">▲ INGRESO (Compra / Donación)</option>
                                 <option value="SALIDA">▼ SALIDA (Egreso a Pabellón / Clínica)</option>
                             </select>
                         </div>
@@ -106,6 +121,7 @@
                 </div>
             </div>
 
+            
             <div class="col-xl-8 col-lg-7 order-1 order-lg-2">
                 <div class="card panel-inventario border-0 shadow-sm custom-card-table">
                     <h3 class="panel-titulo fs-6 fw-bold p-4 m-0 text-dark">Inventario Disponible y Alertas de Stock</h3>
@@ -131,7 +147,7 @@
         
         <div class="card panel-inventario border-0 shadow-sm mt-4 mb-5 custom-card-table">
             <div class="panel-titulo p-4 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 border-bottom">
-                <span class="fs-6 fw-bold text-dark">📋 Historial de Auditoría en Tiempo Real (Sesión Actual)</span>
+                <span class="fs-6 fw-bold text-dark">📋 Historial de Auditoría en Tiempo Real</span>
                 <div class="d-flex align-items-center gap-2">
                     <select id="select-kardex-filtro" class="form-select form-select-sm" style="width: 250px;" onchange="filtrarKardexPorProducto(this.value)">
                         <option value="TODOS">Ver todos los movimientos</option>

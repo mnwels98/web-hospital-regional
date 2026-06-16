@@ -2,11 +2,46 @@
    DISEÑO PREMIUM HOSPITALARIO - ELEAZAR GUZMÁN BARRÓN
    ========================================================================== */
 :root {
+    /* Colores base invariables */
     --hospital-blue: #0056b3;
     --hospital-blue-hover: #004085;
+    
+    /* PALETA MODO CLARO (Por defecto) */
     --bg-light: #f8fafc;
     --text-dark: #334155;
     --border-color: #f1f5f9;
+    --bg-panel: #ffffff;
+    --border-panel: #e2e8f0;
+    --input-border: #cbd5e1;
+    --table-thead-bg: #ffffff;
+    
+    /* Alertas Modo Claro */
+    --bg-alerta-critica: #fef9c3;
+    --text-alerta-critica: #854d0e;
+}
+
+/* ==========================================================================
+   PALETA MODO OSCURO GLOBAL REFORZADA
+   ========================================================================== */
+body.dark-mode {
+    --bg-light: #0f172a !important;   /* Slate 900 */
+    --text-dark: #f8fafc !important;  /* Slate 50 */
+    --border-color: #334155 !important;
+    --bg-panel: #1e293b !important;   /* Slate 800 */
+    --border-panel: #334155 !important;
+    --input-border: #475569 !important;
+    --table-thead-bg: #1e293b !important;
+    
+    /* Alertas Modo Oscuro */
+    --bg-alerta-critica: #423b0f !important;
+    --text-alerta-critica: #fef08a !important;
+}
+
+/* FORZAR COLOR DE FONDO ABSOLUTO EN LA PÁGINA (Resuelve el problema de la pantalla blanca) */
+body.dark-mode, 
+body.dark-mode.bg-light {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
 }
 
 body {
@@ -14,35 +49,141 @@ body {
     color: var(--text-dark);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Encabezado */
+/* ==========================================================================
+   ENCABEZADO Y ELEMENTOS ALINEADOS (ESCRITORIO / ANDROID)
+   ========================================================================== */
 .hospital-header {
     background-color: var(--hospital-blue);
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 86, 179, 0.15);
 }
 
-/* Modificaciones de Tarjetas */
+.hospital-header .container-fluid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .hospital-header .container-fluid {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .header-controls {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* ==========================================================================
+   ESTILO DE COMPONENTES INTERACTIVOS DEL ENCABEZADO
+   ========================================================================== */
+.capsula-tiempo {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+}
+
+.indicador-vivo {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.btn-circular-tema {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    padding: 0;
+}
+
+.btn-circular-tema:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.04);
+}
+
+.btn-circular-tema:active {
+    transform: scale(0.96);
+}
+
+/* Adaptación del Header en Modo Oscuro */
+body.dark-mode .hospital-header {
+    background-color: #1e293b !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+}
+body.dark-mode .capsula-tiempo {
+    background-color: rgba(15, 23, 42, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .btn-circular-tema {
+    background-color: rgba(15, 23, 42, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+body.dark-mode .btn-circular-tema:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   PANELES, TARJETAS Y FORMULARIOS (RESOLUCIÓN DE INPUTS DEL KÁRDEX)
+   ========================================================================== */
 .panel-inventario {
-    background-color: #ffffff !important;
+    background-color: var(--bg-panel) !important;
     border-radius: 12px !important;
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid var(--border-panel) !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .custom-card-table {
     overflow: hidden;
 }
 
-/* Entradas de Formulario Hermosas (Como en la Imagen C) */
-/* Subimos la especificidad usando el contenedor padre */
+/* Inputs y Selectores Universales (Claro y Oscuro Dinámico) */
+.form-control, 
+.form-select,
 .panel-inventario .form-control, 
 .panel-inventario .form-select {
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--input-border) !important;
+    background-color: var(--bg-panel) !important;
     border-radius: 6px;
     padding: 10px 14px;
     font-size: 14px;
-    color: var(--text-dark); /* Usamos la variable que ya definiste en :root */
+    color: var(--text-dark) !important; 
     transition: all 0.2s ease-in-out;
 }
 
@@ -51,7 +192,10 @@ body {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
 }
 
-/* Botón de Transacción */
+body.dark-mode .form-control::placeholder {
+    color: #64748b !important;
+}
+
 .button-hospital {
     background-color: var(--hospital-blue) !important;
     border: none !important;
@@ -62,26 +206,87 @@ body {
     background-color: var(--hospital-blue-hover) !important;
 }
 
-/* Tablas Estilo Minimalista (Imagen C) */
-.table-hospital thead {
-    background-color: #ffffff !important;
+/* ==========================================================================
+   CORRECCIÓN DE TEXTOS NEGROS INTERNOS OCULTOS
+   ========================================================================== */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode label, body.dark-mode .form-label, body.dark-mode .fw-bold {
+    color: #f8fafc !important; /* Fuerza los textos fuertes a blanco */
 }
 
-.table-hospital th {
+body.dark-mode p, body.dark-mode small, 
+body.dark-mode .text-muted, body.dark-mode .text-secondary {
+    color: #cbd5e1 !important; /* Fuerza las descripciones a gris claro */
+}
+
+/* El encabezado azul conserva sus letras blancas siempre */
+.hospital-header h1, .hospital-header span, .hospital-header small {
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   TABLAS MÁXIMA ESPECIFICIDAD (INVENTARIO Y AUDITORÍA TOTALMENTE OSCUROS)
+   ========================================================================== */
+.table-hospital thead {
+    background-color: var(--table-thead-bg) !important;
+}
+
+.table-hospital th, .table th {
     font-size: 13px !important;
     font-weight: 600 !important;
     letter-spacing: 0.02em;
     border-bottom: 2px solid var(--border-color) !important;
     padding: 16px 20px !important;
+    background-color: var(--table-thead-bg) !important;
+    color: var(--text-dark) !important;
+    vertical-align: middle !important; 
 }
 
-.table-hospital tbody td {
+.table-hospital tbody td, .table tbody td {
     padding: 16px 20px !important;
     font-size: 14px !important;
     border-bottom: 1px solid var(--border-color) !important;
+    background-color: var(--bg-panel) !important;
+    color: var(--text-dark) !important;
+    vertical-align: middle !important; 
+
+}
+/* ==========================================================================
+   CENTRADO HORIZONTAL EN CELDA DOCUMENTO (PC Y ANDROID)
+   ========================================================================== */
+#cuerpo-historial tr td:nth-child(5) {
+    display: table-cell; 
+    text-align: center !important; /* Centra el contenido horizontalmente */
 }
 
-/* BADGES DE CLASIFICACIÓN (Misma tipografía compacta de la foto C) */
+#cuerpo-historial tr td:nth-child(5) .badge,
+#cuerpo-historial tr td:nth-child(5) code,
+#cuerpo-historial tr td:nth-child(5) span {
+    display: inline-block !important;
+    text-align: center !important;
+    max-width: 100%;            /* Evita que se desborde en pantallas pequeñas */
+    white-space: nowrap;        /* Mantiene el texto del documento en una sola línea */
+}
+
+body.dark-mode .table,
+body.dark-mode .table-responsive,
+body.dark-mode .table-hospital,
+body.dark-mode .table-striped>tbody>tr:nth-of-type(odd),
+body.dark-mode .table-striped>tbody>tr:nth-of-type(even) {
+    background-color: var(--bg-panel) !important;
+    color: var(--text-dark) !important;
+}
+
+body.dark-mode .table td strong,
+body.dark-mode .table td span,
+body.dark-mode .table td text {
+    color: var(--text-dark) !important;
+}
+
+/* ==========================================================================
+   BADGES, SEMAFORIZACIÓN Y LÍNEAS KÁRDEX
+   ========================================================================== */
 .badge-medicamento {
     background-color: #eff6ff;
     color: #1e40af;
@@ -89,6 +294,10 @@ body {
     border-radius: 6px;
     font-size: 11px;
     font-weight: 600;
+}
+body.dark-mode .badge-medicamento {
+    background-color: #1e3a8a;
+    color: #93c5fd;
 }
 
 .badge-material-medico {
@@ -99,6 +308,10 @@ body {
     font-size: 11px;
     font-weight: 600;
 }
+body.dark-mode .badge-material-medico {
+    background-color: #14532d;
+    color: #86efac;
+}
 
 .badge-equipo-hospitalario {
     background-color: #faf5ff;
@@ -108,34 +321,35 @@ body {
     font-size: 11px;
     font-weight: 600;
 }
+body.dark-mode .badge-equipo-hospitalario {
+    background-color: #581c87;
+    color: #e9d5ff;
+}
 
-/* SEMAFORIZACIÓN HIGHLIGHT (Fila entera destacada solo en alertas, como en el Catéter de la foto C) */
 .table-danger-critica {
-    background-color: #fef9c3 !important; /* Amarillo pastel suave idéntico */
+    background-color: var(--bg-alerta-critica) !important; 
 }
 .table-danger-critica td {
-    color: #854d0e !important;
+    color: var(--text-alerta-critica) !important;
+    background-color: var(--bg-alerta-critica) !important;
 }
 
-/* Condiciones de Stock compactos */
 .badge-critico-intenso {
     color: #b91c1c;
     font-weight: 600;
     font-size: 13px;
 }
+body.dark-mode .badge-critico-intenso { color: #fca5a5; }
 
 .badge-nominal-intenso {
     color: #d97706;
     font-weight: 600;
     font-size: 13px;
 }
+body.dark-mode .badge-nominal-intenso { color: #fde047; }
 
-.stock-optimo {
-    color: #475569;
-    font-weight: 400;
-}
-
-/* Líneas de registro Kárdex */
+.stock-optimo { color: #475569; font-weight: 400; }
+body.dark-mode .stock-optimo { color: #cbd5e1; }
 .kardex-entrada { border-left: 4px solid #10b981; }
 .kardex-salida { border-left: 4px solid #ef4444; }
 
@@ -149,22 +363,59 @@ body {
 }
 
 /* ==========================================================================
-   PIE DE PÁGINA ANCHO COMPLETO - IDENTICO A LA PAGINA PRINCIPAL
+   SOLUCIÓN AL TEXTO INVISIBLE EN LA COLUMNA DOCUMENTO (TABLA AUDITORÍA)
    ========================================================================== */
-footer {
-    background-color: #333; /* El gris oscuro que ya tienes */
-    color: white;
-    padding: 20px 0; /* Arriba/abajo 20px, lados 0.*/
-    text-align: center;
+#cuerpo-historial tr td:nth-child(5) .badge,
+#cuerpo-historial tr td:nth-child(5) code,
+#cuerpo-historial tr td:nth-child(5) span {
+    background-color: #334155 !important; /* Cambia el fondo a un gris pizarra visible en oscuro */
+    color: #f8fafc !important;            /* Fuerza la tipografía a color blanco/claro */
+    border: 1px solid #475569 !important; /* Añade contorno para mejor legibilidad */
 }
 
+/* Reafirma que en modo claro mantenga su legibilidad habitual si es necesario */
+body:not(.dark-mode) #cuerpo-historial tr td:nth-child(5) .badge,
+body:not(.dark-mode) #cuerpo-historial tr td:nth-child(5) code,
+body:not(.dark-mode) #cuerpo-historial tr td:nth-child(5) span {
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+/* ==========================================================================
+   PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
 footer .footer-info p {
     margin-bottom: 8px;
     font-size: 16px;
 }
-
 footer .footer-legal {
     margin-top: 15px;
     font-size: 13px;
-    color: #aaaaaa; /* Texto un poco más apagado para los derechos */
+    color: #aaaaaa;
+}
+
+/* ==========================================================================
+   ALINEACIÓN SIMÉTRICA Y DIMENSIÓN PROPORCIONAL DEL LOGO CORREGIDO
+   ========================================================================== */
+.hospital-logo {
+    height: 65px !important;       /* Incrementamos la altura para que iguale el bloque de texto */
+    width: auto !important;        /* Mantiene la proporción geométrica perfecta del escudo */
+    object-fit: contain !important;
+    display: inline-block !important;
+    border-radius: 4px;            /* Un leve suavizado en los bordes si es necesario */
+    vertical-align: middle !important; /* Asegura el centrado en el eje vertical */
+}
+
+/* Optimización para que conserve su jerarquía visual en pantallas móviles */
+@media (max-width: 768px) {
+    .hospital-logo {
+        height: 55px !important;   /* Ajuste sutil en Android para evitar desbordes */
+    }
 }

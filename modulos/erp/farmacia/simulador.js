@@ -48,6 +48,35 @@ let filtroAlmacen = "Todos los almacenes internos...";
 let filtroEstado = "TODOS"; // <-- NUEVA: Controla el selector de alertas
 let idProductoKardexSeleccionado = "TODOS";
 
+function actualizarFechaHora() {
+    const contenedorTexto = document.getElementById('fecha-hora-texto');
+    if (!contenedorTexto) return;
+
+    const ahora = new Date();
+    
+    // Opciones para formatear como: "mar, 16 jun. 10:32 a. m."
+    const opciones = { 
+        weekday: 'short', 
+        day: 'numeric', 
+        month: 'short', 
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true 
+    };
+    
+    let fechaFormateada = ahora.toLocaleDateString('es-PE', opciones);
+    // Limpieza sutil de formato para quitar comas excesivas si existieran
+    fechaFormateada = fechaFormateada.replace('.', '').replace(' p m', ' p. m.').replace(' a m', ' a. m.');
+    
+    contenedorTexto.textContent = fechaFormateada;
+}
+
+// Inicializar y actualizar cada minuto
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarFechaHora();
+    setInterval(actualizarFechaHora, 60000);
+});
+
 // ==========================================================================
 // LOGICA DE TRANSACCIONES KÁRDEX
 // ==========================================================================
@@ -238,6 +267,39 @@ function poblarSelectoresDinámicos() {
         selectFiltroKardex.innerHTML = opcionesFiltro;
     }
 }
+// ==========================================================================
+// LÓGICA DE MODO OSCURO CONMUTABLE INTERACTIVO
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const btnTheme = document.getElementById('btn-theme');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    // 1. Cargar estado guardado en el navegador
+    const temaGuardado = localStorage.getItem('hospital-theme');
+    if (temaGuardado === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeIcon) themeIcon.textContent = '☀️';
+    } else {
+        body.classList.remove('dark-mode');
+        if (themeIcon) themeIcon.textContent = '🌙';
+    }
+
+    // 2. Escuchar clics en el botón circular
+    if (btnTheme) {
+        btnTheme.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('hospital-theme', 'dark');
+                if (themeIcon) themeIcon.textContent = '☀️';
+            } else {
+                localStorage.setItem('hospital-theme', 'light');
+                if (themeIcon) themeIcon.textContent = '🌙';
+            }
+        });
+    }
+});
 
 // Inicializador principal automático
 document.addEventListener('DOMContentLoaded', () => {
