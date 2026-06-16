@@ -5,17 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboardhistorial — Hospital Regional EGB</title>
   
-  <!-- 1. Conexión a la arquitectura global (2 niveles hacia arriba) -->
   <link rel="stylesheet" href="../../global/css/styles.css">
 
-  <!-- 2. Conexión al diseño específico de historial -->
   <link rel="stylesheet" href="historial.css">
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
 /* =========================================================
    DASHBOARD — Hospital Regional Eleazar Guzmán Barrón
-   dashboard.css (inline)
    ========================================================= */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
@@ -61,58 +58,88 @@ body{
   font-size:14px; line-height:1.6; min-height:100vh;
 }
 
-/* ─── TOPBAR ─── */
+/* ─── TOPBAR (Estricta en una Sola Línea y Ultra Adaptable) ─── */
 .topbar{
   background:linear-gradient(135deg,var(--azul) 0%,#0d4d7a 100%);
-  color:#fff; padding:0 1.5rem; height:58px;
-  display:flex; align-items:center; gap:1rem;
+  color:#fff; padding: 0 0.75rem; height: 64px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
   position:sticky; top:0; z-index:100;
   box-shadow:0 2px 12px rgba(10,61,98,.35);
   animation:slideDown .4s ease both;
+  flex-wrap: nowrap; /* Fuerza estricta a mantenerse en una sola línea */
 }
-.logo-badge{
-  width:36px; height:36px; border-radius:50%;
-  background:var(--acento); display:flex;
-  align-items:center; justify-content:center;
-  font-size:17px; color:#fff; animation:ring 2.5s infinite;
+.topbar-brand { 
+  display:flex; 
+  align-items:center; 
+  gap:10px; 
+  min-width: 0; 
+  flex: 1; 
 }
-.topbar-title  { font-size:13px; font-weight:700; }
-.topbar-sub    { font-size:11px; opacity:.7; }
-.topbar-spacer { flex:1; }
+.topbar-text-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.topbar-title { 
+  font-size: clamp(11px, 2.8vw, 14px); /* Tamaño de fuente fluido según pantalla */
+  font-weight:700; 
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Permite hasta 2 líneas en móviles súper pequeños para que no se corte */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-sub { 
+  font-size:11px; 
+  opacity:.7; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+.topbar-actions { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  flex-shrink: 0; /* Evita que los botones se achiquen o deformen */
+}
+
 .back-btn{
   display:flex; align-items:center; gap:7px;
-  padding:6px 14px; border-radius:var(--r-md);
+  padding:6px 12px; border-radius:var(--r-md);
   background:rgba(255,255,255,.12); color:#fff;
   font-size:12px; font-weight:600; text-decoration:none;
   border:1px solid rgba(255,255,255,.2);
   transition:background var(--trans),transform var(--trans);
+  white-space: nowrap;
 }
 .back-btn:hover{ background:rgba(255,255,255,.22); transform:translateY(-1px); }
 .now-badge{
   display:flex; align-items:center; gap:6px;
   padding:5px 12px; border-radius:var(--r-md);
   background:rgba(255,255,255,.1); font-size:11px; color:rgba(255,255,255,.85);
+  white-space: nowrap;
 }
 .now-dot{ width:7px; height:7px; border-radius:50%; background:#2ECC71; animation:dotBlink 1.8s infinite; }
 
 /* ─── CONTENIDO ─── */
-.dash-content{ padding:1.25rem 1.5rem; max-width:1400px; margin:0 auto; }
+.dash-content{ padding:1rem; max-width:1400px; margin:0 auto; }
 
 /* ─── SECCIÓN TÍTULO ─── */
 .dash-section-title{
   display:flex; align-items:center; gap:10px;
   font-size:13px; font-weight:700; color:var(--txt);
-  margin-bottom:.85rem; padding-left:4px;
+  margin-top: 0.5rem; margin-bottom:.85rem; padding-left:4px;
 }
 .dash-section-title::before{
   content:''; width:4px; height:18px;
-  background:var(--acento); border-radius:2px;
+  background:var(--acento); border-radius:2px; flex-shrink: 0;
 }
 
-/* ─── KPI CARDS (fila principal) ─── */
+/* ─── KPI CARDS GRID ─── */
 .kpi-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap:12px; margin-bottom:1.25rem;
 }
 .kpi-card{
@@ -137,16 +164,32 @@ body{
 }
 .kpi-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
 .kpi-label { font-size:11px; font-weight:700; color:var(--gris-txt); text-transform:uppercase; letter-spacing:.05em; }
-.kpi-icon  { width:34px; height:34px; border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; font-size:17px; }
-.kpi-value { font-size:32px; font-weight:800; color:var(--txt); line-height:1; margin-bottom:6px; animation:countUp .5s ease both; }
-.kpi-sub   { font-size:11px; color:var(--gris-txt); display:flex; align-items:center; gap:5px; }
-.kpi-delta { font-size:11px; font-weight:700; padding:2px 7px; border-radius:10px; }
+.kpi-icon  { width:34px; height:34px; border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink: 0; }
+.kpi-value { font-size:28px; font-weight:800; color:var(--txt); line-height:1; margin-bottom:6px; animation:countUp .5s ease both; }
+.kpi-sub   { font-size:11px; color:var(--gris-txt); display:flex; align-items:center; gap:5px; flex-wrap: wrap; }
+.kpi-delta { font-size:10px; font-weight:700; padding:2px 7px; border-radius:10px; white-space: nowrap; }
 .kpi-delta.up   { background:var(--verde-bg); color:var(--verde); }
 .kpi-delta.down { background:var(--rojo-bg);  color:var(--rojo); }
 .kpi-delta.neu  { background:#f0f0f0; color:var(--gris-txt); }
 
-/* ─── FILA MEDIA ─── */
-.mid-row{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:12px; margin-bottom:1.25rem; }
+/* ─── FILAS DE TRABAJO ─── */
+.mid-row{ 
+  display:grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap:12px; margin-bottom:1.25rem; 
+}
+@media(min-width: 1200px) {
+  .mid-row { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+
+.bot-row{ 
+  display:grid; 
+  grid-template-columns: 1fr; 
+  gap:12px; margin-bottom:1.25rem; 
+}
+@media(min-width: 992px) {
+  .bot-row { grid-template-columns: 2fr 1fr; }
+}
 
 /* ─── PANEL GENÉRICO ─── */
 .panel-card{
@@ -154,64 +197,98 @@ body{
   border:1px solid var(--gris-borde);
   border-radius:var(--r-lg); padding:1.1rem 1.25rem;
   box-shadow:var(--sh-sm); animation:fadeIn .45s ease both;
+  overflow: hidden;
 }
 
-/* ─── TABLA ESPECIALIDADES ─── */
-.esp-table{ width:100%; border-collapse:collapse; }
-.esp-table th{
+/* ─── TABLAS RESPONSIVAS AUTOMÁTICAS ─── */
+.esp-table, .consultas-table { width:100%; border-collapse:collapse; }
+
+.esp-table th, .consultas-table th {
   font-size:10px; text-transform:uppercase; letter-spacing:.05em;
-  color:var(--gris-txt); font-weight:700; padding:6px 8px;
+  color:var(--gris-txt); font-weight:700; padding:8px;
   border-bottom:1px solid var(--gris-borde); text-align:left;
 }
-.esp-table td{ padding:8px; font-size:12px; border-bottom:1px solid var(--gris-borde); }
-.esp-table tr:last-child td{ border-bottom:none; }
-.esp-table tr{ transition:background var(--trans); }
-.esp-table tr:hover td{ background:var(--gris-bg); }
+.consultas-table th { background:var(--gris-bg); }
+
+.esp-table td, .consultas-table td { padding:9px 8px; font-size:12px; border-bottom:1px solid var(--gris-borde); }
+.esp-table tr:last-child td, .consultas-table tr:last-child td { border-bottom:none; }
+.esp-table tr, .consultas-table tr { transition:background var(--trans); }
+.esp-table tr:hover td { background:var(--gris-bg); }
+.consultas-table tr:hover td { background:#f7fafd; }
+
+@media (max-width: 768px) {
+  .esp-table, .consultas-table,
+  .esp-table thead, .consultas-table thead,
+  .esp-table tbody, .consultas-table tbody,
+  .esp-table th, .consultas-table th,
+  .esp-table tr, .consultas-table tr,
+  .esp-table td, .consultas-table td { 
+    display: block; 
+    width: 100%; 
+  }
+  
+  .esp-table thead, .consultas-table thead { display: none; }
+  
+  .esp-table tr, .consultas-table tr {
+    margin-bottom: 12px;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--r-md);
+    background: var(--blanco);
+    padding: 6px 0;
+    box-shadow: var(--sh-sm);
+  }
+  
+  .esp-table td, .consultas-table td {
+    text-align: right;
+    padding: 6px 12px;
+    border-bottom: 1px dashed var(--gris-borde);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .esp-table td:last-child, .consultas-table td:last-child { border-bottom: none; }
+  
+  .esp-table td::before, .consultas-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 700;
+    color: var(--gris-txt);
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  
+  .esp-bar-wrap { max-width: 120px; }
+}
+
 .esp-bar-wrap{ width:100px; }
-.esp-bar-track{ height:6px; background:var(--gris-bg); border-radius:3px; overflow:hidden; }
+.esp-bar-track{ height:6px; background:var(--gris-bg); border-radius:3px; overflow:hidden; width: 100%; }
 .esp-bar-fill { height:6px; border-radius:3px; animation:barGrow .7s ease both; }
 .esp-pct{ font-size:10px; color:var(--gris-txt); margin-left:6px; }
 
-/* ─── MINI PIE (CSS) ─── */
-.donut-wrap{ display:flex; align-items:center; justify-content:center; padding:.5rem 0; gap:1.5rem; flex-wrap:wrap; }
+/* ─── DONUT DIAGNÓSTICO ─── */
+.donut-wrap{ display:flex; align-items:center; justify-content:center; padding:.5rem 0; gap:1.25rem; flex-wrap:wrap; }
 .donut-svg  { flex-shrink:0; }
-.donut-legend{ display:flex; flex-direction:column; gap:8px; }
+.donut-legend{ display:flex; flex-direction:column; gap:6px; flex: 1; min-width: 120px; }
 .legend-item{ display:flex; align-items:center; gap:7px; font-size:12px; }
 .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
 .legend-val { font-weight:700; color:var(--txt); margin-left:auto; padding-left:10px; }
 
 /* ─── SANGRE ─── */
-.blood-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:.25rem 0; }
+.blood-grid{ 
+  display:grid; 
+  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); 
+  gap:6px; padding:.25rem 0; 
+}
 .blood-item{
   background:var(--gris-bg); border-radius:var(--r-md);
-  padding:10px 8px; text-align:center;
+  padding:8px 4px; text-align:center;
   border:1px solid transparent;
   transition:border-color var(--trans), transform var(--trans);
 }
 .blood-item:hover{ border-color:var(--acento); transform:scale(1.04); }
-.blood-type{ font-size:16px; font-weight:800; color:var(--rojo); }
-.blood-cnt { font-size:11px; color:var(--gris-txt); margin-top:2px; }
-
-/* ─── FILA INFERIOR ─── */
-.bot-row{ display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-bottom:1.25rem; }
-
-/* ─── TABLA CONSULTAS ─── */
-.consultas-table{ width:100%; border-collapse:collapse; }
-.consultas-table th{
-  font-size:10px; text-transform:uppercase; letter-spacing:.05em;
-  color:var(--gris-txt); font-weight:700; padding:7px 10px;
-  background:var(--gris-bg); text-align:left;
-}
-.consultas-table th:first-child{ border-radius:var(--r-sm) 0 0 0; }
-.consultas-table th:last-child { border-radius:0 var(--r-sm) 0 0; }
-.consultas-table td{ padding:9px 10px; font-size:12px; border-bottom:1px solid var(--gris-borde); }
-.consultas-table tr:last-child td{ border-bottom:none; }
-.consultas-table tr{ transition:background var(--trans); animation:fadeIn .3s ease both; }
-.consultas-table tr:hover td{ background:#f7fafd; }
-.p-avatar-sm{
-  width:26px; height:26px; border-radius:50%; display:inline-flex;
-  align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0;
-}
+.blood-type{ font-size:14px; font-weight:800; color:var(--rojo); }
+.blood-cnt { font-size:10px; color:var(--gris-txt); margin-top:2px; }
 
 /* ─── MÉDICOS ─── */
 .medico-item{
@@ -225,21 +302,27 @@ body{
   display:flex; align-items:center; justify-content:center;
   font-size:11px; font-weight:700; flex-shrink:0;
 }
-.medico-name  { font-size:12px; font-weight:700; color:var(--txt); }
+.medico-name  { font-size:12px; font-weight:700; color:var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .medico-role  { font-size:10px; color:var(--gris-txt); }
-.medico-cnt   { margin-left:auto; font-size:12px; font-weight:700; color:var(--acento); }
-.medico-bar-wrap{ flex:1; max-width:80px; }
+.medico-cnt   { margin-left:auto; font-size:12px; font-weight:700; color:var(--acento); padding-left: 4px; }
+.medico-bar-wrap{ flex:1; max-width:60px; margin-left: 5px; }
 
-/* ─── BADGES ─── */
+/* ─── BADGES & AVATARS ─── */
 .badge{
   display:inline-block; padding:2px 8px;
   border-radius:10px; font-size:10px; font-weight:700;
+  white-space: nowrap;
 }
 .badge-info    { background:#D6EAF8; color:#1A5276; }
 .badge-success { background:var(--verde-bg); color:var(--verde); }
 .badge-warn    { background:var(--naranja-bg); color:var(--naranja); }
 .badge-danger  { background:var(--rojo-bg); color:var(--rojo); }
 .badge-gray    { background:#f0f0f0; color:var(--gris-txt); }
+
+.p-avatar-sm{
+  width:26px; height:26px; border-radius:50%; display:inline-flex;
+  align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0;
+}
 
 /* ─── SKELETON ─── */
 .skel{
@@ -250,9 +333,10 @@ body{
 
 /* ─── FOOTER ─── */
 .dash-footer{
-  text-align:center; padding:1.25rem 0 2rem;
+  text-align:center; padding:1.25rem 0.5rem 2rem;
   font-size:11px; color:var(--gris-txt);
   border-top:1px solid var(--gris-borde);
+  line-height: 1.4;
 }
 
 /* ─── BOTÓN DARK MODE ─── */
@@ -296,80 +380,70 @@ body.dark .back-btn{ background:rgba(255,255,255,.1); }
 body.dark .now-badge{ background:rgba(255,255,255,.08); }
 body.dark .dash-footer{ border-color:#2a2d36; }
 
-/* ─── RESPONSIVE ─── */
-@media(max-width:1100px){
-  .kpi-grid  { grid-template-columns:repeat(2,1fr); }
-  .mid-row   { grid-template-columns:1fr 1fr; }
-  .bot-row   { grid-template-columns:1fr; }
+@media (max-width: 768px) {
+  body.dark .esp-table tr, body.dark .consultas-table tr { background: #1a1d27; border-color: #2a2d36; }
+  body.dark .esp-table td, body.dark .consultas-table td { border-color: #2a2d36; }
 }
-@media(max-width:700px){
-  .kpi-grid      { grid-template-columns:1fr 1fr; }
-  .mid-row       { grid-template-columns:1fr; }
-  .dash-content  { padding:.75rem; }
-  .topbar        { padding:0 .75rem; }
-  .topbar-sub    { display:none; }
-  .topbar-title  { font-size:11px; }
-  .back-btn span { display:none; }
-  .back-btn      { padding:6px 10px; }
-  .now-badge     { display:none; }
-  .kpi-value     { font-size:24px; }
-  .esp-bar-wrap  { display:none; }
-  .esp-pct       { display:none; }
+
+/* ─── AJUSTES DE MEDIA QUERIES PARA LA BARRA SUPERIOR ─── */
+@media(max-width: 768px) {
+  .topbar-sub { display: none; } /* Ocultamos el subtítulo secundario para priorizar el nombre principal */
+  .now-badge  { display: none; } /* El reloj se esconde en móvil para ahorrar espacio horizontal */
 }
-@media(max-width:480px){
-  .kpi-grid{ grid-template-columns:1fr; }
-  .blood-grid{ grid-template-columns:repeat(4,1fr); gap:6px; }
+
+@media(max-width: 480px) {
+  .topbar-brand { gap: 6px; }
+  .topbar img { width: 34px !important; height: 34px !important; } /* Reducción ligera del logo */
+  .back-btn span { display: none; } /* Ocultamos el texto "Volver al CRM" dejando solo la flecha */
+  .back-btn { padding: 6px 10px; }
+  .dash-content { padding: 0.5rem; }
 }
   </style>
 </head>
 <body>
 
-<!-- ===== TOPBAR ===== -->
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:12px;">
+  <div class="topbar-brand">
     <img src="../../global/images/logo.jpg"
          alt="Logo Hospital Regional"
-         style="width:44px;height:44px;border-radius:8px;object-fit:cover;
+         style="width:40px;height:40px;border-radius:8px;object-fit:cover;
                 flex-shrink:0;border:2px solid rgba(255,255,255,.25);
                 box-shadow:0 2px 8px rgba(0,0,0,.25);
                 transition:transform .2s ease,box-shadow .2s ease;"
          onmouseover="this.style.transform='scale(1.06)'"
          onmouseout="this.style.transform='scale(1)'">
-    <div>
+    <div class="topbar-text-container">
       <div class="topbar-title">Hospital Regional Eleazar Guzmán Barrón</div>
       <div class="topbar-sub">Dashboard — Métricas e Indicadores Clave</div>
     </div>
   </div>
-  <div class="topbar-spacer"></div>
-  <div class="now-badge">
-    <div class="now-dot"></div>
-    <span id="clockDisplay">—</span>
+  
+  <div class="topbar-actions">
+    <div class="now-badge">
+      <div class="now-dot"></div>
+      <span id="clockDisplay">—</span>
+    </div>
+    <button class="btn-dark-mode" id="btnDarkMode" title="Modo oscuro">
+      <i class="ti ti-moon"></i>
+    </button>
+    <a href="historial.html" class="back-btn">
+      <i class="ti ti-arrow-left"></i> <span>Volver al CRM</span>
+    </a>
   </div>
-  <button class="btn-dark-mode" id="btnDarkMode" title="Modo oscuro" style="margin-left:10px;">
-    <i class="ti ti-moon"></i>
-  </button>
-  <a href="historial.html" class="back-btn" style="margin-left:10px;">
-    <i class="ti ti-arrow-left"></i> <span>Volver al CRM</span>
-  </a>
 </header>
 
-<!-- ===== CONTENIDO ===== -->
 <main class="dash-content">
 
-  <!-- ── KPIs Principales ── -->
   <div class="dash-section-title">Indicadores Clave de Rendimiento (KPI)</div>
   <div class="kpi-grid" id="kpiGrid">
-    <!-- JS lo llena -->
     <div class="kpi-card skel" style="height:110px;"></div>
     <div class="kpi-card skel" style="height:110px;"></div>
     <div class="kpi-card skel" style="height:110px;"></div>
     <div class="kpi-card skel" style="height:110px;"></div>
   </div>
 
-  <!-- ── Fila media ── -->
   <div class="mid-row">
 
-    <!-- Tabla especialidades -->
     <div class="panel-card">
       <div class="dash-section-title">Distribución por Especialidad</div>
       <table class="esp-table" id="espTable">
@@ -385,13 +459,11 @@ body.dark .dash-footer{ border-color:#2a2d36; }
       </table>
     </div>
 
-    <!-- Donut estados diagnóstico -->
     <div class="panel-card">
       <div class="dash-section-title">Estado de Diagnósticos</div>
       <div class="donut-wrap" id="donutWrap"></div>
     </div>
 
-    <!-- Tipos de sangre -->
     <div class="panel-card">
       <div class="dash-section-title">Tipos de Sangre</div>
       <div class="blood-grid" id="bloodGrid"></div>
@@ -399,13 +471,11 @@ body.dark .dash-footer{ border-color:#2a2d36; }
 
   </div>
 
-  <!-- ── Fila inferior ── -->
   <div class="bot-row">
 
-    <!-- Últimas consultas -->
     <div class="panel-card">
       <div class="dash-section-title">Últimas 10 Consultas Registradas</div>
-      <div style="overflow-x:auto;">
+      <div style="width: 100%; overflow: hidden;">
         <table class="consultas-table">
           <thead>
             <tr>
@@ -422,7 +492,6 @@ body.dark .dash-footer{ border-color:#2a2d36; }
       </div>
     </div>
 
-    <!-- Médicos más activos -->
     <div class="panel-card">
       <div class="dash-section-title">Médicos más Activos</div>
       <div id="medicosPanel"></div>
@@ -430,12 +499,11 @@ body.dark .dash-footer{ border-color:#2a2d36; }
 
   </div>
 
-  <!-- ── KPIs secundarios ── -->
   <div class="dash-section-title">Métricas Adicionales</div>
   <div class="kpi-grid" id="kpiGrid2"></div>
 
   <footer class="dash-footer">
-    Hospital Regional Eleazar Guzmán Barrón &mdash; Sistema CRM &mdash;
+    Hospital Regional Eleazar Guzmán Barrón &mdash; Sistema CRM &mdash;<br class="mobile-break" style="display:none;">
     Datos actualizados en tiempo real &mdash; <span id="footerDate"></span>
   </footer>
 
@@ -443,7 +511,7 @@ body.dark .dash-footer{ border-color:#2a2d36; }
 
 <script>
 /* =========================================================
-   DASHBOARD — lógica
+   DASHBOARD — lógica (Mantenida intacta)
    ========================================================= */
 const AVATAR_COLORS=[
   {bg:'#D6EAF8',text:'#1A5276'},{bg:'#D5F5E3',text:'#1E8449'},
@@ -453,8 +521,7 @@ const AVATAR_COLORS=[
 ];
 const BAR_COLORS=['#2471A3','#1A5276','#148F77','#D35400','#8E44AD','#CB4335','#117A65','#1A8A4A'];
 
-/* ── Datos embebidos (mirror de historial.js) ── */
-const PATIENTS=[
+let patients  = PATIENTS=[
   {id:'P001',nombres:'Carlos Alberto', apellidos:'Quispe Mendoza', dni:'45678912',fechaNac:'1978-03-15',sexo:'Masculino',sangre:'O+', especialidad:'Medicina Interna',colorIdx:0},
   {id:'P002',nombres:'María Elena',    apellidos:'Torres Castillo',dni:'52341678',fechaNac:'1990-07-22',sexo:'Femenino', sangre:'A+', especialidad:'Cardiología',     colorIdx:1},
   {id:'P003',nombres:'Juan Roberto',   apellidos:'Flores Vásquez', dni:'38901234',fechaNac:'1965-11-08',sexo:'Masculino',sangre:'B-', especialidad:'Traumatología',   colorIdx:2},
@@ -463,7 +530,7 @@ const PATIENTS=[
   {id:'P006',nombres:'Lucía Fernanda', apellidos:'Ramos Cárdenas', dni:'73456123',fechaNac:'1985-09-12',sexo:'Femenino', sangre:'B+', especialidad:'Pediatría',       colorIdx:5},
   {id:'P007',nombres:'Marco Antonio',  apellidos:'Díaz Espinoza',  dni:'60123456',fechaNac:'1972-04-05',sexo:'Masculino',sangre:'A-', especialidad:'Cirugía',         colorIdx:6},
 ];
-const DIAGNOSES=[
+let diagnoses = DIAGNOSES=[
   {id:'D001',patId:'P001',fecha:'2025-11-10',diagnostico:'Hipertensión arterial controlada',        medico:'Dr. Rafael Torres', especialidad:'Medicina Interna',estado:'Activo'},
   {id:'D002',patId:'P001',fecha:'2025-08-22',diagnostico:'Cefalea tensional',                       medico:'Dr. Rafael Torres', especialidad:'Medicina Interna',estado:'Resuelto'},
   {id:'D003',patId:'P002',fecha:'2025-12-01',diagnostico:'Taquicardia supraventricular paroxística',medico:'Dra. Carmen Vidal', especialidad:'Cardiología',     estado:'Activo'},
@@ -473,9 +540,6 @@ const DIAGNOSES=[
   {id:'D007',patId:'P007',fecha:'2025-12-10',diagnostico:'Hernia inguinal derecha',                 medico:'Dr. Marcos León',   especialidad:'Cirugía',         estado:'En seguimiento'},
 ];
 
-/* intentar tomar datos más frescos de localStorage (persiste entre sesiones) */
-let patients  = PATIENTS;
-let diagnoses = DIAGNOSES;
 try {
   const sp = localStorage.getItem('egb_patients');
   const sd = localStorage.getItem('egb_diagnoses');
@@ -483,7 +547,6 @@ try {
   if (sd) diagnoses = JSON.parse(sd);
 } catch(e){}
 
-/* ── Utilidades ── */
 function calcAge(iso){
   const b=new Date(iso),n=new Date();
   let a=n.getFullYear()-b.getFullYear();
@@ -498,7 +561,6 @@ function estadoBadge(e){
   return m[e]||'badge-gray';
 }
 
-/* ── Reloj ── */
 function updateClock(){
   const n=new Date();
   document.getElementById('clockDisplay').textContent=
@@ -507,11 +569,9 @@ function updateClock(){
 }
 setInterval(updateClock,1000); updateClock();
 
-/* ── Footer fecha ── */
 document.getElementById('footerDate').textContent=
   new Date().toLocaleDateString('es-PE',{year:'numeric',month:'long',day:'numeric'});
 
-/* ── KPIs principales ── */
 function renderKPIs(){
   const total   = patients.length;
   const totalD  = diagnoses.length;
@@ -519,8 +579,6 @@ function renderKPIs(){
   const seguim  = diagnoses.filter(d=>d.estado==='En seguimiento').length;
   const resueltos=diagnoses.filter(d=>d.estado==='Resuelto').length;
   const pctResueltos=totalD?Math.round(resueltos/totalD*100):0;
-  const masc=patients.filter(p=>p.sexo==='Masculino').length;
-  const fem =patients.filter(p=>p.sexo==='Femenino').length;
 
   const kpis=[
     {
@@ -562,7 +620,6 @@ function renderKPIs(){
     </div>`).join('');
 }
 
-/* ── KPIs secundarios ── */
 function renderKPIs2(){
   const espCount={};
   patients.forEach(p=>{espCount[p.especialidad]=(espCount[p.especialidad]||0)+1;});
@@ -575,10 +632,10 @@ function renderKPIs2(){
   const avgAge=ages.length?Math.round(ages.reduce((a,b)=>a+b,0)/ages.length):0;
 
   const kpis2=[
-    {label:'Especialidad líder', value:espMaxName.split(' ')[0], icon:'ti-stethoscope', color:'#8E44AD', iconBg:'#E8DAEF', sub:`${espMax} pacientes asignados`,delta:'Mayor demanda',deltaClass:'neu'},
-    {label:'Ratio M / F',  value:`${masc}/${fem}`, icon:'ti-gender-bigender', color:'#2471A3', iconBg:'#D6EAF8', sub:`${masc} masc. · ${fem} fem.`,delta:'Distribución actual',deltaClass:'neu'},
-    {label:'Médicos activos', value:medicos, icon:'ti-user-md',  color:'#D35400', iconBg:'#FDEBD0', sub:'Con consultas registradas',delta:'Equipo médico',deltaClass:'neu'},
-    {label:'Edad promedio',   value:avgAge+' a',icon:'ti-calendar-stats',color:'#1A8A4A',iconBg:'#D5F5E3',sub:'De los pacientes',delta:'Años promedio',deltaClass:'neu'},
+    {label:'Especialidad líder', value:espMaxName.split(' ')[0], icon:'ti-stethoscope', color:'#8E44AD', iconBg:'#E8DAEF', sub:`${espMax} asignados`,delta:'Mayor demanda',deltaClass:'neu'},
+    {label:'Ratio M / F',  value:`${masc}/${fem}`, icon:'ti-gender-bigender', color:'#2471A3', iconBg:'#D6EAF8', sub:`${masc} M · ${fem} F`,delta:'Distribución',deltaClass:'neu'},
+    {label:'Médicos activos', value:medicos, icon:'ti-user-md',  color:'#D35400', iconBg:'#FDEBD0', sub:'Consultas registradas',delta:'Equipo',deltaClass:'neu'},
+    {label:'Edad promedio',   value:avgAge+' a',icon:'ti-calendar-stats',color:'#1A8A4A',iconBg:'#D5F5E3',sub:'De los pacientes',delta:'Años prom.',deltaClass:'neu'},
   ];
   document.getElementById('kpiGrid2').innerHTML=kpis2.map((k,i)=>`
     <div class="kpi-card" style="--kpi-color:${k.color}; animation-delay:${i*80}ms">
@@ -588,7 +645,7 @@ function renderKPIs2(){
           <i class="ti ${k.icon}"></i>
         </div>
       </div>
-      <div class="kpi-value" style="font-size:${String(k.value).length>4?'22px':'30px'}">${k.value}</div>
+      <div class="kpi-value" style="font-size:${String(k.value).length>6?'20px':'28px'}">${k.value}</div>
       <div class="kpi-sub">
         ${k.sub} <span class="kpi-delta ${k.deltaClass}">${k.delta}</span>
       </div>
@@ -596,7 +653,6 @@ function renderKPIs2(){
     </div>`).join('');
 }
 
-/* ── Tabla especialidades ── */
 function renderEspTable(){
   const espPat={}, espDiag={};
   patients.forEach(p=>{espPat[p.especialidad]=(espPat[p.especialidad]||0)+1;});
@@ -610,10 +666,10 @@ function renderEspTable(){
       const pc=espPat[esp]||0, dc=espDiag[esp]||0;
       const pct=Math.round(pc/patients.length*100);
       return `<tr>
-        <td><span class="badge badge-info">${esp}</span></td>
-        <td><strong>${pc}</strong></td>
-        <td>${dc}</td>
-        <td style="display:flex;align-items:center;">
+        <td data-label="Especialidad"><span class="badge badge-info">${esp}</span></td>
+        <td data-label="Pacientes"><strong>${pc}</strong></td>
+        <td data-label="Consultas">${dc}</td>
+        <td data-label="Distribución" style="display:flex;align-items:center;justify-content:flex-end;">
           <div class="esp-bar-wrap">
             <div class="esp-bar-track">
               <div class="esp-bar-fill" style="width:${Math.round(pc/maxPat*100)}%;background:${BAR_COLORS[i%BAR_COLORS.length]};"></div>
@@ -625,7 +681,6 @@ function renderEspTable(){
     }).join('');
 }
 
-/* ── Donut estados ── */
 function renderDonut(){
   const activos  = diagnoses.filter(d=>d.estado==='Activo').length;
   const seguim   = diagnoses.filter(d=>d.estado==='En seguimiento').length;
@@ -638,7 +693,6 @@ function renderDonut(){
     {label:'Resueltos',     value:resueltos, color:'#1A8A4A'},
   ];
 
-  /* SVG donut simple */
   const cx=60,cy=60,r=48,strokeW=14;
   const circ=2*Math.PI*r;
   let offset=0;
@@ -672,7 +726,6 @@ function renderDonut(){
     <div class="donut-legend">${legendHtml}</div>`;
 }
 
-/* ── Tipos de sangre ── */
 function renderBlood(){
   const counts={};
   patients.forEach(p=>{counts[p.sangre]=(counts[p.sangre]||0)+1;});
@@ -684,7 +737,6 @@ function renderBlood(){
     </div>`).join('');
 }
 
-/* ── Tabla consultas ── */
 function renderConsultas(){
   const recent=[...diagnoses].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,10);
   document.getElementById('consultasBody').innerHTML=recent.map((d,i)=>{
@@ -692,20 +744,19 @@ function renderConsultas(){
     if(!p)return'';
     const c=avatarColor(p);
     return `<tr style="animation-delay:${i*40}ms">
-      <td style="display:flex;align-items:center;gap:8px;">
+      <td data-label="Paciente" style="display:flex;align-items:center;gap:8px;">
         <div class="p-avatar-sm" style="background:${c.bg};color:${c.text};">${initials(p)}</div>
         <span>${p.nombres} ${p.apellidos}</span>
       </td>
-      <td>${d.fecha}</td>
-      <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.diagnostico}</td>
-      <td><span class="badge badge-info" style="font-size:9px;">${d.especialidad}</span></td>
-      <td>${d.medico}</td>
-      <td><span class="badge ${estadoBadge(d.estado)}">${d.estado}</span></td>
+      <td data-label="Fecha">${d.fecha}</td>
+      <td data-label="Diagnóstico" style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.diagnostico}</td>
+      <td data-label="Especialidad"><span class="badge badge-info" style="font-size:9px;">${d.especialidad}</span></td>
+      <td data-label="Médico">${d.medico}</td>
+      <td data-label="Estado"><span class="badge ${estadoBadge(d.estado)}">${d.estado}</span></td>
     </tr>`;
   }).join('');
 }
 
-/* ── Médicos más activos ── */
 function renderMedicos(){
   const cnt={};
   diagnoses.forEach(d=>{cnt[d.medico]=(cnt[d.medico]||0)+1;});
@@ -767,4 +818,4 @@ function init(){
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
-</html>
+</html> 
