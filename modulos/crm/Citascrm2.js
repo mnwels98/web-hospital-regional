@@ -314,9 +314,13 @@ function renderTickets() {
   lista.innerHTML = tickets.map(t => `
     <div class="ticket-item ${t.prioridad}" data-atendido="${t.atendido}">
       <div class="ticket-info">
-        <h4>Ticket #${t.id} — ${t.paciente}</h4>
+        <h4>N° ${t.id} — ${t.paciente}</h4>
         <p>${t.motivo}</p>
         <p style="font-size:11px;color:#888;margin-top:4px;">🕐 ${t.hora}</p>
+        <div class="ticket-acciones">
+          <button class="btn-editar-ticket" onclick="editarTicket(${t.id})">✏️ Editar</button>
+          <button class="btn-eliminar-ticket" onclick="eliminarTicket(${t.id})">🗑️ Eliminar</button>
+        </div>
       </div>
       <div class="ticket-meta">
         <span class="prioridad-badge prioridad-${t.prioridad}">
@@ -336,9 +340,88 @@ function marcarAtendido(id) {
   if (t) { t.atendido = !t.atendido; guardarDatos(); renderTickets(); actualizarEstadisticas(); verificarAlertas(); actualizarCampana(); }
 }
 
+// ─── Eliminar Ticket ──────────────────────────────────────────────
+function eliminarTicket(id) {
+  if (!confirm("¿Deseas eliminar este ticket?")) return;
+  tickets = tickets.filter(t => t.id !== id);
+  guardarDatos();
+  renderTickets();
+  actualizarEstadisticas();
+  verificarAlertas();
+  actualizarCampana();
+}
+
+// ─── Editar Ticket ────────────────────────────────────────────────
+let ticketEditandoId = null;
+
+function editarTicket(id) {
+  const t = tickets.find(t => t.id === id);
+  if (!t) return;
+
+  ticketEditandoId = id;
+
+  document.getElementById("ticket-paciente").value  = t.paciente;
+  document.getElementById("ticket-motivo").value    = t.motivo;
+  document.getElementById("ticket-prioridad").value = t.prioridad;
+
+  const btn = document.getElementById("btn-cancelar-ticket").previousElementSibling;
+  if (btn) {
+    btn.textContent = "💾 Actualizar Ticket";
+    btn.onclick = actualizarTicket;
+    btn.classList.add("btn-ticket-editando");
+  }
+
+  document.getElementById("mensajeTicket").textContent = `✏️ Editando ticket de ${t.paciente}`;
+  document.getElementById("mensajeTicket").className = "mensaje editando-ticket";
+  document.getElementById("btn-cancelar-ticket").style.display = "block";
+
+  document.querySelector(".card:last-of-type").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function actualizarTicket() {
+  if (!validarTicket()) return;
+
+  const paciente  = document.getElementById("ticket-paciente").value.trim();
+  const motivo    = document.getElementById("ticket-motivo").value.trim();
+  const prioridad = document.getElementById("ticket-prioridad").value;
+
+  const t = tickets.find(t => t.id === ticketEditandoId);
+  if (!t) return;
+
+  t.paciente  = paciente;
+  t.motivo    = motivo;
+  t.prioridad = prioridad;
+
+  guardarDatos();
+  renderTickets();
+  actualizarEstadisticas();
+  verificarAlertas();
+  actualizarCampana();
+  cancelarEdicionTicket();
+  mostrarToast("✏️", "Ticket actualizado", `${paciente}`, "exito");
+}
+
+function cancelarEdicionTicket() {
+  ticketEditandoId = null;
+  document.getElementById("ticket-paciente").value  = "";
+  document.getElementById("ticket-motivo").value    = "";
+  document.getElementById("ticket-prioridad").value = "normal";
+
+  // Resetear botón principal
+  const btnGenerar = document.querySelector("#btn-cancelar-ticket").previousElementSibling;
+  if (btnGenerar) {
+    btnGenerar.textContent = "🎫 Generar Ticket";
+    btnGenerar.onclick = registrarTicket;
+    btnGenerar.classList.remove("btn-ticket-editando");
+  }
+
+  document.getElementById("mensajeTicket").className = "mensaje oculto";
+  document.getElementById("btn-cancelar-ticket").style.display = "none";
+}
+
 function limpiarFormularioTicket() {
-  document.getElementById("ticket-paciente").value = "";
-  document.getElementById("ticket-motivo").value   = "";
+  document.getElementById("ticket-paciente").value  = "";
+  document.getElementById("ticket-motivo").value    = "";
   document.getElementById("ticket-prioridad").value = "normal";
 }
 

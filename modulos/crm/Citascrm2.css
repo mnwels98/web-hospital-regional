@@ -1479,3 +1479,142 @@ body.dark {
     gap: 8px !important;
   }
 }
+
+/* ========== ANIMACIÓN TICKET EMERGENCIA MEJORADA ========== */
+@keyframes parpadeoEmergencia {
+  0%   { background-color: inherit; box-shadow: none; border-left-color: var(--rojo-error); }
+  40%  { background-color: #ffc0c0; box-shadow: 0 0 18px rgba(220,53,69,0.7), inset 0 0 10px rgba(220,53,69,0.2); border-left-color: #ff0000; }
+  100% { background-color: inherit; box-shadow: none; border-left-color: var(--rojo-error); }
+}
+
+/* ========== BOTONES EDITAR Y ELIMINAR TICKET ========== */
+.ticket-acciones {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.btn-editar-ticket {
+  background: none;
+  border: 1px solid var(--azul-principal);
+  color: var(--azul-principal);
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-editar-ticket:hover {
+  background: var(--azul-principal);
+  color: white;
+}
+
+.btn-eliminar-ticket {
+  background: none;
+  border: 1px solid var(--rojo-error);
+  color: var(--rojo-error);
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-eliminar-ticket:hover {
+  background: var(--rojo-error);
+  color: white;
+}
+
+body.dark .btn-editar-ticket  { border-color: #4d9fff; color: #4d9fff; }
+body.dark .btn-editar-ticket:hover  { background: #4d9fff; color: #0f1419; }
+body.dark .btn-eliminar-ticket { border-color: #f85149; color: #f85149; }
+body.dark .btn-eliminar-ticket:hover { background: #f85149; color: #0f1419; }
+
+/* Modo edición ticket */
+.btn-primary.btn-ticket-editando {
+  background: linear-gradient(135deg, #28a745, #1a7a30);
+  box-shadow: 0 3px 8px rgba(40,167,69,0.3);
+}
+
+.mensaje.editando-ticket {
+  background: #e8f0fb;
+  color: var(--azul-oscuro);
+  border-left: 4px solid var(--azul-principal);
+  display: block;
+}
+
+body.dark .mensaje.editando-ticket {
+  background: #1a2a3a;
+  color: #4d9fff;
+}
+
+/* ========== ANIMACIÓN EMERGENCIA FUERTE ========== */
+@keyframes parpadeoEmergencia {
+  0% {
+    background-color: inherit;
+    box-shadow: none;
+    border-left-color: var(--rojo-error);
+    border: 2px solid transparent;
+  }
+  50% {
+    background-color: #ffb3b3;
+    box-shadow: 0 0 24px rgba(220,53,69,0.85), 0 0 8px rgba(220,53,69,0.5) inset;
+    border: 2px solid #dc3545;
+    border-left: 6px solid #ff0000;
+  }
+  100% {
+    background-color: inherit;
+    box-shadow: none;
+    border-left-color: var(--rojo-error);
+    border: 2px solid transparent;
+  }
+}
+
+@keyframes parpadeoEmergenciaDark {
+  0%   { background-color: #1e2732; box-shadow: none; border: 2px solid transparent; }
+  50%  { background-color: #5a1a1a; box-shadow: 0 0 24px rgba(248,81,73,0.85), 0 0 8px rgba(248,81,73,0.5) inset; border: 2px solid #f85149; }
+  100% { background-color: #1e2732; box-shadow: none; border: 2px solid transparent; }
+}
+
+body.dark .ticket-item.emergencia[data-atendido="false"] {
+  animation: parpadeoEmergenciaDark 1.2s infinite !important;
+}
+
+/* ========== FIX TEXTO TICKETS MODO OSCURO ========== */
+body.dark .ticket-info h4 {
+  color: #e8eaed !important;
+}
+
+body.dark .ticket-info p {
+  color: #c8cdd4 !important;
+}
+
+body.dark .ticket-item:nth-child(odd) {
+  background-color: #1e2732 !important;
+}
+
+body.dark .ticket-item:nth-child(even) {
+  background-color: #161b22 !important;
+}
+
+/* ========== FIX MODO OSCURO HEADER TEXTOS Y BOTÓN INICIO ========== */
+body.dark .logo-title,
+body.dark .logo-sub {
+  color: #ffffff !important;
+}
+
+body.dark .btn-inicio {
+  background-color: #1a56a0 !important;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255,255,255,0.3) !important;
+}
+
+body.dark .btn-inicio:hover {
+  background-color: #0056b3 !important;
+  color: #ffffff !important;
+}
