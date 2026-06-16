@@ -5,19 +5,389 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reseña Histórica | Hospital Regional Eleazar Guzmán Barrón</title>
     <link rel="stylesheet" href="../global/css/styles.css">
+    <style>
+        /* =====================================================
+           VARIABLES Y BASE
+        ===================================================== */
+        :root {
+            --azul:        #1a4b8c;
+            --azul-medio:  #2563b0;
+            --azul-claro:  #3b82f6;
+            --azul-suave:  #e8f0fb;
+            --verde:       #0f7c4a;
+            --verde-suave: #d1fae5;
+            --dorado:      #b8860b;
+            --dorado-suave:#fef3c7;
+            --rojo:        #b91c1c;
+            --rojo-suave:  #fee2e2;
+            --morado:      #6d28d9;
+            --morado-suave:#ede9fe;
+            --naranja:     #c2410c;
+            --naranja-suave:#ffedd5;
+            --gris-bg:     #f4f7fb;
+            --gris-borde:  #d1d9e6;
+            --texto:       #1e293b;
+            --texto-sec:   #475569;
+            --sombra:      0 4px 24px rgba(26,75,140,.10);
+            --sombra-hover:0 8px 32px rgba(26,75,140,.18);
+            --radio:       14px;
+            --trans:       .35s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+        .page-hero {
+            background: linear-gradient(135deg, #0a2147 0%, #1a4b8c 55%, #2563b0 100%);
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(59,130,246,.18) 0%, transparent 55%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.07) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .page-hero .breadcrumb {
+            font-size: 13px;
+            color: rgba(255,255,255,.65);
+            margin-bottom: 1rem;
+        }
+        .page-hero .breadcrumb a {
+            color: rgba(255,255,255,.75);
+            text-decoration: none;
+            transition: color var(--trans);
+        }
+        .page-hero .breadcrumb a:hover { color: #fff; }
+        .page-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: #fff;
+            font-weight: 800;
+            margin: 0 0 .75rem;
+            letter-spacing: -.5px;
+        }
+        .page-hero .hero-subtitle {
+            color: rgba(255,255,255,.75);
+            font-size: 1.05rem;
+            margin: 0 0 2rem;
+        }
+
+        /* Contador años */
+        .years-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.22);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            padding: 10px 24px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .years-badge .num {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fcd34d;
+            line-height: 1;
+        }
+
+        /* =====================================================
+           INTRO CARD
+        ===================================================== */
+        .intro-section {
+            max-width: 900px;
+            margin: -1.5rem auto 0;
+            padding: 0 1.5rem 2.5rem;
+        }
+        .intro-card {
+            background: #fff;
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            padding: 2rem 2.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            border-left: 5px solid var(--azul);
+            position: relative; z-index: 2;
+        }
+        .intro-card figure {
+            flex-shrink: 0;
+            margin: 0;
+        }
+        .intro-card figure img {
+            width: 220px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,.15);
+        }
+        .intro-card h2 { color: var(--azul); margin: 0 0 .75rem; font-size: 1.4rem; }
+        .intro-card p  { color: var(--texto-sec); line-height: 1.7; margin: 0; font-size: .97rem; }
+        @media(max-width:640px){
+            .intro-card { flex-direction: column; padding: 1.5rem; }
+            .intro-card figure img { width: 100%; height: 180px; }
+        }
+
+        /* =====================================================
+           SECCIÓN LÍNEA DE TIEMPO
+        ===================================================== */
+        .timeline-section {
+            padding: 1rem 1.5rem 4rem;
+            background: var(--gris-bg);
+        }
+        .timeline-title {
+            text-align: center;
+            font-size: clamp(1.3rem, 3vw, 1.9rem);
+            color: var(--azul);
+            font-weight: 800;
+            margin: 0 0 .4rem;
+        }
+        .timeline-subtitle {
+            text-align: center;
+            color: var(--texto-sec);
+            font-size: .95rem;
+            margin: 0 0 3rem;
+        }
+
+        /* Línea central */
+        .timeline {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 0 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom,
+                var(--azul) 0%,
+                var(--azul-claro) 50%,
+                var(--azul) 100%);
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        /* ── Ítem ── */
+        .tl-item {
+            position: relative;
+            width: 46%;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .55s ease, transform .55s ease;
+        }
+        .tl-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Alternar izquierda / derecha */
+        .tl-item:nth-child(odd)  { margin-left: 0;    margin-right: auto; }
+        .tl-item:nth-child(even) { margin-left: auto; margin-right: 0; }
+
+        /* Conector horizontal hacia la línea central */
+        .tl-item::after {
+            content: '';
+            position: absolute;
+            top: 28px;
+            width: 9%;
+            height: 2px;
+            background: var(--gris-borde);
+        }
+        .tl-item:nth-child(odd)::after  { right: -9%; }
+        .tl-item:nth-child(even)::after { left: -9%; }
+
+        /* Punto en la línea central */
+        .tl-dot {
+            position: absolute;
+            top: 22px;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px var(--color, var(--azul));
+            background: var(--color, var(--azul));
+            z-index: 2;
+            transition: transform var(--trans);
+        }
+        .tl-item:nth-child(odd)  .tl-dot { right: -13.5%; transform: translateX(50%); }
+        .tl-item:nth-child(even) .tl-dot { left:  -13.5%; transform: translateX(-50%); }
+        .tl-item:hover .tl-dot { transform: translateX(50%) scale(1.35); }
+        .tl-item:nth-child(even):hover .tl-dot { transform: translateX(-50%) scale(1.35); }
+
+        /* Tarjeta */
+        .tl-card {
+            background: #fff;
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            padding: 1.4rem 1.5rem;
+            border-top: 4px solid var(--color, var(--azul));
+            transition: box-shadow var(--trans), transform var(--trans);
+            cursor: default;
+        }
+        .tl-card:hover {
+            box-shadow: var(--sombra-hover);
+            transform: translateY(-3px);
+        }
+
+        /* Encabezado tarjeta */
+        .tl-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: .85rem;
+        }
+        .tl-icon {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: var(--bg-suave, var(--azul-suave));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .tl-date {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color, var(--azul));
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .tl-card h3 {
+            font-size: .97rem;
+            font-weight: 700;
+            color: var(--texto);
+            margin: 2px 0 0;
+            line-height: 1.3;
+        }
+        .tl-card p {
+            font-size: .875rem;
+            color: var(--texto-sec);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Badge especial */
+        .tl-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: var(--bg-suave, var(--azul-suave));
+            color: var(--color, var(--azul));
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        /* =====================================================
+           RESPONSIVO — MÓVIL: línea a la izquierda
+        ===================================================== */
+        @media(max-width:640px){
+            .timeline::before { left: 18px; }
+
+            .tl-item {
+                width: 100%;
+                margin-left: 0 !important;
+                padding-left: 50px;
+            }
+            .tl-item::after { display: none; }
+
+            .tl-dot {
+                left: 9px !important; right: auto !important;
+                transform: none !important;
+            }
+            .tl-item:hover .tl-dot,
+            .tl-item:nth-child(even):hover .tl-dot {
+                transform: scale(1.3) !important;
+            }
+        }
+
+        /* =====================================================
+           SIDEBAR / STATS
+        ===================================================== */
+        .stats-strip {
+            background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%);
+            padding: 2.5rem 1.5rem;
+        }
+        .stats-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        .stat-box {
+            text-align: center;
+            color: #fff;
+        }
+        .stat-box .stat-num {
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #fcd34d;
+        }
+        .stat-box .stat-label {
+            font-size: .85rem;
+            color: rgba(255,255,255,.8);
+            margin-top: 4px;
+        }
+
+        /* =====================================================
+           HITOS LIST (reemplaza ul.history-list)
+        ===================================================== */
+        .hitos-section {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 3rem;
+        }
+        .hitos-section h2 {
+            color: var(--azul);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+        .hitos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 1rem;
+        }
+        .hito-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            padding: 1.1rem 1.3rem;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            border-left: 4px solid var(--azul-claro);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+        .hito-card.visible { opacity: 1; transform: none; }
+        .hito-icon { font-size: 20px; margin-top: 1px; flex-shrink: 0; }
+        .hito-card p { margin: 0; font-size: .875rem; color: var(--texto-sec); line-height: 1.55; }
+    </style>
 </head>
 <body>
- 
+
+    <!-- ===== HEADER (sin cambios) ===== -->
     <header>
         <div class="logo-container">
-            <img src="../global/images/logo.jpg" alt="Logo Hospital Regional" width="60">
+            <img src="../../global/images/logo.jpg" alt="Logo Hospital Regional" width="60">
             <h1>Hospital Regional Eleazar Guzmán Barrón</h1>
         </div>
- 
         <div class="header-search-trigger">
             <button id="open-search-btn" title="Buscar especialidad por síntomas">🔍 Buscar Síntomas</button>
         </div>
- 
         <nav>
             <ul>
                 <li class="dropdown">
@@ -38,68 +408,231 @@
     </header>
 
     <main>
+
+        <!-- ===== HERO ===== -->
         <section class="page-hero">
             <div class="hero-content">
                 <div class="breadcrumb">
-                    <a href="../index.html">Inicio</a> / 
-                    <a href="../index.html#nosotros">Nosotros</a> / 
+                    <a href="../index.html">Inicio</a> /
+                    <a href="../index.html#nosotros">Nosotros</a> /
                     <span>Reseña Histórica</span>
                 </div>
                 <h1>Reseña Histórica</h1>
                 <p class="hero-subtitle">Nuestra Trayectoria en el Servicio de la Salud</p>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="content-container">
-                <div class="content-main">
-                    <div class="content-card">
-                        <h2>Nuestra Historia</h2>
-                        <figure class="content-figure">
-                            <img src="images/foto_hospital.jpg" alt="Fotografía del Hospital Regional Eleazar Guzmán Barrón">
-                            <figcaption>Vista del Hospital Regional Eleazar Guzmán Barrón.</figcaption>
-                        </figure>
-                        <p>El Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa y la costa de la región Áncash.</p>
-                        
-                        <h3>Origen e Importancia</h3>
-                        <p>Fundado para responder a la alta demanda de salud especializada en la región, ha evolucionado constantemente incorporando nuevas especialidades médicas y quirúrgicas, convirtiéndose en el pilar fundamental del bienestar de nuestra comunidad.</p>
-                        
-                        <h3>Evolución y Crecimiento</h3>
-                        <p>A lo largo de los años, el Hospital Regional ha experimentado un crecimiento significativo en su infraestructura, equipamiento y recursos humanos. Ha pasado de ser una institución con servicios básicos a convertirse en un referente regional de salud de alta complejidad.</p>
-                        
-                        <h3>Reconocimiento Regional</h3>
-                        <p>Actualmente, el Hospital Regional Eleazar Guzmán Barrón es reconocido como un centro de excelencia en la región, atendiendo a miles de pacientes provenientes de diferentes provincias de Áncash y del norte del país.</p>
-
-                        <h3>Compromiso Permanente</h3>
-                        <p>A pesar de los retos que enfrentamos, nuestro compromiso permanente es seguir mejorando nuestros servicios, incorporando tecnología moderna, capacitando continuamente a nuestro personal, y priorizando siempre la salud y el bienestar de nuestros usuarios.</p>
-
-                        <h3>Hitos Importantes</h3>
-                        <ul class="history-list">
-                            <li>Categorización como Institución de Salud de Alta Complejidad (Nivel II-2)</li>
-                            <li>Implementación de nuevas especialidades médicas y quirúrgicas</li>
-                            <li>Adquisición de equipamiento diagnóstico de última generación</li>
-                            <li>Programas de capacitación continua para el personal</li>
-                            <li>Mejora sostenida en indicadores de atención y satisfacción del usuario</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="content-sidebar">
-                    <div class="sidebar-card">
-                        <h4>📊 Estadísticas Relevantes</h4>
-                        <p>El Hospital atiende a miles de pacientes anualmente, con un crecimiento constante en la demanda de servicios especializados.</p>
-                    </div>
-                    <div class="sidebar-card">
-                        <h4>🏥 Servicios Modernos</h4>
-                        <p>Disponemos de más de 20 especialidades médicas y quirúrgicas, equipadas con tecnología de vanguardia.</p>
-                    </div>
-                    <div class="sidebar-card">
-                        <h4>👥 Equipo Profesional</h4>
-                        <p>Contamos con médicos especialistas, enfermeras, técnicos y personal administrativo altamente calificado.</p>
-                    </div>
+                <div class="years-badge">
+                    <span class="num">44+</span>
+                    <span>Años sirviendo a la región Áncash</span>
                 </div>
             </div>
         </section>
+
+        <!-- ===== INTRO CARD ===== -->
+        <section class="intro-section">
+            <div class="intro-card">
+                <figure>
+                    <img src="images/foto_hospital.jpg" alt="Fotografía del Hospital Regional Eleazar Guzmán Barrón">
+                    <figcaption style="font-size:11px;color:#64748b;text-align:center;margin-top:6px;">
+                        Vista del Hospital Regional EGB
+                    </figcaption>
+                </figure>
+                <div>
+                    <h2>Nuestra Historia</h2>
+                    <p>Inaugurado el <strong>10 de octubre de 1981</strong> por el presidente Arq. Fernando Belaúnde Terry, con financiamiento y asesoría técnica del Gobierno Alemán, el Hospital Regional Eleazar Guzmán Barrón es el centro hospitalario de referencia más importante de la provincia del Santa y el departamento de Áncash. A lo largo de más de cuatro décadas ha evolucionado constantemente, incorporando nuevas especialidades médicas y quirúrgicas para convertirse en el pilar fundamental del bienestar de nuestra comunidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STATS ===== -->
+        <div class="stats-strip">
+            <div class="stats-inner">
+                <div class="stat-box">
+                    <div class="stat-num">44+</div>
+                    <div class="stat-label">Años de servicio ininterrumpido</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">20+</div>
+                    <div class="stat-label">Especialidades médicas y quirúrgicas</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">700</div>
+                    <div class="stat-label">Pacientes diarios atendidos en crisis</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">II-2</div>
+                    <div class="stat-label">Nivel de alta complejidad acreditado</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== LÍNEA DE TIEMPO ===== -->
+        <section class="timeline-section">
+            <h2 class="timeline-title">Línea del Tiempo Institucional</h2>
+            <p class="timeline-subtitle">Hitos que definen nuestra historia y nuestro compromiso</p>
+
+            <div class="timeline">
+
+                <!-- 1981 -->
+                <div class="tl-item" style="--color:#1a4b8c; --bg-suave:#e8f0fb;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Fundación</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🏥</div>
+                            <div>
+                                <div class="tl-date">10 Oct 1981</div>
+                                <h3>Inauguración e Inicio de Operaciones</h3>
+                            </div>
+                        </div>
+                        <p>Entrega oficial de la infraestructura compuesta por el bloque central de cinco pisos —departamentos médicos, centro quirúrgico y obstétrico— y bloques de residencia y mantenimiento. Se erigió como el hospital más moderno de la región del Santa, inaugurado por el presidente Arq. Fernando Belaúnde Terry con apoyo técnico del Gobierno Alemán.</p>
+                    </div>
+                </div>
+
+                <!-- 1991-1995 -->
+                <div class="tl-item" style="--color:#b91c1c; --bg-suave:#fee2e2;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Crisis sanitaria</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🚨</div>
+                            <div>
+                                <div class="tl-date">1991 – 1995</div>
+                                <h3>Respuesta Histórica ante el Cólera</h3>
+                            </div>
+                        </div>
+                        <p>Durante la severa crisis epidemiológica, el hospital operó como Unidad de Tratamiento del Cólera (UTC), asistiendo <strong>hasta 700 pacientes diarios</strong> con solo 100 camas instaladas, atendiendo al 54 % de los afectados de Chimbote y Nuevo Chimbote hasta controlar el brote de forma heroica en 1995.</p>
+                    </div>
+                </div>
+
+                <!-- 1995 UNICEF -->
+                <div class="tl-item" style="--color:#0f7c4a; --bg-suave:#d1fae5;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Reconocimiento internacional</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🌐</div>
+                            <div>
+                                <div class="tl-date">1995</div>
+                                <h3>Acreditación UNICEF</h3>
+                            </div>
+                        </div>
+                        <p>Designado por el Fondo de las Naciones Unidas para la Infancia (UNICEF) como <strong>"Hospital Amigo de la Madre y del Niño"</strong>, en mérito a su labor de promoción de la lactancia materna y el cuidado integral materno-infantil de la provincia del Santa.</p>
+                    </div>
+                </div>
+
+                <!-- 1996 -->
+                <div class="tl-item" style="--color:#6d28d9; --bg-suave:#ede9fe;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Pioneros nacionales</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">👶</div>
+                            <div>
+                                <div class="tl-date">1996</div>
+                                <h3>Pioneros en Pediatría</h3>
+                            </div>
+                        </div>
+                        <p>Inauguración del <strong>primer Módulo de Atención Integral del Niño a nivel nacional</strong>, convirtiendo al hospital en pionero y referente de la descentralización de servicios pediátricos especializados en el Perú, cuidando a la niñez chimbotana.</p>
+                    </div>
+                </div>
+
+                <!-- 1998 -->
+                <div class="tl-item" style="--color:#b8860b; --bg-suave:#fef3c7;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Docencia</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🎓</div>
+                            <div>
+                                <div class="tl-date">1998</div>
+                                <h3>Hospital Docente de Referencia</h3>
+                            </div>
+                        </div>
+                        <p>Calificado como <strong>"Hospital Docente de Capacitación Materno Infantil"</strong>, abriendo las puertas a la formación universitaria y especialización de cientos de médicos, enfermeras y obstetras del departamento de Áncash.</p>
+                    </div>
+                </div>
+
+                <!-- 2020-2021 -->
+                <div class="tl-item" style="--color:#c2410c; --bg-suave:#ffedd5;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Pandemia</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🦠</div>
+                            <div>
+                                <div class="tl-date">2020 – 2021</div>
+                                <h3>Afrontamiento y Modernización COVID-19</h3>
+                            </div>
+                        </div>
+                        <p>Frente a la pandemia global, el hospital implementó un ambiente de hospitalización temporal con <strong>100 camas clínicas</strong> e instalaciones de soporte de oxígeno de alto flujo, resguardando la salud de la población de Nuevo Chimbote en el momento más crítico.</p>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="tl-item" style="--color:#2563b0; --bg-suave:#dbeafe;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Tecnología diagnóstica</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">🩻</div>
+                            <div>
+                                <div class="tl-date">23 Dic 2024</div>
+                                <h3>Inauguración de Tomógrafo de 128 Cortes</h3>
+                            </div>
+                        </div>
+                        <p>Puesta en funcionamiento de un moderno tomógrafo de última generación valorizado en <strong>más de tres millones de soles</strong>, permitiendo diagnósticos tridimensionales rápidos, precisos y de alta resolución para los asegurados de Chimbote y la región Áncash.</p>
+                    </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="tl-item" style="--color:#0f7c4a; --bg-suave:#d1fae5;">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-badge">Transformación digital</span>
+                        <div class="tl-head">
+                            <div class="tl-icon">💻</div>
+                            <div>
+                                <div class="tl-date">Agosto 2025</div>
+                                <h3>Implementación de FUA Digital</h3>
+                            </div>
+                        </div>
+                        <p>Lanzamiento del Formato Único de Atención (FUA) electrónico, consolidando la <strong>transformación digital</strong> de la institución: reducción de tiempos de espera y cumplimiento de la política nacional de cero papel.</p>
+                    </div>
+                </div>
+
+            </div><!-- /timeline -->
+        </section>
+
+        <!-- ===== HITOS DESTACADOS ===== -->
+        <section class="hitos-section">
+            <h2>⭐ Hitos Destacados</h2>
+            <div class="hitos-grid">
+                <div class="hito-card">
+                    <span class="hito-icon">🏆</span>
+                    <p>Categorización como Institución de Salud de Alta Complejidad <strong>(Nivel II-2)</strong></p>
+                </div>
+                <div class="hito-card">
+                    <span class="hito-icon">🔬</span>
+                    <p>Implementación de más de <strong>20 especialidades</strong> médicas y quirúrgicas</p>
+                </div>
+                <div class="hito-card">
+                    <span class="hito-icon">🩻</span>
+                    <p>Adquisición de <strong>equipamiento diagnóstico de última generación</strong>, incluyendo tomógrafo de 128 cortes</p>
+                </div>
+                <div class="hito-card">
+                    <span class="hito-icon">📚</span>
+                    <p><strong>Programas de capacitación continua</strong> para el personal médico y asistencial</p>
+                </div>
+                <div class="hito-card">
+                    <span class="hito-icon">📈</span>
+                    <p>Mejora sostenida en <strong>indicadores de atención</strong> y satisfacción del usuario</p>
+                </div>
+                <div class="hito-card">
+                    <span class="hito-icon">💻</span>
+                    <p>Consolidación del proceso de <strong>transformación digital</strong> con la adopción del FUA electrónico</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -113,5 +646,33 @@
     </footer>
 
     <script src="../global/js/scripts.js"></script>
+    <script>
+        /* ── Animación por scroll (IntersectionObserver) ── */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    /* Retraso escalonado para cada ítem */
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, entry.target.dataset.delay || 0);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        /* Asignar retrasos escalonados y observar */
+        document.querySelectorAll('.tl-item').forEach((el, i) => {
+            el.dataset.delay = i * 120;
+            observer.observe(el);
+        });
+        document.querySelectorAll('.hito-card').forEach((el, i) => {
+            el.dataset.delay = i * 80;
+            observer.observe(el);
+        });
+
+        /* Año en el footer */
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
