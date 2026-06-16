@@ -1405,6 +1405,27 @@ body.dark {
     border: 1px solid var(--borde) !important;
   }
 
+ /* Reducir el tamaño interno general de las tarjetas en celular de forma directa */
+  .lista-tickets ~ div [class*="card"],
+  .dashboard-cards [class*="card"],
+  .cards-grid [class*="card"],
+  .card-stats,
+  .dashboard-card {
+    padding: 8px 4px !important;
+  }
+  
+  /* Achicar las letras, números e íconos dentro de ellas */
+  [class*="card"] h4, [class*="card"] p, [class*="card"] .card-title, .card-title {
+    font-size: 0.72rem !important;
+    white-space: nowrap !important;
+  }
+  [class*="card"] h3, [class*="card"] .value, .card-value {
+    font-size: 1.2rem !important;
+  }
+  [class*="card"] i, [class*="card"] span:first-child {
+    font-size: 1.1rem !important;
+  }
+
 }
 
 /* ========== FIX TICKETS ESCRITORIO Y MÓVIL ========== */
