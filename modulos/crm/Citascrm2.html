@@ -114,18 +114,18 @@
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label" for="nombre">Nombre del Paciente</label>
-          <input class="form-input" type="text" id="nombre" placeholder="Ej. Juan Pérez López">
+          <input class="form-input" type="text" id="nombre" placeholder="Juan Pérez López">
           <span class="form-error" id="err-nombre"></span>
         </div>
         <div class="form-group">
           <label class="form-label" for="dni">DNI</label>
-          <input class="form-input" type="text" id="dni" placeholder="Ej. 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <input class="form-input" type="text" id="dni" placeholder="12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
           <span class="form-error" id="err-dni"></span>
         </div>
         <div class="form-group">
           <label class="form-label" for="especialidad">Especialidad</label>
           <select class="form-input" id="especialidad">
-            <option value="">-- Seleccionar --</option>
+            <option value="">Seleccionar</option>
             <option>Medicina General</option>
             <option>Pediatría</option>
             <option>Ginecología</option>
@@ -140,7 +140,7 @@
         <div class="form-group">
           <label class="form-label" for="medico">Médico</label>
           <select class="form-input" id="medico">
-            <option value="">-- Seleccionar especialidad primero --</option>
+            <option value="">Seleccionar especialidad primero</option>
           </select>
           <span class="form-error" id="err-medico"></span>
         </div>
@@ -152,7 +152,7 @@
         <div class="form-group">
           <label class="form-label" for="hora">Hora</label>
           <select class="form-input" id="hora">
-            <option value="">-- Hora --</option>
+            <option value="">Hora</option>
             <option>08:00</option><option>08:30</option>
             <option>09:00</option><option>09:30</option>
             <option>10:00</option><option>10:30</option>
@@ -207,7 +207,7 @@
       <div class="form-grid form-grid-3">
         <div class="form-group">
           <label class="form-label" for="ticket-paciente">Nombre del Paciente</label>
-          <input class="form-input" type="text" id="ticket-paciente" placeholder="Ej. María Torres">
+          <input class="form-input" type="text" id="ticket-paciente" placeholder="María Torres">
           <span class="form-error" id="err-ticket-paciente"></span>
         </div>
         <div class="form-group">
@@ -226,6 +226,7 @@
       </div>
       <div class="form-footer">
         <button class="btn-primary" onclick="registrarTicket()">🎫 Generar Ticket</button>
+        <button class="btn-cancelar-edicion" id="btn-cancelar-ticket" onclick="cancelarEdicionTicket()" style="display:none">✕ Cancelar</button>
         <div id="mensajeTicket" class="mensaje oculto"></div>
       </div>
     </section>
