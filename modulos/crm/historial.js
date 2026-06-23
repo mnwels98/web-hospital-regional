@@ -509,11 +509,10 @@ function saveNewPatient() {
   const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbx2lGLKflp845QLSnhSvkoPaxADpNJ6VAYRd3lNNBtYPcrkhNvLMfcxmcAXxUIxk1s/exec";
   
   fetch(URL_SCRIPT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(datosParaGoogle)
-  })
+  method: 'POST',
+  mode: 'no-cors', // Mantenemos no-cors para evitar bloqueos del navegador
+  body: JSON.stringify(datosParaGoogle) // Aquí ya viaja la propiedad 'correo'
+})
   .then(() => console.log("Sincronizado con Google Sheets y Correo enviado."))
   .catch(err => console.error("Error de red:", err));
 
