@@ -461,16 +461,21 @@ function saveNewPatient() {
   const dni       = document.getElementById('np_dni').value.trim();
   const fechaNac  = document.getElementById('np_fecha_nac').value;
   const tel       = document.getElementById('np_tel').value.trim();
+  const correo    = document.getElementById('np_correo').value.trim(); // <-- CAPTURAMOS EL CORREO
   const todayStr  = new Date().toISOString().split('T')[0];
 
   /* Validaciones ── campos obligatorios */
-  if (!nombres || !apellidos || !dni || !fechaNac) {
+  if (!nombres || !apellidos || !dni || !fechaNac || !correo) {
     showAlert('newPatientAlert','Completa los campos obligatorios marcados con *','error'); return;
   }
   /* DNI: exactamente 8 dígitos */
   if (!/^\d{8}$/.test(dni)) {
     setFieldState('np_dni','hint_dni', false, 'El DNI debe tener exactamente 8 dígitos numéricos');
     showAlert('newPatientAlert','DNI inválido: debe tener 8 dígitos numéricos','error'); return;
+  }
+  /* Validación de formato de Correo */
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    showAlert('newPatientAlert','Por favor, introduce un correo electrónico válido','error'); return;
   }
   /* Fecha: no puede ser futura */
   if (fechaNac > todayStr) {
@@ -482,38 +487,71 @@ function saveNewPatient() {
     setFieldState('np_dni','hint_dni', false, 'Este DNI ya está registrado');
     showAlert('newPatientAlert','Ya existe un paciente con ese DNI','error'); return;
   }
-  /* Teléfono: si se llenó, debe ser 9 dígitos */
-  if (tel && !/^\d{9}$/.test(tel)) {
-    setFieldState('np_tel','hint_tel', false, 'El teléfono debe tener exactamente 9 dígitos');
-    showAlert('newPatientAlert','Teléfono inválido: debe tener 9 dígitos numéricos','error'); return;
-  }
 
   const id = newPatientId();
-  patients.push({ id, nombres, apellidos, dni, fechaNac,
-    sexo:         document.getElementById('np_sexo').value,
-    sangre:       document.getElementById('np_sangre').value,
-    tel,
+  
+  // 1. CREAR EL OBJETO CON LOS DATOS INCLUYENDO EL CORREO
+  const datosParaGoogle = {
+    nombres: nombres,
+    apellidos: apellidos,
+    dni: dni,
+    fechaNacimiento: fechaNac,
+    sexo: document.getElementById('np_sexo').value,
+    tipoSangre: document.getElementById('np_sangre').value,
+    telefono: tel,
+    correo: correo, // <-- SE ENVÍA A GOOGLE APPS SCRIPT
     especialidad: document.getElementById('np_esp').value,
-    alergias:     document.getElementById('np_alergias').value.trim(),
-    antecedentes: document.getElementById('np_antecedentes').value.trim(),
+    alergias: document.getElementById('np_alergias').value.trim(),
+    antecedentes: document.getElementById('np_antecedentes').value.trim()
+  };
+
+  // 2. ENVIAR A TU GOOGLE APPS SCRIPT
+  const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbx2lGLKflp845QLSnhSvkoPaxADpNJ6VAYRd3lNNBtYPcrkhNvLMfcxmcAXxUIxk1s/exec";
+  
+  fetch(URL_SCRIPT, {
+  method: 'POST',
+  mode: 'no-cors', // Mantenemos no-cors para evitar bloqueos del navegador
+  body: JSON.stringify(datosParaGoogle) // Aquí ya viaja la propiedad 'correo'
+})
+  .then(() => console.log("Sincronizado con Google Sheets y Correo enviado."))
+  .catch(err => console.error("Error de red:", err));
+
+  // 3. GUARDAR LOCALMENTE
+  patients.push({ id, nombres, apellidos, dni, fechaNac, correo,
+    sexo:         datosParaGoogle.sexo,
+    sangre:       datosParaGoogle.tipoSangre,
+    tel,
+    especialidad: datosParaGoogle.especialidad,
+    alergias:     datosParaGoogle.alergias,
+    antecedentes: datosParaGoogle.antecedentes,
     colorIdx:     patients.length % AVATAR_COLORS.length,
   });
+  
   syncStorage();
   showAlert('newPatientAlert',`Paciente ${nombres} ${apellidos} registrado con HC: ${id}`,'success');
+  
+  // Limpiar el campo correo en tu función de limpiar (si tienes una llamada clearNewPatientForm)
+  document.getElementById('np_correo').value = '';
+  
   clearNewPatientForm();
   showToast('Nuevo paciente registrado');
   setTimeout(() => { switchTab('buscar'); selectPatient(id); }, 1400);
 }
 function clearNewPatientForm() {
-  ['np_nombres','np_apellidos','np_dni','np_tel','np_alergias','np_antecedentes']
+  // 1. Agregamos 'np_correo' aquí para limpiar el texto de la caja
+  ['np_nombres','np_apellidos','np_dni','np_tel','np_correo','np_alergias','np_antecedentes']
     .forEach(id => { document.getElementById(id).value = ''; });
+    
   document.getElementById('np_fecha_nac').value = '';
-  /* limpiar estados visuales */
-  ['np_dni','np_fecha_nac','np_tel'].forEach(id => {
+
+  /* limpiar estados visuales (Agregamos 'np_correo') */
+  ['np_dni','np_fecha_nac','np_tel','np_correo'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.classList.remove('field-error','field-ok'); }
   });
-  ['hint_dni','hint_fecha','hint_tel'].forEach(id => {
+
+  /* limpiar textos de ayuda/error (Agregamos 'hint_correo') */
+  ['hint_dni','hint_fecha','hint_tel','hint_correo'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.textContent = ''; el.className = 'field-hint'; }
   });
