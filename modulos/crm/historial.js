@@ -456,7 +456,7 @@ function initFieldValidators() {
 }
 
 function saveNewPatient() {
-  const nombres   = document.getElementById('np_nombres').value.trim();
+const nombres   = document.getElementById('np_nombres').value.trim();
   const apellidos = document.getElementById('np_apellidos').value.trim();
   const dni       = document.getElementById('np_dni').value.trim();
   const fechaNac  = document.getElementById('np_fecha_nac').value;
@@ -489,15 +489,44 @@ function saveNewPatient() {
   }
 
   const id = newPatientId();
-  patients.push({ id, nombres, apellidos, dni, fechaNac,
-    sexo:         document.getElementById('np_sexo').value,
-    sangre:       document.getElementById('np_sangre').value,
-    tel,
+  
+  // 1. CREAR EL OBJETO CON LOS DATOS PARA GOOGLE SHEETS
+  const datosParaGoogle = {
+    nombres: nombres,
+    apellidos: apellidos,
+    dni: dni,
+    fechaNacimiento: fechaNac,
+    sexo: document.getElementById('np_sexo').value,
+    tipoSangre: document.getElementById('np_sangre').value,
+    telefono: tel,
     especialidad: document.getElementById('np_esp').value,
-    alergias:     document.getElementById('np_alergias').value.trim(),
-    antecedentes: document.getElementById('np_antecedentes').value.trim(),
+    alergias: document.getElementById('np_alergias').value.trim(),
+    antecedentes: document.getElementById('np_antecedentes').value.trim()
+  };
+
+  // 2. ENVIAR A TU GOOGLE APPS SCRIPT (Reemplaza con tu URL real)
+  const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbx2lGLKflp845QLSnhSvkoPaxADpNJ6VAYRd3lNNBtYPcrkhNvLMfcxmcAXxUIxk1s/exec";
+  
+  fetch(URL_SCRIPT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(datosParaGoogle)
+  })
+  .then(() => console.log("Sincronizado con Google Sheets con éxito"))
+  .catch(err => console.error("Error de red al sincronizar con Google Sheets:", err));
+
+  // 3. GUARDAR LOCALMENTE (Mantiene la lógica original de tu app)
+  patients.push({ id, nombres, apellidos, dni, fechaNac,
+    sexo:         datosParaGoogle.sexo,
+    sangre:       datosParaGoogle.tipoSangre,
+    tel,
+    especialidad: datosParaGoogle.especialidad,
+    alergias:     datosParaGoogle.alergias,
+    antecedentes: datosParaGoogle.antecedentes,
     colorIdx:     patients.length % AVATAR_COLORS.length,
   });
+  
   syncStorage();
   showAlert('newPatientAlert',`Paciente ${nombres} ${apellidos} registrado con HC: ${id}`,'success');
   clearNewPatientForm();
