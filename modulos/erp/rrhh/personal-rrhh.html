@@ -70,7 +70,7 @@
                 </form>
 
                 <div>
-                    <button class="btn btn-exito" onclick="abrirModalNuevoEmpleado()">+ Nuevo Empleado</button>
+                    <button id="btnAbrirModalNuevo" class="btn btn-exito">+ Nuevo Empleado</button>
                 </div>
             </section>
 
@@ -267,33 +267,33 @@
         <div class="modal-contenido">
             <div class="modal-encabezado">
                 <h3>Registrar Nuevo Empleado</h3>
-                <button class="modal-cerrar" onclick="cerrarModalNuevoEmpleado()">&times;</button>
+                <button class="modal-cerrar">&times;</button>
             </div>
-            <form id="formularioNuevoEmpleado" onsubmit="guardarNuevoEmpleado(event)">
+            <form id="formularioNuevoEmpleado">
                 <div class="formulario-grid">
                     <div class="grupo-form">
                         <label for="dni">DNI / Cédula de Identidad:</label>
-                        <input type="text" id="dni" class="form-control" placeholder="Ej: 12345678" required maxlength="8">
+                        <input type="text" id="dni" name="dni" class="form-control" placeholder="Ej: 12345678" required maxlength="8">
                     </div>
                     <div class="grupo-form">
                         <label for="codigo">Código de Empleado:</label>
-                        <input type="text" id="codigo" class="form-control" placeholder="Ej: MED-0046" required>
+                        <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ej: MED-0046" required>
                     </div>
                     <div class="grupo-form">
                         <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" class="form-control" placeholder="Apellidos del empleado" required>
+                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos del empleado" required>
                     </div>
                     <div class="grupo-form">
                         <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" class="form-control" placeholder="Nombres del empleado" required>
+                        <input type="text" id="nombres" name="nombres" class="form-control" placeholder="Nombres del empleado" required>
                     </div>
                     <div class="grupo-form">
                         <label for="cargo">Cargo / Especialidad:</label>
-                        <input type="text" id="cargo" class="form-control" placeholder="Ej: Médico General" required>
+                        <input type="text" id="cargo" name="cargo" class="form-control" placeholder="Ej: Médico General" required>
                     </div>
                     <div class="grupo-form">
                         <label for="departamento">Departamento:</label>
-                        <select id="departamento" class="form-control" required>
+                        <select id="departamento" name="departamento" class="form-control" required>
                             <option value="">Seleccionar departamento</option>
                             <option value="UCI">UCI</option>
                             <option value="Emergencia">Emergencia</option>
@@ -306,15 +306,15 @@
                     </div>
                     <div class="grupo-form">
                         <label for="telefono">Teléfono:</label>
-                        <input type="tel" id="telefono" class="form-control" placeholder="Ej: 987-654-321" required>
+                        <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Ej: 987-654-321" required>
                     </div>
                     <div class="grupo-form">
                         <label for="email">Correo Electrónico:</label>
-                        <input type="email" id="email" class="form-control" placeholder="empleado@hospital.com" required>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="empleado@hospital.com" required>
                     </div>
                     <div class="grupo-form">
                         <label for="tipoContrato">Tipo de Contrato:</label>
-                        <select id="tipoContrato" class="form-control" required>
+                        <select id="tipoContrato" name="tipoContrato" class="form-control" required>
                             <option value="">Seleccionar tipo</option>
                             <option value="Tiempo Completo">Tiempo Completo</option>
                             <option value="Tiempo Parcial">Tiempo Parcial</option>
@@ -324,16 +324,16 @@
                     </div>
                     <div class="grupo-form">
                         <label for="estado">Estado:</label>
-                        <select id="estado" class="form-control" required>
+                        <select id="estado" name="estado" class="form-control" required>
                             <option value="Activo">Activo</option>
                             <option value="Inactivo">Inactivo</option>
                             <option value="Licencia">Licencia</option>
                         </select>
                     </div>
-                </div>
+                </div>                
                 <div class="modal-pie">
-                    <button type="button" class="btn btn-primario" style="background-color: #6c757d;" onclick="cerrarModalNuevoEmpleado()">Cancelar</button>
-                    <button type="submit" class="btn btn-exito">Guardar Empleado</button>
+                    <button type="button" id="btnCancelarNuevo" class="btn btn-primario" style="background-color: #6c757d;">Cancelar</button>
+                    <button type="submit" id="btnGuardarNuevo" class="btn btn-exito">Guardar Empleado</button>
                 </div>
             </form>
         </div>
