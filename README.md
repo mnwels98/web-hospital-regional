@@ -1,5 +1,7 @@
 # 🏥 Proyecto Web - Hospital Regional Eleazar Guzmán Barrón
 
+GitHub Page: https://mnwels98.github.io/web-hospital-regional/
+
 ## 🎯 Objetivo del Proyecto
 Diseñar, estructurar y optimizar la plataforma web informativa y de servicios para el Hospital Regional Eleazar Guzmán Barrón. El proyecto no solo replica la identidad institucional, sino que **propone mejoras significativas en la Experiencia de Usuario (UX/UI) e interactividad** en comparación con la web oficial, aplicando un flujo de desarrollo frontend moderno y control de versiones colaborativo y limpio.
 
