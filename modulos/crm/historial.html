@@ -100,103 +100,120 @@
       </div>
     </section>
 
-    <!-- PANEL: NUEVO PACIENTE -->
-    <section id="panel-nuevo" class="panel">
-      <div class="form-card animate-fade-in">
-        <div class="form-card-header">
-          <div class="form-header-icon-wrap">
-            <i class="ti ti-user-plus"></i>
-          </div>
-          <div>
-            <h2>Registrar nuevo paciente</h2>
-            <p>Completa todos los datos del paciente</p>
-          </div>
-        </div>
-
-        <div id="newPatientAlert"></div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="np_nombres">Nombres *</label>
-            <input type="text" id="np_nombres" placeholder="Nombres completos" />
-          </div>
-          <div class="form-group">
-            <label for="np_apellidos">Apellidos *</label>
-            <input type="text" id="np_apellidos" placeholder="Apellidos completos" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="np_dni">DNI *</label>
-            <input type="text" id="np_dni" placeholder="8 dígitos numéricos"
-              maxlength="8" inputmode="numeric" pattern="\d{8}"
-              autocomplete="off" />
-            <span class="field-hint" id="hint_dni"></span>
-          </div>
-          <div class="form-group">
-            <label for="np_fecha_nac">Fecha de nacimiento *</label>
-            <input type="date" id="np_fecha_nac" />
-            <span class="field-hint" id="hint_fecha"></span>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="np_sexo">Sexo</label>
-            <select id="np_sexo">
-              <option value="Masculino">Masculino</option>
-              <option value="Femenino">Femenino</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="np_sangre">Tipo de sangre</label>
-            <select id="np_sangre">
-              <option>A+</option><option>A-</option>
-              <option>B+</option><option>B-</option>
-              <option>O+</option><option>O-</option>
-              <option>AB+</option><option>AB-</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="np_tel">Teléfono</label>
-            <input type="text" id="np_tel" placeholder="9 dígitos numéricos"
-              maxlength="9" inputmode="numeric" pattern="\d{9}" />
-            <span class="field-hint" id="hint_tel"></span>
-          </div>
-          <div class="form-group">
-            <label for="np_esp">Especialidad asignada</label>
-            <select id="np_esp">
-              <option>Medicina Interna</option>
-              <option>Cardiología</option>
-              <option>Pediatría</option>
-              <option>Cirugía</option>
-              <option>Traumatología</option>
-              <option>Neurología</option>
-              <option>Ginecología</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="np_alergias">Alergias conocidas</label>
-          <input type="text" id="np_alergias"
-            placeholder="Penicilina, Aspirina… (separadas por coma)" />
-        </div>
-        <div class="form-group">
-          <label for="np_antecedentes">Antecedentes médicos</label>
-          <textarea id="np_antecedentes"
-            placeholder="Enfermedades previas, cirugías anteriores, etc."></textarea>
-        </div>
-        <div class="form-actions">
-          <button class="btn btn-success" id="btnSaveNewPatient">
-            <i class="ti ti-device-floppy"></i> Registrar paciente
-          </button>
-          <button class="btn" id="btnClearNewPatient">
-            <i class="ti ti-refresh"></i> Limpiar
-          </button>
-        </div>
+   <!-- PANEL: NUEVO PACIENTE -->
+<section id="panel-nuevo" class="panel">
+  <div class="form-card animate-fade-in">
+    <div class="form-card-header">
+      <div class="form-header-icon-wrap">
+        <i class="ti ti-user-plus"></i>
       </div>
-    </section>
+      <div>
+        <h2>Registrar nuevo paciente</h2>
+        <p>Completa todos los datos del paciente</p>
+      </div>
+    </div>
+
+    <div id="newPatientAlert"></div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="np_nombres">Nombres *</label>
+        <input type="text" id="np_nombres" placeholder="Nombres completos" />
+      </div>
+      <div class="form-group">
+        <label for="np_apellidos">Apellidos *</label>
+        <input type="text" id="np_apellidos" placeholder="Apellidos completos" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="np_dni">DNI *</label>
+        <input type="text" id="np_dni" placeholder="8 dígitos numéricos"
+          maxlength="8" inputmode="numeric" pattern="\d{8}"
+          autocomplete="off" />
+        <span class="field-hint" id="hint_dni"></span>
+      </div>
+      <div class="form-group">
+        <label for="np_fecha_nac">Fecha de nacimiento *</label>
+        <input type="date" id="np_fecha_nac" />
+        <span class="field-hint" id="hint_fecha"></span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="np_sexo">Sexo</label>
+        <select id="np_sexo">
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="np_sangre">Tipo de sangre</label>
+        <select id="np_sangre">
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- FILA MODIFICADA: Ahora agrupa Teléfono y Correo Electrónico -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="np_tel">Teléfono</label>
+        <input type="text" id="np_tel" placeholder="9 dígitos numéricos"
+          maxlength="9" inputmode="numeric" pattern="\d{9}" />
+        <span class="field-hint" id="hint_tel"></span>
+      </div>
+      <div class="form-group">
+        <label for="np_correo">Correo Electrónico *</label>
+        <input type="email" id="np_correo" placeholder="ejemplo@correo.com" autocomplete="off" />
+        <span class="field-hint" id="hint_correo"></span>
+      </div>
+    </div>
+
+    <!-- NUEVA FILA: Movimos Especialidad aquí para mantener el orden visual de dos columnas -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="np_esp">Especialidad asignada</label>
+        <select id="np_esp">
+          <option>Medicina Interna</option>
+          <option>Cardiología</option>
+          <option>Pediatría</option>
+          <option>Cirugía</option>
+          <option>Traumatología</option>
+          <option>Neurología</option>
+          <option>Ginecología</option>
+        </select>
+      </div>
+      <!-- Espacio vacío intencional para balancear la fila si lo deseas, o puedes estirar la especialidad a ancho completo eliminando esta fila y dejándolo solo -->
+    </div>
+
+    <div class="form-group">
+      <label for="np_alergias">Alergias conocidas</label>
+      <input type="text" id="np_alergias"
+        placeholder="Penicilina, Aspirina… (separadas por coma)" />
+    </div>
+
+    <div class="form-group">
+      <label for="np_antecedentes">Antecedentes médicos</label>
+      <textarea id="np_antecedentes"
+        placeholder="Enfermedades previas, cirugías anteriores, etc."></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-success" id="btnSaveNewPatient">
+        <i class="ti ti-device-floppy"></i> Registrar paciente
+      </button>
+      <button class="btn" id="btnClearNewPatient">
+        <i class="ti ti-refresh"></i> Limpiar
+      </button>
+    </div>
+  </div>
+</section>
 
     <!-- PANEL: RESUMEN RÁPIDO -->
     <section id="panel-dashboard-tab" class="panel">
